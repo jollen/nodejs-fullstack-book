@@ -1,1 +1,48 @@
 # WoT 架構實作 - 使用 HTTP
+
+HTTP（Hypertext Transfer Protocol）是一種 request-response 形式的協定。就像我們所知道的，它已經完全融入我們的生活之中。HTTP 在 PC 時代，已經改變人們接收資訊的方式與習慣，到了 Mobile 的時代，HTTP 更再次影響與改變人類的社會文化。
+
+## HTTP 的特點
+
+到了物聯網時代，HTTP 將繼續影響與改變人類的生活習慣，物聯網已經開始受到 HTTP 的影響，這就是 Web of Things。HTTP 屬於 application-level 的協定，HTTP 的更底層就是 TCP。
+
+一個開放式且符合 Web of Things 設計原則的 IoT Cloud 架構，應該以 application-level 的協定為主，因此 HTTP 成為自然當選人。但物聯網硬體本身，有它的侷限性，例如：低功耗、運算頻率較低、主記憶體較少等，當軟體在這樣受侷限的硬體環境上運作時，就需要一個比 HTTP 更適合的 application-level 協定。CoAP（Contrained Application Protocol）就因應而生。
+
+CoAP 並不是要取代 HTTP，這部份在第 18 章會有詳細說。
+
+## 
+
+接下來，根據第 15 章的說明，以 HTTP 來實作一個 Web of Things 的應用：溫度感測裝置。
+
+### Step 1：
+
+### Step 2：
+
+### Step 3：
+
+
+## HTTP 技術
+
+![圖 16.1：Transferring HTTP Message](16.1.png)
+
+圖 16.1：Transferring HTTP Message
+
+
+
+
+![圖 16.2：Layering of Protocols](16.2.png)
+
+圖 16.2：Layering of Protocols
+
+## 小結
+
+由於 IoT 裝置是扮演 Web server 的角色，因此又把 IoT 裝置稱為 physical web，也就是實體 web server 的概念。在這個使用情境中，是將 IoT 裝置當做 Web server 的角色，所以只需要有瀏覽器，即可瀏覽裝置資訊，例如：溫度數據。
+
+使用這個情境時，有幾個要考慮的事情：
+
+* 裝置的效能
+* 對 HTTP 1.1/2.0 的實作完整度
+* 裝置需要額外的 IP 位址，會有 IP 不夠的問題，要搭配 IPv6 來使用
+
+
+
