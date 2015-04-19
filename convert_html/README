@@ -1,0 +1,12 @@
+This folder is used to convert HTML files to Markdown and place them in your book.
+
+To do this:
+
+1) Place the HTML files in this folder
+2) Go to the import page for your book (E.g. http://leanpub.com/yourbookname/import)
+3) Click on the "Start Conversion" button.
+
+We will take all files that end in .html, convert them to markdown and place them in your manuscript folder.
+
+The HTML files will be placed in convert_done after they are converted.
+

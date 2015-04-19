@@ -1,0 +1,5 @@
+2014.03.13
+	* News: 更名為「Node.js 雲端技術與軟體思惟」
+	* Update: Chapter 1: 加強對 Constructor Pattern 的說明
+	* Add: Chapter 1: 新增 Prototype Pattern 的說明
+	* Add: Chapter 13: 新增更多 Data Model 教學

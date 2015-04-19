@@ -1,0 +1,135 @@
+ ## Closure vs Function
+
+ Pure function
+
+(function(){
+  /*
+    do stuff
+  */
+})();
+
+
+
+## not hoisted
+
+[1]: http://www.inf.fu-berlin.de/lehre/WS03/alpi/lambda.pdf "A Tutorial Introduction to the Lambda Calculus"
+[2]: http://stackoverflow.com/questions/17139445/javascript-lambda-functions "Javascript lambda functions"
+
+[3]：http://www.leaseweblabs.com/2013/10/api-first-architecture-fat-vs-thin-server-debate/
+
+
+## Bootstrap
+
+http://bootply.com/tagged/hero-unit, "Hero Unit Examples"
+
+## JSON Backend
+
+使用 Document-based Database 
+使用 Google spreadsheet [1]
+
+[1]: http://www.nextofwindows.com/how-to-use-google-doc-spreadsheet-serve-json-from-excel-spreadsheet/
+
+
+參考資料
+
+Essential JavaScript And jQuery Design Patterns – A Free New Book, http://addyosmani.com/blog/essentialjsdesignpatterns/
+Learning JavaScript Design Patterns, http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/
+
+
+
+Cookbook 現在我們是用 Pandoc，長 command line tools 出來就可以 Tasks System 可以用 Python 寫，一樣是長 command line tools 因為隨時都有一堆 command line 要跑，不斷進來的 command line，所以都用 Task Queue (也叫 Message Queue) 儲起來 (這個動作叫 Queue)，再用一個 Messaging 系統一個一個去取出來 （這個叫 "Dequeue")
+最簡單的 Messaging 系統，可以直接用 RabbitMQ
+Hank Wang
+11:42 下午
+用message 傳task?
+Jollen Chen
+11:43 下午
+Post message 到 Task Queue
+Hank Wang
+11:43 下午
+http://www.rabbitmq.com/tutorials/tutorial-two-python.html
+我一直以為RabbitMQ 是類似websocket的東西 拿來做點對點訊息的= =
+Jollen Chen
+11:44 下午
+這個用來做 scheduling 的 XD
+Hank Wang
+11:44 下午
+https://github.com/squaremo/rabbit.js
+[image: https://github.com/favicon.ico]
+squaremo/rabbit.js
+
+Messaging in Node.JS made easy using RabbitMQ
+Jollen Chen
+11:44 下午
+Tasks Queue 就是 Work Queue, 一樣的
+Hank Wang
+11:44 下午
+OK
+我來試試這個
+Jollen Chen
+11:45 下午
+這樣整個架構會很好做
+Hank Wang
+11:45 下午
+express -> rabbit -> command lines
+Jollen Chen
+11:46 下午
+比如 front-end 一直有人去按 Publish 功能，這個 REST API 會 call 到 server，然後 server 直接 post message，就 close 這次請求
+Hank Wang
+11:46 下午
+所以全部由rabbit控管？
+Jollen Chen
+11:46 下午
+tasks 做完後，再通知 user，一樣是 post message 到 MQ
+我的想法是這樣，都交給 rabbit mq
+自已實作 MQ 很花時間
+MQ 是很高難度的東西…有現成最好
+Hank Wang
+11:48 下午
+我記得除了rabbitmq好像還有其他的？
+Jollen Chen
+11:48 下午
+超多的啊，你要用 Linux D-Bus 也可以
+express -> rabbit -> command lines， yes，有 rabiit 就是 nonblocking architecture
+沒有 rabiit 的話，就是 blocking architect
+Hank Wang
+11:53 下午
+所以nonblocking 有點類似CPU在跑的感覺？
+有多的資源就能同時跑很多
+Jollen Chen
+11:53 下午
+nonblocking 是非同步方式處理工作，像 node.js 的 API 都是 nonblocking
+Hank Wang
+11:54 下午
+那如果資源佔滿的情況怎辦
+他會queue起來？
+Jollen Chen
+11:54 下午
+nonblocking 一律都是 queue 起來，再用 event-loop 去 dequeue
+Jollen Chen
+11:56 下午
+比如實作一個 /book/12345/publish 的 REST API
+Jollen Chen
+11:57 下午
+blocking 的 algorithm: var publish = function(id) {   publishBook(id);   // wait for complete     return "OK"; }
+Hank Wang
+11:58 下午
+恩 就跟mokoversity的寄信功能一樣
+會卡住
+Jollen Chen
+11:58 下午
+nonblocking 的 algorithm: var publishAsync = function(id) {   publishBookAsync(id); // no wait (wait-free)     return "In-Progress"; }
+Yes
+Hank Wang
+11:58 下午
+我一直很好奇email.js為什麼要設計成blocking
+Jollen Chen
+11:59 下午
+可能是作者不想實作 nonblocking 的版本吧
+
+[[星期四 10月 24, 2013]]
+
+Jollen Chen
+12:00 上午
+var publishAsync = function(id) {   publishBookAsync(id, function() { postMessage("OK"); } ); // no wait (wait-free)     return "In-Progress"; }
+

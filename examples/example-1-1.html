@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MokoCrush</title>
+</head>
+
+<body>
+<script>
+function Person(name, job) {
+	this.name = name;
+	this.job = job;
+	this.queryJob = function() {
+		alert(name + "'s job is " + job);
+	};
+}
+ 
+var person = new Person("Jollen", "Software Developer");
+
+person.queryJob();
+</script>
+</body>
+</html>
