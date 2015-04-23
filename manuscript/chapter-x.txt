@@ -1,0 +1,29 @@
+## Express
+
+### Jade Template Language
+
+### Static Files
+
+### CORS
+
+###
+
+## Misc
+
+如果要使用 Backbone 來呼叫 REST API 的話，就要對 Backbone 框架的機制有所了解。
+
+* Model fetch
+* Model save
+
+REST API 的實作，也要配合 Backbone Model。例如：
+
+Model.fetch()
+
+在 REST API 裡，
+
+* 第 22 行：這裡使用到一個特別的屬性 *data-*，給這個 <button> 元件一個 *data-toggle* 的屬性，並且指定值為 "save"
+
+
+## self 與 this
+
+## Workflow & FSM

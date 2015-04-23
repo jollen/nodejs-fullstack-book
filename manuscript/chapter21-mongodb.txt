@@ -1,0 +1,121 @@
+# 14. MongoDB 入門
+
+## MongoDB 簡介
+
+### 安裝 MongoDB 資料庫伺服器
+
+### 使用 MongoDB Lab 服務
+
+##
+
+### Step 1: 安裝 mongoose 模組
+
+Node.js 透過 mongoose 模組與 MongoDB 資料庫連線。安裝 mongoose 模組：
+
+$ cd <your-nodejs-app>
+$ npm i mongoose
+
+### Step 2: 連線到 MongoDB
+
+呼叫 mongoose.connect() 連線到 MongDB 資料庫伺服器。連線時，指定資料庫名稱，例如：booklog。
+
+~~~~~~~~
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/booklog');
+~~~~~~~~
+
+### Step 3: 
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log('MongoDB: connected.');	
+});
+
+### Step 4: 定義 Schema
+
+NoSQL 資料庫的特色是不需要 Schema，因此，使用 MongoDB 時可以在 Schema 或 No Schema 間做選擇。Schema 等同於 SQL 資料庫的 Table 定義。
+
+var postSchema = new mongoose.Schema({
+    subject: { type: String, default: ''},
+    content: String
+});
+
+### Step 5: 與 Express.js 框架整合
+
+## CRUD 實作
+
+
+app.get('/1/post/:id', function(req, res) {	
+	var id = req.params.id;
+	var model = req.app.db.model;
+
+	model.findOne({_id: id}, function(err, post) {
+		res.send({post: post});	
+	});
+});
+
+app.get('/1/post', function(req, res) {	
+	var model = req.app.db.model;
+
+	model.find(function(err, posts) {
+		res.send({posts: posts});	
+	});
+});
+
+
+app.post('/1/post', function(req, res) {
+	var model = req.app.db.model;
+
+	var subject;
+	var content;
+
+	if (typeof(req.body) === 'undefined') {
+		subject = req.query.subject;
+		content = req.query.content;
+	} else {
+		subject = req.body.subject;
+		content = req.body.content;		
+	}
+
+	var post = {
+		subject: subject,
+		content: content
+	};
+
+	//posts.push(post);
+	var card = new model(post);
+	card.save();
+
+	res.send({ status: 'OK'});
+});
+
+### 
+
+app.delete('/1/post', function(req, res) {
+	res.send("Delete a post");
+});
+
+app.put('/1/post/:postId', function(req, res) {
+	var id = req.params.postId;
+
+	res.send("Update a post: " + id);
+});
+
+
+## 使用 Passport.js
+
+## Workflow
+
+Nodejs 實作流程控制時，應使用 workflow 的觀念，而不是邏輯判斷的方式。其差別如下：
+
+* 邏輯判斷是使用程式語言的特性與語法，例如：if...else...
+* 邏輯判斷使用流程圖（flow chart）來設計
+* workflow 是有限狀態機（finite state machine）的設計，不是流程圖設計
+* workflow 是一種與邏輯解離（decouple，無直接相關的意思）的設計，更易於重用
+
+
+
+
+
+
