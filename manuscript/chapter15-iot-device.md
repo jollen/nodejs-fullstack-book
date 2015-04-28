@@ -82,7 +82,7 @@ ARM mbed 的 online compiler 具備 Git 版本管理的功能，還能線上匯�
 
 將 Arch Pro 與電腦連接後，至 mbed.org 申請一個開發者帳號後，進入 online compiler 的 Workspace 環境，如圖 15.1。
 
-![圖 15.1：mbed 的 Workspace](15.1_workspace.png)
+![圖 15.1：mbed 的 Workspace](images/15.1_workspace.png)
 
 圖 15.1：mbed 的 Workspace
 
@@ -96,7 +96,7 @@ ARM mbed 的 online compiler 具備 Git 版本管理的功能，還能線上匯�
 
 Arch Pro 與 LPC1768 開發板相容，因此步驟 2 請選取 mbed LPC1786。
 
-![圖 15.2：New Program](15.2_new-program.png)
+![圖 15.2：New Program](images/15.2_new-program.png)
 
 圖 15.2：New Program
 
@@ -111,7 +111,7 @@ mbed 提供許多 Program 與 Library 範本，這裡使用的是一個 LED（�
 4. 拔除並重接 USB 線，讓 Arch Pro 重新關機。
 5. 完成。可以看到 Arch Pro 的 LED1 開始閃爍。
 
-![圖 15.3：Drag and Drop 更新 firmware](15.3_drag-drop.png)
+![圖 15.3：Drag and Drop 更新 firmware](images/15.3_drag-drop.png)
 
 圖 15.3：Drag and Drop 更新 firmware
 
@@ -191,7 +191,7 @@ EthernetInterface 支援 Cable 乙太網路連線，WiflyInterface 則是支援 
 
 首先，建立一個新的 mbed 專案，再使用 Import Wizard 匯入 mbed 官方的 *EthernetInface* Library；如圖 15.4。
 
-![圖 15.4：New Program](15.4.png)
+![圖 15.4：New Program](images/15.4.png)
 
 圖 15.4：匯入 *EthernetInterface*
 
@@ -468,7 +468,7 @@ int main()
 
 如圖 15.5 所示，HTTP 協定應用在 IoT 系統裡時，採取的是典型的 Client/Server 架構。首先，我們將 IoT 裝置的角色設定為 Server，這表示 mbed 裝置必須實作一個「輕量化（Light-weight）的 Web Server」，才能以 Web Server 的角色，讓 Client 端「瀏覽」。
 
-![圖 15.5：WoT 與 HTTP](15.5.png)
+![圖 15.5：WoT 與 HTTP](images/15.5.png)
 
 圖 15.5：WoT 與 HTTP
 
@@ -508,7 +508,7 @@ Websocket 能讓 client 與 server 能建立永續性的 TCP 連線。簡單來�
 
 抽像上來看，ARM mbed 是一個 server 端，因為它是資料的供應者，而真正的 client 端則是用戶。但從技術上來看，ARM mbed 與 client 端同樣都是 Websocket client，詳細說明如下。
 
-![圖 15.6：WoT 與 Websocket](15.6.png)
+![圖 15.6：WoT 與 Websocket](images/15.6.png)
 
 圖 15.6：WoT 與 Websocket
 
@@ -530,7 +530,7 @@ Websocket broker 必須給予 IoT 物件一個獨一無二（unique）的名稱�
 
 ### CoAP
 
-![圖 15.7：WoT 與 CoAP](15.7.png)
+![圖 15.7：WoT 與 CoAP](images/15.7.png)
 
 圖 15.7：WoT 與 CoAP
 

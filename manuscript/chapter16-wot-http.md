@@ -30,7 +30,7 @@ CoAP 並不是要取代 HTTP，這部份在第 18 章會有詳細說。
 
 如圖 16.1 所示，HTTP 基於 TCP 網路層，而 TCP 的特點就是 reliable data transfer，因此 HTTP 的 reqeust/response model 就會有許多 SYN/ACK 的過程。HTTP 本身是一種 message 導向的通訊技術，因此 request 與 response 是透過事先定義好的 message 進行溝通，HTTP 1.1 的標準，就是在製定這樣的 message。
 
-![圖 16.1：Transferring HTTP Message](16.1.png)
+![圖 16.1：Transferring HTTP Message](images/16.1.png)
 
 圖 16.1：Transferring HTTP Message
 
@@ -69,7 +69,7 @@ Cache-Control: max-age=86400
 
 CoAP 與 HTTP 的差異，在第 18 章再做介紹。但是要了解 CoAP 解決哪些 HTTP 的技術問題，就要深入 HTTP 的技術細節。
 
-![圖 16.2：Layering of Protocols](16.2.png)
+![圖 16.2：Layering of Protocols](images/16.2.png)
 
 圖 16.2：Layering of Protocols
 
@@ -81,7 +81,7 @@ CoAP 與 HTTP 的差異，在第 18 章再做介紹。但是要了解 CoAP 解�
 
 很明顯地，應用程式 A 是發出連線請求的一端，因此是 client 的角色；應用程式 B 則是 server。在完成資料傳輸後，如果應用程式 B 將 socket 關閉，B 就會發送 FIN 封包給 A。應用程式 A 收到 FIN 封包後，同樣也要以 ACK 封包做為回應；當應用程式 A 從 socket 完成讀取完資料後，也會將自已的本地端 socket 關係。同樣地，A 也會向 B 發出 FIN 封包，B 同樣也以 ACK 封包回應。
 
-![圖 16.3：A TCP Connection](16.3.png)
+![圖 16.3：A TCP Connection](images/16.3.png)
 
 圖 16.3：A TCP Connection
 
