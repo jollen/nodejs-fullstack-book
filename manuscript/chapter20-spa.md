@@ -163,6 +163,25 @@ mBaas 對 Mobile app 開發模式，產生有一些重要的改變。當然，�
 
 比如說，採用 mBaas 服務，application 立即能享有更大的 scalability：能支撐巨量的流量。
 
+### mBaaS 與 IoT
+
+根據筆者的觀察，mBaaS 商業模式，未來可能在 IoT 領域取得大規模的成功。現在的 mBaaS 供應商，往 IoT 服務平台發展，已經成為一個標準策略。一個 mBaaS + IoT 的平台，應該具備哪些基本功能呢？以下是筆者的一些匯整，供大家參考。
+
+第一、Smart Push Notification。智能手機將 Push Notification 機制運用到極緻，手機用戶也已經很習慣這樣的推送通知機制。從技術的角度來看，Push Notification 在 IoT 架構中，是一種 Physical to Mobile 的使用案例。將 Physical（裝置實體）的數據，推送到手機上，中間需要一個「IoT 通道」。除了現有的 mBaaS 供應商外，未來應該會有大量的新創公司，提供這類型的的服務。
+
+第二、Social Integration。讓 IoT 裝置與社交網路整合也是一個趨勢，例如：Facebook、WeChat、Twitter 等。從技術的角度來看，與社交網路整合是為了加入 OAuth 認證機制，以及將訊息推送至個人社交平台上。另外，筆者認為，IoT 與 Social Networks 的結合，可能會是另外一個 IoT Apps 的呈現形式。
+
+第三、Small Data Analytics。小量資料分析技術，大多實作於裝置端（In-place analysis）。進行小量資料分析的目的，大致可分為：Filtering、Real-Time Notfitication 與 Time-Series Data Push。將一些無效或無用的資料捨棄，技術上並不太困難，可以安裝一個固定的演算模式或模型（Pattern and Models）在裝置上。小量分析與即時推送的結合，比較偏向於警示性質的訊息（Alert），但未來也可能應用在 LWM2M（Lightweight M2M）的情境中。至於 Time-Series Data 則是應用在連續資料的推送，在推送的過程式，可以為資料加註訊息（例如：Timestamp）或記號等。
+
+第四、REST API Broker。IoT 裝置本身會提供一些簡單的 REST API，或是經由「通道」來「代理提供」，因此筆者也認為，REST API Broker（Proxy）服務，未來也將扮演重要的角色。REST API Broker 的另一個重責大任，就是進行 Backend-to-Backend 的整合。例如，知名的 Firebase 服務，就是一個 Backend-to-Backend 整合的平台。未來這樣的平台，也將延伸到物聯網裝置。
+
+第五、Code Generation。對一個以 MCU 為主的 IoT 裝置，自動代碼產生相對應的代碼，可能是一個重要的機制。例如，Temboo 就提供這樣的服務。從「物聯網裝置」的角度來看，Code Generation 的重要性，應該略大於「視覺化編程」；因為物聯網裝置，不只有 GPIO 控制的功能，也會有網路與演算法的能力。因此，Code Generation 其實是一種 Code Template 的服務，等於是開發者的「懶人包」。另一個需要 Code Generation 的原因是，IoT 裝置會與 mBaaS 或 REST API 做整合，這些程式碼直接由系統產生即可。
+
+第六、IoT Apps Hosting。將 Physical 包裝為 App 將是一個潮流，目前提供相關服務的供應商還不多，但許多新創公司正在往這個方向前進。像是，built.io 就提供 IoT Apps 的代管服務。
+
+以上都是由技術的角度出發，以及過去的收集與觀察，所進行的整理。其中，物聯網應用程式代管服務，是筆者認為最重要，也是最具商業潛力的領域。從上述的分析，可以歸納出一個結論：未來的物聯網新創團隊，勢必要具備 Full Stack 的技術能力，以及 End-to-End 商業模式的策略思考能力。
+
+
 ### Server-free 的開發環境
 
 自從 Amazon 的 AWS 盛行後，便大幅降低了伺服器的成本。過去，專用伺服器（ Dedicated Server ）費用高昂，對新創公司來說，是相當沈重的負責。如今，只要一張信用卡，以及便宜的費用，就能擁有高運算能力，以及充足頻寬的伺服器。這讓創業成本更低。
