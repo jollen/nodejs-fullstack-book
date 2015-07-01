@@ -14,7 +14,7 @@
 
 https://www.mokoversity.com/wotcity
 
-WoT.City 是由 Mokoversity 與 Openmbed 支持的一個 Websocket broker 計畫，它除了提供 PaaS 服務外，也開放源碼。有需要的讀者，可以下載 WoT.City 並自行「架站」。此部份於第 19 章進行說明。
+WoT.City 一開始是 Mokoversity 的一個 Websocket broker 服務，一開始的定位是提供 PaaS 服務。目前 WoT.City 已成為獨立的新創公司（Startup），也將研發的 WoT 框架開放源碼，採 SaaS 的商業模式。這表示使用者可下載 WoT.City 的程式碼，來自行「架站」。此部份於第 19 章進行說明。
 
 ### Step 1：
 ### Step 1：

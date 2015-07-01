@@ -1,14 +1,42 @@
 # WoT 架構實作 - 使用 HTTP
 
-HTTP（Hypertext Transfer Protocol）是一種 request-response 形式的協定。就像我們所知道的，它已經完全融入我們的生活之中。HTTP 在 PC 時代，已經改變人們接收資訊的方式與習慣，到了 Mobile 的時代，HTTP 更再次影響與改變人類的社會文化。
+## 通訊協定
 
-## HTTP 的特點
+物聯網的發展，進入到銜接 web（over HTTP）的階段後，典型的通訊協定堆疊（Protocol Stacks）開始產生變化。更進一步的話，物聯網在 2015 年開始，進入通訊協定技術變革的時代。過去使用的通訊協定技術，開始有了改良版本。幾個知名的例子：
+
+* Google 提倡的 SPDY 協定
+* 專為 constrained device 所設計的 CoAP
+* QUIC 改良傳統的 UDP
+
+上述所提的例子，最終都想針對 HTTP 協定進行改造。HTTP 是應用層通訊協定（Application Layer Protocol），現在的 IoT 架構，發展重心就是使用 HTTP（Web）來交連（interoperate），這個 IoT + Web 的架構，稱為 WoT（Web of Things）。不只是 WoT 架構，從通訊協定的角度來看，物聯網正進入應用層通訊協定技術變革的時代。
+
+TCP/IP Stacks 是網路協定的基礎，其中有一層稱為傳輸層（Transport Layer），傳輸層包含 TCP 與 UDP 二個協定。UDP 協定比 TCP 更輕量化，但因為 TCP 的可靠性佳高，因此，知名的應用層協定「HTTP」，就基於 TCP 協定來發展。基於 TCP 的 HTTP（或稱為 HTTP over TCP）的特色就是 Client/Server 間會進行資料傳輸的確認（ACK），因此可靠度高。然而，這個確認的動作對物聯網裝置來說，可能會形成一個問題。這個問題在於，確認的動作需要花費較多的硬體資源（運算能力、記憶體等），對硬體資源較缺乏的裝置（稱為 Constrained Device），這個 TCP 的確認過程，就成為一個很大的負擔。
+
+### HTTP 的特點
+
+HTTP（Hypertext Transfer Protocol）是一種 request-response 形式的協定。就像我們所知道的，它已經完全融入我們的生活之中。HTTP 在 PC 時代，已經改變人們接收資訊的方式與習慣，到了 Mobile 的時代，HTTP 更再次影響與改變人類的社會文化。
 
 到了物聯網時代，HTTP 將繼續影響與改變人類的生活習慣，物聯網已經開始受到 HTTP 的影響，這就是 Web of Things。HTTP 屬於 application-level 的協定，HTTP 的更底層就是 TCP。
 
 一個開放式且符合 Web of Things 設計原則的 IoT Cloud 架構，應該以 application-level 的協定為主，因此 HTTP 成為自然當選人。但物聯網硬體本身，有它的侷限性，例如：低功耗、運算頻率較低、主記憶體較少等，當軟體在這樣受侷限的硬體環境上運作時，就需要一個比 HTTP 更適合的 application-level 協定。CoAP（Contrained Application Protocol）就因應而生。
 
 CoAP 並不是要取代 HTTP，這部份在第 18 章會有詳細說。
+
+### CoAP 的誕生
+
+因此，針對 Constrained Device 的 HTTP 需求，一個稱為 CoAP 的協定就被發展出來了。CoAP（Constrained Application Protocol）是更簡單且輕量化的 HTTP 技術，簡單的意思是，CoAP 簡化了 HTTP 的內容，輕量化的意思是，CoAP 採用 UDP 進行傳輸。簡單來說，CoAP 可以看做是一個 HTTP over UDP 的技術。CoAP 是物聯網的重要技術，它讓 Constrained Device 都能具備 HTTP 的能力。大部份的 MCU 裝置都是 Constrained Device，因此，就也像是 MCU + HTTP。
+
+從實作的角度來看，CoAP 並非直接採用 HTTP 標準，而是透過轉換（translate）的方式將訊息對應成標準的 HTTP。CoAP 採納了 REST 架構，並且也是採取 request/response 的模式。因此，要將 CoAP 轉換為 HTTP，或是將 HTTP 轉換為 CoAP，其實是非常容易的。實際上，CoAP 只對 request/response 的部份做轉換，也就是 CoAP 的 request 都能轉換為 HTTP request headers；response 的部份亦同。
+
+### HTTP/2 的誕生
+
+除了 CoAP 外，HTTP/2.0 未來也可能在物聯網應用上，扮演重要角色。HTTP over TCP 的 ACK 會造成的一些負擔，因此如果讓 HTTP over UDP 的話，就可以解決這個問題。Google 所提出的 QUIC（Quick UDP Internet Connection）就是這樣的技術。QUIC 可以讓 HTTP 基於 UDP 傳輸層，就是 HTTP + QUIC + UDP。
+
+解決了傳輸層的問題，再回到應用層來看 HTTP。因為 HTTP request/response headers 設計上的一些缺點，讓 HTTP 的網路傳輸效能無法提昇。為解決這些問題，Google 便提出了 SPDY 協定。SPDY 協定後來成為 HTTP/2（HTTP 2.0）的基礎。IETF 在 2015 年 5 月正式發佈 HTTP/2 標準（RFC 7540）。HTTP/2 是基於 TCP 協定，因此要讓物聯網裝置使用 HTTP over UDP 的話，目前仍必須使用 HTTP + QUIC + UDP 的堆疊。
+
+因為 HTTP/2 標準就是 SPDY 的內容，如果有意在物聯網裝置上使用 HTTP/2 的特性，就要採用 HTTP + SPDY + QUIC + UDP 的堆疊。不過，Google 未來有意將 HTTP/2 over QUIC 提交給 IETF，到時就能捨棄 HTTP + SPDY + QUIC + UDP 的做法，畢竟這只是過渡時期的解決方案。
+
+
 
 ## 
 
