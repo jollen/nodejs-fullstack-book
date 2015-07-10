@@ -1,4 +1,4 @@
-## MongoDB 簡介
+# MongoDB 簡介
 
 MongoDB 是一種 NoSQL（Not-only SQL）的資料庫系統。NoSQL[1] 有別於典型的 SQL 關鍵式資料庫，它採用 JSON 的格式儲存資料，並以文件的形式儲存。文件（Document）可以看做一種純文字檔。
 
