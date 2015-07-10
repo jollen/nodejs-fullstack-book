@@ -36,9 +36,7 @@ CoAP 並不是要取代 HTTP，這部份在第 18 章會有詳細說。
 
 因為 HTTP/2 標準就是 SPDY 的內容，如果有意在物聯網裝置上使用 HTTP/2 的特性，就要採用 HTTP + SPDY + QUIC + UDP 的堆疊。不過，Google 未來有意將 HTTP/2 over QUIC 提交給 IETF，到時就能捨棄 HTTP + SPDY + QUIC + UDP 的做法，畢竟這只是過渡時期的解決方案。
 
-
-
-## 
+## ARM mbed + WoT 實作
 
 接下來，根據第 15 章的說明，以 HTTP 來實作一個 Web of Things 的應用：溫度感測裝置。
 

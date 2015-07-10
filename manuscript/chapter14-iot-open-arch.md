@@ -6,7 +6,7 @@
 
 簡單來說，IoT 正在發生三件大事。
 
-1. Going Web：與 Web 融合
+1. Going Web：物聯網正在與 Web 融合（IoT + the web）
 2. Open IoT Cloud Architecture：如上，要與 Web 融合，就要發展一個使用相關開放標準的 IoT Cloud 架構
 3. Physical Object：硬體裝置將與 REST 架構密切結合
 
@@ -14,7 +14,57 @@
 
 這三件大事，其實說白了就是 HTTP。HTTP 並不是個新技術，也不是什麼困難的技術，與物聯網的交集，不過也就是舊瓶新裝。但難就難在舊瓶新裝，是個哲學思想提昇的過程：這需要一套整體的新思維。
 
-### Physical Object
+從技術的角度來看，WoT 就是 IoT + the web 的架構，也就是讓物聯網透過 HTTP 來互連（interoperability）。而另一種物聯網的互連方式，就是 Machine-to-Machine（M2M）。這二種互連的做法，有不同的使用情境（Use Scenario），硬體的設計也有所不同。
+
+如圖 14.1，這是 M2M 的使用情境。在這個情境中，裝置與裝置之間，透過 Bluetooth（BLE）與 Zeebig 
+協定來溝通。例如，溫度感測裝置，透過 BLE 將數據傳送給手機。
+
+![圖 14-1 M2M Scenario](images/figure-14_1.png)
+
+圖 14.2 是 WoT 的使用情境。同樣是溫度感測裝置，在 WoT 情境中，裝置透過 HTTP、CoAP 或 WebSocket 協定，將數據傳送給伺服器（IoT Cloud），手機再經由伺服器取得數據。
+
+![圖 14-2 WoT Scenario](images/figure-14_2.png)
+
+WoT 延用現有的 Web 技術來建立整體架構，以下是 WoT 使用的 Web 相關技術：
+
+* HTML5 與 CSS3－用來實作 WoT Appcalition（即 Web Frontend）
+* JavaScript
+* HTTP 1.1 與 HTTP 2.0 協定
+* JSON 與 JSON-LD
+* EXI 與 RDF
+* CoAP 協定
+* WebSocket 協定
+* MQTT 協定
+* OAuth
+* REST 架構
+
+目前，許多大廠與越來越多的新創公司，也開始提供 IoT over Web 的服務。廣義來說，這些服務都是屬於 Web of Things 的概念。
+
+## Constrained Device
+
+WoT 裝置的硬體範圍很廣，小至 Sensors 類型的硬體，大到伺服器等級的硬體。從運算能力的角度來區分，WoT 裝置的硬體範圍（scale）如下：
+
+* 8-bit MCU 與 Wi-Fi Module
+* 32-bit MCU（Cortex-M）
+* Application Processors（Cortex-A）與 Network Processor（Atheros）
+* Server Farms
+
+8-bit MCU、Wi-Fi Module 與 32-bit MCU 都是硬體資源（處理器頻率、記憶體與、電力與儲存裝置）較受限的環境，這樣的物聯網裝置稱為 Constrained Device。因為硬體資源有限，一些針對 Constrained Device 的技術，就陸續被發展出來。例如，CoAP 協定就是專為 Constrained Device 所定義的標準。
+
+目前流通性（使用程度）較高的幾個 Constrained Device 技術如下：
+
+* CoAP
+* MQTT
+* 6LoWPAN
+* LWM2M
+
+在技術的選用上，會以是否為 Constrained Device 做為依據。例如，使用 Raspberry Pi 實作溫度感測器時，可以使用 WebSocket 與 HTTP 來傳送數據到 IoT Cloud。使用 ARM mbed 實作溫度感測器時，會考慮以 CoAP 為主。
+
+另外，因為 MCU 技術的進度，有些 MCU 裝置的硬體資源並非如此受限，例如 Arch Pro（LPC1768）開發板，這是一款 ARM mbed 的開發板。Arch Pro 所採用的 NXP LPC1768 MCU（Cortex-M3）晶片，運算能力可達 100MHz。因此，如果處理的 TCP 連線處理不多，在 Arch Pro 上使用 WebSocket 協定時，並不會造成太多的硬體負擔。
+
+因為 Cortext-M 技術上的進步，或許應該再將 MCU 裝置區分為 Constrained Devices 與 Less Constrained Devices 二類。有些不是專供 Constrained Devices 使用的技術，也可以運用在 Constrained Devices 上。
+
+## Physical Object
 
 首先，先談談 Physical Object。將 IoT 裝置以 REST API 來表示，這個 IoT 裝置就稱為 REST Device。如果更進一步以「對象」來封裝此觀念的話，也可以稱做 REST Object。例如：
 
@@ -52,13 +102,13 @@ Google 把這樣的概念稱為 Physical Web，也就是用 URL 的方式，來�
 
 從 HTTP 的發展歷史來看，它是一個很成功的 Web Protocol。HTTP 自然是 Web 使用情境的協定。當 Web 進入到物聯網後，HTTP 也要做適度的裁切與調整，才會更適合 WoT 的使用情境。這個進化版的 HTTP 就是 CoAP。
 
-不管是 HTTP 的使用情境，還是 Websocket 的使用情境，都可以用 ARM mbed 與 Arch Pro 開發板來實現。CoAP 當然也是。現在只有一個問題：IoT Cloud 服務。這就是 Openmbed 想要探討的問題：一個 IoT Open Architecture。
+不管是 HTTP 的使用情境，還是 Websocket 的使用情境，都可以用 ARM mbed 與 Arch Pro 開發板來實現。CoAP 當然也是。現在只有一個問題：IoT Cloud 服務。這就是 WoT.City 想要探討的問題：一個 IoT Open Architecture。
 
 ## 物聯網的真正關鍵：IoT Open Architecture
 
 Intel 當然也在 WoT 的遊戲裡面。IBM 也沒有缺席，經由 Bluemix 與 IoT 基金會，IBM 也在 WoT 生態中開始卡位。幾個 big players 都在推展自已的 WoT 生態與 IoT Cloud 架構。然而，未來由這些 big players 所架構出來，並以 Web 為主幹的 IoT Architecture，真的能提昇生活品質，或促進社會進步嗎。
 
-### Privacy
+## Privacy
 
 我們把未來的生活，完全交付給 Big players 來幫我們架構，這樣的未來 IoT 世界嗎，身為消費者的我們，難道一點都不緊張嗎。這些 big players 打造的也是使用開放標準，所構成的 Open Architecture，因此，我們還有必要發展自已的 IoT Open Architecture 嗎？
 
@@ -70,7 +120,7 @@ IoT Open Architecture 的關鍵，當然必須由開放標準組成，例如：H
 
 上述看法並不是要雲服務公司，完全將分析後的資訊公開或免費提供，而是應採用 Public Domains 的方式共享。例如，我們可以用一個合理的價格，取得部份分析方法的模型，或是參考數據。然而，現在我們無償提供資料，卻只能提到最後的分析結果。Public domains 是一種在共享與商業中，取得均衡發展的做法。
 
-### Personal Things
+## Personal Things
 
 消費者現在的認知，對物聯網公司採集並儲存個人生理資訊，似乎是「自然合理」。如果現在開始，能進行一些教育活動，相當大家很快就會有意識。上述的問題，就是為什麼需要一個 IoT Open Architecture 的理由之一。
 
@@ -78,7 +128,7 @@ IoT Open Architecture 的關鍵，當然必須由開放標準組成，例如：H
 
 要實現 Personal Things 的理想，讓 IoT 不致朝向對個人不利的「中央化」方向發展，開放硬體（Open Hardware）也是很重要的環節。IoT 不能缺少硬體，但製造商現在視 IoT 硬體為「新市場」時，身為消費者的我們，又要成為這種集中製造生態的肥羊。
 
-### Hackers x Makers
+## Hackers x Makers
 
 如同筆者在前一期的專欄中提到的，「物聯網裝置終將免費」。在 IoT Open Architecture 的理想中，消費者可以免費取得硬體。這個理想並非不可行，第一個步驟，就是設法降低取得硬體的成本。自造自已的硬體（成為 IoT 的創客），就是重要的啟步。
 
@@ -88,7 +138,7 @@ IoT Open Architecture 的關鍵，當然必須由開放標準組成，例如：H
 
 IoT Open Architecture 如果能包含創客運動（Maker Movement）的成份，創客就會去重製、改裝、交換或重用硬體，所以可以改善這種不斷製造、不斷消耗資源的做法。IoT Open Architecture 不只是技術架構，也是一套內建自由授權的架構，也要包含創客運動。
 
-### Openmbed and WoT.City
+## Openmbed and WoT.City
 
 因此，筆者的想法是，打造 IoT Open Architecture 是全民運動；因此要有一套「範本」供大家使用。這套 IoT Open Architecture 範本除了希望做出一套 Full Stack 的 IoT Open Architecture 外，也必須是能包含所有周邊配套的 Full Landscape 開放架構。
 
