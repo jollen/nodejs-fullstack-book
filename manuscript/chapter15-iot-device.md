@@ -1,4 +1,4 @@
-# 第 15 章：ARM mbed 物聯網裝置－入門與 Networking
+# ARM mbed 物聯網裝置入門 - Networking
 
 本章是一個重要的里程碑，在學習 Node.js 與 Backbone.js 後，將開始進入 IoT 的學習階段。根據第 14 章所說明的 Web of Things 架構，在 WoT 觀念裡的物聯網系統，包含四大部份：
 
