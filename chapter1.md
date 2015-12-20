@@ -165,13 +165,13 @@ alert(person instanceof Person); // true
 
 另外，根據物件導向的觀念，Constructor 函數的命名，要以大寫字元開頭。
 
-## Design Pattern for Front-End
+## 1.3 Design Pattern for Front-End
 
 用白話文來解釋設計模式（Design Pattern）：撰寫代碼與解決特定問題的「固定作法」。由於 HTML5+JavaScript 的廣泛流行，有一些專門針對 HTML+JavaScript 的設計模式被提出，其中最重要的二個設計模式為：Module Pattern 與 jQuery Plugin Pattern。
 
 要學好 HTML5+JavaScript 應用程式開發，上述二個設計模式不能不學。此外，大家要有一個認知，就是：只懂 JavaScript 語法是做不出好高級品的，意思是撰寫不出良好品質的程式碼。在 HTML5+JavaScript 的世界裡，設計模式才是重點。要強調一點，並不是不需要學習 JavaScript 語法，而是只懂得語法並不足以應付未來的研發工作。
 
-## Module Pattern
+## 1.4 Module Pattern
 
 如同此設計模式的名字所述，module pattern 的目的是把程式碼「模組化」；將 JavaScript 的程式碼模組化，有其固定的做法。要將程式碼模組化，前提是將程式碼 Closure，即封閉性。接下來，以一個連續的範例，來說明 Module Pattern。在繼續進行下去前，請務必熟讀並了解 JavaScript 物件的觀念。
 
