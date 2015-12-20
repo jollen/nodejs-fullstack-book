@@ -1,4 +1,4 @@
-# JavaScript 設計模式
+# 1.1 JavaScript 設計模式
 
 JavaScript 或許不是物件導向式語言（OOP)，因為目前流行的 JavaScript 語法並沒有很明顯的 OO 特徵。但是，JavaScript 編程時，到處充滿物件導向的觀念。本章針對 JavaScript 的入門觀念，進行簡要的整理。
 
@@ -11,7 +11,7 @@ JavaScript 或許不是物件導向式語言（OOP)，因為目前流行的 Java
 - MVP 設計模式
 - MVVM 架構模式
 
-## Object
+## 1.2 Object
 
 JavaScript 第一個觀念，就是「物件生成」。利用 function 關鍵字來宣告類別，並且利用 new 關鍵字來實例化，是生成物件最簡單的寫法。另外一個做法是利用 Object.create() 方法。
 
