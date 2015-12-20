@@ -290,7 +290,7 @@ var message = this.$el.find('input[name="message"]').val();
 有了 Backbone.Model 後，才能表示資料。修改 *client/javascripts/app.js* 加入以下程式碼：
 
 ~~~~~~~~
-1  app.Message = Backbone.Model.extend({  
+1  app.Message = Backbone.Model.extend({
 2    defaults: {
 3      success: false,
 4      errors: [],
@@ -305,9 +305,9 @@ var message = this.$el.find('input[name="message"]').val();
 
 * 第 1 行：使用 *Backbone.Model.extend()* 宣告（擴充）一個新的 Data Model，命名為 *Message* 並儲放 於 *app* 物件
 * 第 2 行：使用 [*defaults*][7] 為這個 Model 定義預設的資料：
- * *success*：Express.js 定義的欄位，目前暫不使用
- * *errors*：Express.js 定義的欄位，目前暫不使用
- * *errfor*：Express.js 定義的欄位，目前暫不使用
+ * *success*：Backbone 框架所定義的欄位，目前暫不使用
+ * *errors*：Backbone 框架所定義的欄位，目前暫不使用
+ * *errfor*：Backbone 框架所定義的欄位，目前暫不使用
  * *message*：自行定義的欄位，用來儲存訊息
 
 ### Step 2：宣告 Template
@@ -581,7 +581,7 @@ Backbone 將取得的 Response data 存放在 *response* 參數。接著，我�
 
 ## 認識 Backbone.Model.save
 
-*Backbone.Model.fetch* 是一個很神奇、好用與重要的觀念。神奇的地方是：它可以同時支援 RESTful 的 POST 與 PUT 操作。好用的地方是，Backbone 可以自動處理資料的新增（POST）或更新（PUT）。重要的地方是，它緊密結合 Data Model。
+*Backbone.Model.save* 是一個很神奇、好用與重要的觀念。神奇的地方是：它可以同時支援 RESTful 的 POST 與 PUT 操作。好用的地方是，Backbone 可以自動處理資料的新增（POST）或更新（PUT）。重要的地方是，它緊密結合 Data Model。
 
 檢視 nodejs-chat 範例，目前儲存留言的程式碼實作，仍然是採用 jQuery AJAX 模式：
 
