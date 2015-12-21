@@ -1,21 +1,19 @@
-作者
+## 關於本書
 
-Jollen（陳俊宏），Moko365 與 Mokoversity 創辦人。
+「Node.js & IoT: Zero to One」是一本 Node.js 的入門電子書，內容定位為基礎教學，目標是介紹 Node.js 以及 Node.js + IoT 相關技術主題，每個主題都從基本觀念（Zero）開始，介紹到能撰寫簡單的程式為止（One）。
 
-熟悉 Android、Embedded Linux、Frontend 與 Node.js  軟體技術。在多家全台前一百大科技公司擔任顧問，過去曾參與過全球第一個開放手機平台計畫 Openmoko，負責大中華區事務。目前兼任手機廠的架構設計工程師。 針對手機軟體開發所創辦的教育訓練與顧問公司：仕橙3G教室（Moko365），在兩岸業界極負盛名。目前新創公司 WoT.City 研發 Web of Things（IoT + the web）的軟體框架。
+作者才疏學淺，因此在寫作階段選擇以 Gitbook 電子書發行，希望能透過您的協助，讓本書更加完善。歡迎以 PR 方式貢獻章節內容。
 
-- Email：<jollen@jollen.org>
-- Blog：http://www.jollen.org/blog
+關於勘誤，以及修正建議，請提交 PR 進行修改，或是透過 Issue 進行討論。
+
+## 關於作者
+
+Jollen
+
+ * Email：<jollen@jollen.org> 
+ * Blog：http://www.jollen.org/blog
+ * Github：https://github.com/jollen
 
 發行紀錄
 
-2014.03.13
-	* News: 更名為「Node.js 雲端技術與軟體思惟」
-	* Update: Chapter 1: 加強對 Constructor Pattern 的說明
-	* Add: Chapter 1: 新增 Prototype Pattern 的說明
-	* Add: Chapter 13: 新增更多 Data Model 教學
-
-2014.07.10
-	* Add: Chapter 13
-	* Add: Chapter 14
-	* Add: Chapter 15
+* 2015-12-23: 開始進行第 2 版改版工程
