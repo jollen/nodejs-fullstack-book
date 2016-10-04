@@ -8,7 +8,7 @@
  * [3.4 設計 HTTP API](4-http-api.md)
  * [3.5 解析 Query String](5-query-string.md)
 
- ## 本章小結
+## 本章小結
 
 到這裡完成了 Node.js 入門的學習：
 

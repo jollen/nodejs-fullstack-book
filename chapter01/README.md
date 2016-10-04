@@ -24,4 +24,4 @@ JavaScript 或許不是物件導向式語言（OOP)，因為目前流行的 Java
  * [1.9 Prototype Pattern](9-prototype.md)
  * [1.10 其它模式](10-misc.md)
 
- ## 本章小結
+## 本章小結

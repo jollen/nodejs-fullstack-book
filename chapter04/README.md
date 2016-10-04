@@ -8,7 +8,7 @@
  * [4.4 使用 jQuery 模式](4-jquery-pattern.md)
  * [4.5 使用 *this* 物件](5-this.md)
 
- ## 本章小結
+## 本章小結
 
 透過一個即時聊天室的開發過程，我們初步學會了重要的 WebSocket 基礎知識：
 
