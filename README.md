@@ -76,3 +76,8 @@ Jollen
 
  * [6.1 再探 HTTP API](chapter6/1-http-api.md)
  * [6.2 REST](chapter6/2-rest.md)
+
+## 第 7 章：軟體思惟 - Non-blocking IO 篇
+
+ * [7.1 認識 Non-blocking IO](chapter7/1-nonblocking-io.md)
+ * [7.2 非同步式讀取多個檔案](chapter7/2-readfile-async.md)
