@@ -1,5 +1,7 @@
 # 2 HTML5 軟體開發的概念
 
+從 HTML5 與瀏覽器的角度，開始理解 JavaScript 與 Fullstack 軟體開發。
+
 ## 開始閱讀
 
  * [2.1 HTML5 的 Runtime 是瀏覽器](chapter2/1-html5-runtime.md)
