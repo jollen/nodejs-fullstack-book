@@ -65,3 +65,11 @@ Jollen
  * [4.3 製作 WebSocket 用戶端](chapter4/3-websocket-client.md)
  * [4.4 使用 jQuery 模式](chapter4/4-jquery-pattern.md)
  * [4.5 使用 *this* 物件](chapter4/5-this.md)
+
+ ### 第 5 章：軟體思惟 - Lambda 篇
+
+ * [5.1 Lambda](chapter5/1-lambda.md)
+ * [5.2 Callback Function](chapter5/2-callback.md)
+ * [5.3 製作 使用 TypeScript](chapter5/3-typescript.md)
+
+ 
