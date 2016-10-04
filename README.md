@@ -53,3 +53,11 @@ JavaScript 或許不是物件導向式語言（OOP)，因為目前流行的 Java
  * [2.5 Data Push 設計模式](chapter2/5-data-push.md)
  * [2.6 Device API 的革命時代](chapter2/6-device-api.md)
  * [2.7 重要的資訊交換格式：JSON](chapter2/7-json.md)
+
+### 3 Node.js 入門 - URL Routing 篇
+
+ * [3.1 Hello, World](chapter3/1-hello-world.md)
+ * [3.2 製作 Node.js 模組](chapter3/2-module.md)
+ * [3.3 URL Routing](chapter3/3-url-routing.md)
+ * [3.4 設計 HTTP API](chapter3/4-http-api.md)
+ * [3.5 解析 Query String](chapter3/5-query-string.md)
