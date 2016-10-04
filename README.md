@@ -25,7 +25,7 @@ Jollen
 * 2016-10-04：開始進行第 3 版改版工程
 * 2015-12-23：開始進行第 2 版改版工程
 
-## 目錄
+# 目錄
 
 ### 第 1 章：avaScript 設計模式
 
@@ -72,12 +72,12 @@ Jollen
  * [5.2 Callback Function](chapter5/2-callback.md)
  * [5.3 製作 使用 TypeScript](chapter5/3-typescript.md)
 
-# 第 6 章：軟體思惟 - Web Service 篇
+### 第 6 章：軟體思惟 - Web Service 篇
 
  * [6.1 再探 HTTP API](chapter6/1-http-api.md)
  * [6.2 REST](chapter6/2-rest.md)
 
-## 第 7 章：軟體思惟 - Non-blocking IO 篇
+### 第 7 章：軟體思惟 - Non-blocking IO 篇
 
  * [7.1 認識 Non-blocking IO](chapter7/1-nonblocking-io.md)
  * [7.2 非同步式讀取多個檔案](chapter7/2-readfile-async.md)
