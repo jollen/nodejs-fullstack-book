@@ -2,9 +2,9 @@
 
 ## 開始閱讀
 
- * [5.1 Lambda](chapter5/1-lambda.md)
- * [5.2 Callback Function](chapter5/2-callback.md)
- * [5.3 製作 使用 TypeScript](chapter5/3-typescript.md)
+ * [5.1 Lambda](1-lambda.md)
+ * [5.2 Callback Function](2-callback.md)
+ * [5.3 製作 使用 TypeScript](3-typescript.md)
 
 ## 本章小結
 

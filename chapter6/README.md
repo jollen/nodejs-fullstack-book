@@ -2,8 +2,8 @@
 
 ## 開始閱讀
 
- * [6.1 再探 HTTP API](chapter6/1-http-api.md)
- * [6.2 REST](chapter6/2-rest.md)
+  * [6.1 再探 HTTP API](1-http-api.md)
+  * [6.2 REST](2-rest.md)
 
 ## 本章小結
 

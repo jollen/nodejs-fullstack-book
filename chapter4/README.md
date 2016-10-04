@@ -2,11 +2,11 @@
 
 ## 開始閱讀
 
- * [4.1 第一個 WebSocket 伺服器](chapter4/1-websocket.md)
- * [4.2 學習 JSON 格式](chapter4/2-json.md)
- * [4.3 製作 WebSocket 用戶端](chapter4/3-websocket-client.md)
- * [4.4 使用 jQuery 模式](chapter4/4-jquery-pattern.md)
- * [4.5 使用 *this* 物件](chapter4/5-this.md)
+ * [4.1 第一個 WebSocket 伺服器](1-websocket.md)
+ * [4.2 學習 JSON 格式](2-json.md)
+ * [4.3 製作 WebSocket 用戶端](3-websocket-client.md)
+ * [4.4 使用 jQuery 模式](4-jquery-pattern.md)
+ * [4.5 使用 *this* 物件](5-this.md)
 
  ## 本章小結
 

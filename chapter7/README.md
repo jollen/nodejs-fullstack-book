@@ -2,8 +2,8 @@
 
 ## 開始閱讀
 
- * [7.1 認識 Non-blocking IO](chapter7/1-nonblocking-io.md)
- * [7.2 非同步式讀取多個檔案](chapter7/2-readfile-async.md)
+ * [7.1 認識 Non-blocking IO](1-nonblocking-io.md)
+ * [7.2 非同步式讀取多個檔案](2-readfile-async.md)
 
 ## 本章小結
 
