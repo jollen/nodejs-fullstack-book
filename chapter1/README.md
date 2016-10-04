@@ -1,4 +1,4 @@
-# 1 JavaScript 設計模式
+# 第 1 章：JavaScript 設計模式
 
 JavaScript 或許不是物件導向式語言（OOP)，因為目前流行的 JavaScript 語法並沒有很明顯的 OO 特徵。但是，JavaScript 編程時，到處充滿物件導向的觀念。本章針對 JavaScript 的入門觀念，進行簡要的整理。
 
