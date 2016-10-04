@@ -81,3 +81,11 @@ Jollen
 
  * [7.1 認識 Non-blocking IO](chapter07/1-nonblocking-io.md)
  * [7.2 非同步式讀取多個檔案](chapter07/2-readfile-async.md)
+
+### 第 8 章：Node.js 應用 - Express.js 入門
+
+ * [8.1 Express.js 初體驗](chapter08/1-expressjs.md)
+ * [8.2 MVC 與 HTML Template Engine](chapter08/2-template.md)
+ * [8.3 解析 app.js](chapter08/3-app.md)
+ * [8.4 Express URL Routing](chapter08/4-url-routing.md)
+ * [8.5 Middleware 的觀念](chapter08/5-middleware.md)
