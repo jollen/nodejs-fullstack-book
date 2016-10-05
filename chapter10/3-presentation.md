@@ -40,3 +40,15 @@
 	http://github.com/jollen/nodejs-chat
 
 nodejs-chat 的開發是基於 http://github.com/jollen/nodejs-express，因此請在完成前 9 個章節的學習後，再繼續往下閱讀。
+
+### View 架構模式
+
+MVC 是最耳熟能詳的 View 架構模式，在學習 Web Fullstack 時，第一個要知道的觀念如下[1]：
+
+* 有一種稱為 Passive View 的 View
+* Passive View 非常輕量化，例如以元件形式呈現
+* Passive View 與 Model 沒有關係
+
+這樣的觀念，就是 MVP 模式所要強調的重點。
+
+[1]: Presentation Patterns : MVC, MVP, PM, MVVM, https://manojjaggavarapu.wordpress.com/2012/05/02/presentation-patterns-mvc-mvp-pm-mvvm/
