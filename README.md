@@ -20,6 +20,8 @@ Jollen
  * Blog：http://www.jollen.org/blog
  * Github：https://github.com/jollen
 
+## 近期更新
+
 ## 發行紀錄
 
 * 2016-10-04：開始進行第 3 版改版工程
@@ -104,7 +106,29 @@ Jollen
  * [10.4 Express.js 與 REST API](chapter10/3-use-middleware.md)
  * [10.5 Node.js Chat Client](chapter10/3-use-middleware.md) 
 
-# 第 11 章：REST API 應用 - 使用 jQuery
+### 第 11 章：REST API 應用 - 使用 jQuery
 
  * [11.1 呼叫 REST API - 使用 jQuery](chapter11/1-rest-jquery.md)
  * [11.2 認識 Key-Value Pairs 觀念](chapter11/2-key-value.md)
+
+### 第 12 章：MVC 架構實作 - Backbone.js 入門
+
+ * [12.1 Backbone Way](chapter12/1-backbone-way.md)
+ * [12.2 認識 *View.$el*](chapter12/2-$el.md)
+ * [12.3 認識 Backbone.Model](chapter12/3-model.md)
+ * [12.4 認識 Backbone.Model.fetch](chapter12/4-model-fetch.md)
+ * [12.5 認識 Backbone.Model.save](chapter12/5-model-save.md) 
+
+### 第 13 章：NoSQL 資料庫應用 - 使用 MongoDB
+
+ * [13.1 關於 MongoDB](chapter13/1-mongodb.md)
+ * [13.2 安裝 MongoDB 資料庫伺服器](chapter13/2-mongolab.md)
+ * [13.3 使用 Mongoose Driver](chapter13/3-mongoose.md)
+ * [13.4 CRUD 實作](chapter13/4-crud.md)
+
+## 第 14 章：Node.js 物聯網概論 - 使用 Web of Things
+
+ * [14.1 淺談 Web of Things](chapter14/1-wot.md)
+ * [14.2 Constrained Device](chapter14/2-constrained.md)
+ * [14.3 Physical Object](chapter14/3-physical-object.md)
+ * [14.4 邁向 Open 的 IoT 時代](chapter14/4-open-iot.md)
