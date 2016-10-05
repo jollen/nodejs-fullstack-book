@@ -103,3 +103,8 @@ Jollen
  * [10.3 Presenetation 在 Client 端](3-use-middleware.md)
  * [10.4 Express.js 與 REST API](3-use-middleware.md)
  * [10.5 Node.js Chat Client](3-use-middleware.md) 
+
+# 第 11 章：REST API 應用 - 使用 jQuery
+
+ * [11.1 呼叫 REST API - 使用 jQuery](1-rest-jquery.md)
+ * [11.2 認識 Key-Value Pairs 觀念](2-key-value.md)
