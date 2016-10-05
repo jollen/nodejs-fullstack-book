@@ -89,3 +89,17 @@ Jollen
  * [8.3 解析 app.js](chapter08/3-app.md)
  * [8.4 Express URL Routing](chapter08/4-url-routing.md)
  * [8.5 Middleware 的觀念](chapter08/5-middleware.md)
+
+### 第 9 章：Express.js 應用 - Middleware 
+
+ * [9.1 Express.js 初體驗](1-middleware.md)
+ * [9.2 MVC 與 HTML Template Engine](2-use.md)
+ * [9.3 解析 app.js](3-use-middleware.md) 
+
+### 第 10 章：REST API 架構 - 使用 Express.js
+
+ * [10.1 服務導向架構](1-middleware.md)
+ * [10.2 關於 SOA 與 3-Tier 架構](2-use.md)
+ * [10.3 Presenetation 在 Client 端](3-use-middleware.md)
+ * [10.4 Express.js 與 REST API](3-use-middleware.md)
+ * [10.5 Node.js Chat Client](3-use-middleware.md) 
