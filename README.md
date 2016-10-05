@@ -92,19 +92,19 @@ Jollen
 
 ### 第 9 章：Express.js 應用 - Middleware 
 
- * [9.1 Express.js 初體驗](1-middleware.md)
- * [9.2 MVC 與 HTML Template Engine](2-use.md)
- * [9.3 解析 app.js](3-use-middleware.md) 
+ * [9.1 Express.js 初體驗](chapter09/1-middleware.md)
+ * [9.2 MVC 與 HTML Template Engine](chapter09/2-use.md)
+ * [9.3 解析 app.js](chapter09/3-use-middleware.md) 
 
 ### 第 10 章：REST API 架構 - 使用 Express.js
 
- * [10.1 服務導向架構](1-middleware.md)
- * [10.2 關於 SOA 與 3-Tier 架構](2-use.md)
- * [10.3 Presenetation 在 Client 端](3-use-middleware.md)
- * [10.4 Express.js 與 REST API](3-use-middleware.md)
- * [10.5 Node.js Chat Client](3-use-middleware.md) 
+ * [10.1 服務導向架構](chapter10/1-middleware.md)
+ * [10.2 關於 SOA 與 3-Tier 架構](chapter10/2-use.md)
+ * [10.3 Presenetation 在 Client 端](chapter10/3-use-middleware.md)
+ * [10.4 Express.js 與 REST API](chapter10/3-use-middleware.md)
+ * [10.5 Node.js Chat Client](chapter10/3-use-middleware.md) 
 
 # 第 11 章：REST API 應用 - 使用 jQuery
 
- * [11.1 呼叫 REST API - 使用 jQuery](1-rest-jquery.md)
- * [11.2 認識 Key-Value Pairs 觀念](2-key-value.md)
+ * [11.1 呼叫 REST API - 使用 jQuery](chapter11/1-rest-jquery.md)
+ * [11.2 認識 Key-Value Pairs 觀念](chapter11/2-key-value.md)
