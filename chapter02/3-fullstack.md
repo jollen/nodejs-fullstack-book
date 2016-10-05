@@ -2,7 +2,7 @@
 
 HTML5 不只是技術，它是 Mobile + Cloud 的全新時代。HTML5 重新發明了 Web，現在的 Web 已不同以往。對完全不懂 HTML5 的創業人，本章內容將對您有很大的幫助。  
 
-![圖 2.1：Web Service 導向架構](images/figure-2_1.png)
+![圖 2.1：Web Service 導向架構](../images/figure-2_1.png)
 
 圖 2.1 把 HTML5 與 Cloud 的關係，做了很簡單的說明。圖 2.1 同時也是 HTML5 軟體開發的起點，這是一張「系統」架構，而不是「應用程式」架構。因為廣意的 HTML5 包含用戶端與伺服器端；目前的用戶端，大多是行動裝置。所以 Mobile + Cloud 正好表達了 HTML5 中心哲學。
 
