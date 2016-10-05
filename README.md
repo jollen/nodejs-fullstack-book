@@ -126,14 +126,14 @@ Jollen
  * [13.3 使用 Mongoose Driver](chapter13/3-mongoose.md)
  * [13.4 CRUD 實作](chapter13/4-crud.md)
 
-## 第 14 章：Node.js 物聯網概論 - 使用 Web of Things
+### 第 14 章：Node.js 物聯網概論 - 使用 Web of Things
 
  * [14.1 淺談 Web of Things](chapter14/1-wot.md)
  * [14.2 Constrained Device](chapter14/2-constrained.md)
  * [14.3 Physical Object](chapter14/3-physical-object.md)
  * [14.4 邁向 Open 的 IoT 時代](chapter14/4-open-iot.md)
 
-## 第 15 章：Node.js 物聯網入門 - 使用 ARM mbed
+### 第 15 章：Node.js 物聯網入門 - 使用 ARM mbed
 
  * [15.1 物聯網學習體系](chapter15/1-roadmap.md)
  * [15.2 ARM mbed 作業系統](chapter15/2-arm-mbed.md)
