@@ -27,6 +27,12 @@ Jollen
 * 2016-10-04：開始進行第 3 版改版工程
 * 2015-12-23：開始進行第 2 版改版工程
 
+# 專題練習
+
+這是我在課堂中使用的練習題，可搭配本書使用。
+
+* [01-weather-app](https://github.com/jollen/nodejs-fullstack-lessons/01-weather-app)
+
 # 目錄
 
 ### 第 1 章：avaScript 設計模式
