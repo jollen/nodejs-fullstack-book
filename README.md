@@ -31,7 +31,7 @@ Jollen
 
 這是我在課堂中使用的練習題，可搭配本書使用。
 
-* [01-weather-app](https://github.com/jollen/nodejs-fullstack-lessons/01-weather-app)
+* [01-weather-app](https://github.com/jollen/nodejs-fullstack-samples/tree/master/01-weather-app)
 
 # 目錄
 
