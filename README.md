@@ -32,7 +32,7 @@ Jollen
 這是我在課堂中使用的練習題，可搭配本書使用。
 
 * [01-weather-app](https://github.com/jollen/nodejs-fullstack-samples/tree/master/01-weather-app)
-* [03-messanger](https://github.com/jollen/nodejs-fullstack-samples/tree/master/03-messanger)
+* [03-messenger](https://github.com/jollen/nodejs-fullstack-samples/tree/master/03-messenger)
 
 
 # 目錄
