@@ -37,7 +37,9 @@ Jollen
 
 # 目錄
 
-### 第 1 章：avaScript 設計模式
+## Part 0：Fundamentals
+
+### 第 1 章：JavaScript 設計模式
 
  * [1.1 Object](chapter01/1-object.md)
  * [1.2 宣告 Class](chapter01/2-class.md)
@@ -76,6 +78,8 @@ Jollen
  * [4.4 使用 jQuery 模式](chapter04/4-jquery-pattern.md)
  * [4.5 使用 *this* 物件](chapter04/5-this.md)
 
+## Part 1：Basic Concepts
+
 ### 第 5 章：軟體思惟 - Lambda 篇
 
  * [5.1 Lambda](chapter05/1-lambda.md)
@@ -91,6 +95,8 @@ Jollen
 
  * [7.1 認識 Non-blocking IO](chapter07/1-nonblocking-io.md)
  * [7.2 非同步式讀取多個檔案](chapter07/2-readfile-async.md)
+
+## Part 2：Getting Started
 
 ### 第 8 章：Node.js 應用 - Express.js 入門
 
@@ -114,6 +120,8 @@ Jollen
  * [10.4 Express.js 與 REST API](chapter10/3-use-middleware.md)
  * [10.5 Node.js Chat Client](chapter10/3-use-middleware.md) 
 
+## Part 3：Fullstack Beginner
+
 ### 第 11 章：REST API 應用 - 使用 jQuery
 
  * [11.1 呼叫 REST API - 使用 jQuery](chapter11/1-rest-jquery.md)
@@ -134,6 +142,8 @@ Jollen
  * [13.3 使用 Mongoose Driver](chapter13/3-mongoose.md)
  * [13.4 CRUD 實作](chapter13/4-crud.md)
 
+## Part 4：IoT Beginner
+
 ### 第 14 章：Node.js 物聯網概論 - 使用 Web of Things
 
  * [14.1 淺談 Web of Things](chapter14/1-wot.md)
@@ -148,3 +158,16 @@ Jollen
  * [15.3 ARM mbed Networking](chapter15/3-mbed-networking.md)
  * [15.4 使用 NTP－Network Time Protocol](chapter15/4-ntp.md)
  * [15.5 WoT 裝置的 Use Case](chapter15/5-wot.md)
+
+### 第 16 章：Node.js 與前端入門 - 串接 WebSocket
+
+* [16.1 前後端整合初體驗](chapter16/1-flux.md)
+* 16.2 淺談 Flux 架構模式
+* 16.3 前端入門初體驗 - 使用 React.js
+
+## Part 5：IoT Maker
+
+### 第 17 章：Node.js 與私有雲入門 - 使用 MCS Lite
+
+### 第 18 章：Node.js 與 SmartHome - 使用 LinkIt Smart 7688
+
