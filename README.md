@@ -20,7 +20,16 @@ Jollen
  * Blog：http://www.jollen.org/blog
  * Github：https://github.com/jollen
 
-## 近期更新
+## Roadmap
+
+* 移除 ARM mbed 教學
+* 加入 MediaTek LinkIt Smart 7688 教學
+* 加入 Serverless 教學
+* 加入 P2P 教學
+
+## 種子老師
+
+* 你可以在 [Mokoversity Fullstack IoT 2017](https://www.mokoversity.com/iotschool) 申請成為 Fullstack IoT 2017 的種子講師，並使用本教材於演講、教學與其它非商業性質活動
 
 ## 發行紀錄
 
