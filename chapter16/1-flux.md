@@ -1,10 +1,73 @@
 ## 16.1 前後端整合初體驗
 
-實現 WebSocket React 元件的項目模板。你可以用這模板製作具 WebSocket 功能的元件，或是為現有的元件注入 WebSocket 功能。使用 Flux 模式。
+這一節將使用 Flux 模式與後台串接。這一章是 Node.js Fullstack 初學者的重要里程碑：
 
-> A React biolerplate that polyfill Websocket by Flux pattern.
+* 從 jQuery AJAX 到 MVC
+* 再由 MVC 到 Flux
 
-## 安裝說明
+這節將製作一個簡單的 HTML5 前端，並模式接受來自 Node.js 的 WebSocket 資料推送。前端的製作將使用 React.js 與 Flux 模式，而不是 jQuery。
+
+### HTML5 與 Backend 整合
+
+
+先安裝 ```react-websocket-view``` 模式：
+
+```
+npm install react-websocket-view --save
+```
+
+再根據以下步驟為 React 元件加入 WebSocket 能力：
+
+1. Import ```WebsocketView``` from ```react-websocket-view```
+
+2. Use ```<WebsocketView />``` as the parent component, and put Websocket server URI to ```server``` props.
+
+3. Add ```onMessage``` callback to your elements.
+
+以下範例示如何與 ```wss://wot.city/object/testman/viewer``` 連接，並將使用常用的 ```<p>``` HTML5 元素，來接受 real-time data push。主要的重點是實戶 ```onMessage``` callback。
+
+```
+import React from 'react';
+import { render } from 'react-dom';
+import { WebsocketView } from 'react-websocket-view';
+
+render(
+    <WebsocketView 
+    	server="wss://wot.city/object/testman/viewer">
+    	<p onMessage={function(data) {console.log(data)}}></p>
+    </WebsocketView>,
+    document.getElementById('content')
+);
+```
+
+如果是多個 HTML5 元素呢？例如二個 ```<p>``` 元素：
+
+```
+<WebsocketView 
+  server="wss://wot.city/object/testman/viewer">
+  <p onMessage={function(data) {console.log(data)}}></p>
+  <p onMessage={function(data) {console.log(data)}}></p>
+</WebsocketView>
+```
+
+如果是多個 WebSocket 來源呢？例如二個 ```<p>``` 元素，分別接收不同的二個資料來源：
+
+```
+<div>
+  <WebsocketView 
+    server="wss://wot.city/object/room1/viewer">
+    <p onMessage={function(data) {console.log(data)}}></p>
+  </WebsocketView>
+  <WebsocketView 
+    server="wss://wot.city/object/room2/viewer">
+    <p onMessage={function(data) {console.log(data)}}></p>
+  </WebsocketView>
+</div>
+```
+
+### 使用 React 元件
+
+實現 WebSocket React 元件的項目模板。你可以用這模板製作具 WebSocket 功能的元件，或是為現有的元件注入 WebSocket 功能。使用 Flux 模式。安裝說明：
 
 ```
 $ git clone https://github.com/jollen/react-websocket-biolerplate.git
@@ -18,8 +81,6 @@ $ gulp compile
 * 如果要修改服務器來源，請開啟 ```src/App.jsx```，並修改 ```server``` prop
 * 修改完成後，必須運行 ```gulp compile``` 命令重新編譯文件
 
-## 使用教學
-
 編譯相關命令：
 
 * ```gulp build```：將 ```src``` 目錄下的 *.jsx 文件編譯為 *.js
@@ -30,8 +91,6 @@ $ gulp compile
 
 * ```gulp watch```：監聽所有的 *.jsx 文件，文件修改時，會自動調用 ```gulp compile``` 命令
 * ```gulp browser```：瀏覽器 Live Reload 功能，會自動開啟 ```dist/index.html``` 文件
-
-## Quickstart
 
 說明 React 元件加入 WebSocket 協定的做法：以接收來自 WebSocket 服務器的數據推送。幾個要先知道的觀念：
 
@@ -108,11 +167,7 @@ export class MyComponent extends Component {
 $ gulp compile
 ```
 
-編譯好的文件位於 ```src/Component.js```：你可以開始在 React 應用程式裡使用此元件了。
-
-### 使用元件
-
-在 React 應用程式裡，引入你的元件使用：
+編譯好的文件位於 ```src/Component.js```：你可以開始在 React 應用程式裡使用此元件了。在 React 應用程式裡，引入你的元件使用：
 
 * 加入 ```server``` prop 指定 WebSocket 服務器 URI
 * 可以使用本專案提供的 ```wss://wot.city/object/testman/viewer``` 測試數據
@@ -132,7 +187,3 @@ render(
 ```
 
 完整範例請參考 ```src/App.jsx```。
-
-## License
-
-The [MIT License](http://www.opensource.org/licenses/MIT) (MIT). See [LICENSE.md](LICENSE.md).
