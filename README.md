@@ -22,10 +22,11 @@ Jollen
 
 ## Roadmap
 
-* 移除 ARM mbed 教學
-* 加入 MediaTek LinkIt Smart 7688 教學
-* 加入 Serverless 教學
-* 加入 P2P 教學
+- [ ] 移除 ARM mbed 教學
+- [ ] 加入 MediaTek LinkIt Smart 7688 教學
+- [ ] 加入 Serverless 教學
+- [ ] 加入 P2P 教學
+- [ ] 第 1~13 章進行季度校對 (2015 Q4)
 
 ## 種子老師
 
