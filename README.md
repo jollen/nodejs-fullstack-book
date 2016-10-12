@@ -180,9 +180,11 @@ Jollen
 * 16.2 淺談 Flux 架構模式
 * 16.3 前端入門初體驗 - 使用 React.js
 
-## Part 5：IoT Maker
-
 ### 第 17 章：Node.js 與私有雲入門 - 使用 MCS Lite
 
 ### 第 18 章：Node.js 與 SmartHome - 使用 LinkIt Smart 7688
+
+## Part 5：IoT Maker
+
+### 第 19 章：物聯網架構入門
 
