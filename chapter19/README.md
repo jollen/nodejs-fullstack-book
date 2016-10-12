@@ -102,5 +102,25 @@ Dispatch broker 負責「對外提供 URI 服務」，一個使用情境是：�
 > Jollen：「學 Flux 從建立商店（Stores）開始」
 
 
+## 本章總結
+
+如何「開始設計 IoT 架構」呢？從上述的介紹，可以總結具體的方法如下：
+
+1. 從 Web of Things (WoT) 的架構思維開始
+2. 在 WoT 的架構中，最重要的是 CoAP 協定，你可以詳細閱讀 ARM IoT Tutorial 這份簡報的內容
+3. WoT Servient 是首要的研發工作
+4. WoT Servient 的工作很多，因此導入 Broker Pattern 會是一個很好的起步
+
+關於 WoT 與 WoT Servient 的觀念，在 W3C 的 Mailing List 上有一份不錯的簡報：[Web of Things architecture](https://lists.w3.org/Archives/Public/public-wot-ig/2016Jan/att-0042/WoT_architecture_20160127_Panasonic-Fujitsu_.pdf)，你可以閱讀這份簡報內容，相信有很大的幫助。
+
+我在 Web of Things 方面的一些研究與代碼，都會使用在本書做為實例。主要的項目都以開源釋出，項目網址如下：
+
+* [WoT.City](https://github.com/wotcity)
+* [DevifyPlatform](https://github.com/DevifyPlatform)
+* [Flowchain](https://github.com/flowchain)
+
+## 參考資源
+
 [1] SQL Server Service Broker, https://technet.microsoft.com/zh-tw/library/bb522893(v=sql.105).aspx
 [2] Broker Pattern, https://en.wikipedia.org/wiki/Broker_Pattern
+[3] ARM IoT Tutorial, https://community.arm.com/servlet/JiveServlet/previewBody/8633-102-2-15471/ARM%20CoAP%20Tutorial%20April%2030%202014.pdf
