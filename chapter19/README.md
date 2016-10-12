@@ -1,4 +1,4 @@
-# 物聯網架構入門
+# 物聯網架構入門 (尚木完成)
 
 Broker 是一種觀念、模式與架構。過去在我的 Android Framework 培訓課程中，提到 Android Binder IPC 的設計，採用了 Proxy Pattern、Broker Pattern 與 Activator Pattern。
 
@@ -64,7 +64,7 @@ Flowchain Pattern 就是 Flux Pattern。二者之間的設計相通，例如：s
 
 Broker Server 也稱為 Service Broker，它負責協助開發人員，完成多項繁複的工作。對 Service Broker 感興趣的話，Microsoft 的 SQL Server Service Broker[1] 是一個值得研究的案例。
 
-通則來說，Broker Server 的設計原則如下：
+通則來說，Broker Server 的用途如下：
 
 * 負責訊息處理
 * 建立鬆散偶合的應用程式
@@ -121,6 +121,6 @@ Dispatch broker 負責「對外提供 URI 服務」，一個使用情境是：�
 
 ## 參考資源
 
-[1] SQL Server Service Broker, https://technet.microsoft.com/zh-tw/library/bb522893(v=sql.105).aspx
-[2] Broker Pattern, https://en.wikipedia.org/wiki/Broker_Pattern
-[3] ARM IoT Tutorial, https://community.arm.com/servlet/JiveServlet/previewBody/8633-102-2-15471/ARM%20CoAP%20Tutorial%20April%2030%202014.pdf
+* [1] SQL Server Service Broker, https://technet.microsoft.com/zh-tw/library/bb522893(v=sql.105).aspx
+* [2] Broker Pattern, https://en.wikipedia.org/wiki/Broker_Pattern
+* [3] ARM IoT Tutorial, https://community.arm.com/servlet/JiveServlet/previewBody/8633-102-2-15471/ARM%20CoAP%20Tutorial%20April%2030%202014.pdf
