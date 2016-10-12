@@ -62,7 +62,14 @@ Flow-Based Programming 是由 [J. Paul Morrison](http://www.jpaulmorrison.com/) 
 
 Flowchain Pattern 就是 Flux Pattern。二者之間的設計相通，例如：single dispatcher、single data flow 等。但每個元件負責的工作略有差異。
 
-在 Flowchain 模式裡：
+Broker Server 也稱為 Service Broker，它負責協助開發人員，完成多項繁複的工作。對 Service Broker 感興趣的話，Microsoft 的 (SQL Server Service Broker)[1] 是一個值得研究的案例。
+
+通則來說，Broker Server 的設計原則如下：
+
+* 負責訊息處理
+* 建立鬆散偶合的應用程式
+
+回到 Flux 模式與 Flowchain 範例，如何從 IoT 應用程式的情境，來看 Flux 模式的使用方式呢？以下是幾個重點：
 
 * *Actions* 主要負責將數據傳送給 Dispatcher，actions（例如：數據）的來源是 Websocket Server 或是 CoAP Server
 * *Dispatcher* 主要負責將數據分發給 Stores
@@ -89,3 +96,6 @@ Dispatch broker 負責「對外提供 URI 服務」，一個使用情境是：�
 總結本章的觀念：在 React 應用程式中，加入 State Container 的做法，已經有一個可依循的架構模式。要學習在 React 應用程式裡，加入 Flux 架構模式，要如何起步呢？從上述的觀念可以知道，實作 *Stores* 應該是第一步，因為它負責儲存 states，並管理 React 元件邏輯。
 
 > Jollen：「學 Flux 從建立商店（Stores）開始」
+
+
+[1] SQL Server Service Broker, https://technet.microsoft.com/zh-tw/library/bb522893(v=sql.105).aspx
