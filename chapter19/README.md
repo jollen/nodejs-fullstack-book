@@ -1,4 +1,4 @@
-# 物聯網架構入門 (尚木完成)
+# 物聯網架構入門
 
 Broker 是一種觀念、模式與架構。過去在我的 Android Framework 培訓課程中，提到 Android Binder IPC 的設計，採用了 Proxy Pattern、Broker Pattern 與 Activator Pattern。
 
@@ -101,6 +101,12 @@ Dispatch broker 負責「對外提供 URI 服務」，一個使用情境是：�
 
 > Jollen：「學 Flux 從建立商店（Stores）開始」
 
+現在，我們已經知道了：
+
+* Flux 模式中的 Dispatcher 可以實作在 Broker Server 裡
+* IoT 應用程式的最佳實踐，可以是 Flow-Based Programming
+* Broker Server 與 IoT 應用程式，必須是鬆偶合的設計
+* 要達到鬆偶合的設計，單向數據流（Unidirectional Dataflow）可能是必要的設計原則
 
 ## 本章總結
 
