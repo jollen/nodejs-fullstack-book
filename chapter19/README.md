@@ -62,12 +62,16 @@ Flow-Based Programming 是由 [J. Paul Morrison](http://www.jpaulmorrison.com/) 
 
 Flowchain Pattern 就是 Flux Pattern。二者之間的設計相通，例如：single dispatcher、single data flow 等。但每個元件負責的工作略有差異。
 
-Broker Server 也稱為 Service Broker，它負責協助開發人員，完成多項繁複的工作。對 Service Broker 感興趣的話，Microsoft 的 (SQL Server Service Broker)[1] 是一個值得研究的案例。
+Broker Server 也稱為 Service Broker，它負責協助開發人員，完成多項繁複的工作。對 Service Broker 感興趣的話，Microsoft 的 SQL Server Service Broker[1] 是一個值得研究的案例。
 
 通則來說，Broker Server 的設計原則如下：
 
 * 負責訊息處理
 * 建立鬆散偶合的應用程式
+
+Broker Server 的設計稱為 Broker Pattern，這是一種設計模式，主要的用途是架構分散式的軟體系統。根據維基上的解釋[2]：
+
+> The Broker architectural pattern can be used to structure distributed software systems with decoupled components that interact by remote service invocations. A broker component is responsible for coordinating communication, such as forwarding requests, as well as for transmitting results and exceptions.
 
 回到 Flux 模式與 Flowchain 範例，如何從 IoT 應用程式的情境，來看 Flux 模式的使用方式呢？以下是幾個重點：
 
@@ -99,3 +103,4 @@ Dispatch broker 負責「對外提供 URI 服務」，一個使用情境是：�
 
 
 [1] SQL Server Service Broker, https://technet.microsoft.com/zh-tw/library/bb522893(v=sql.105).aspx
+[2] Broker Pattern, https://en.wikipedia.org/wiki/Broker_Pattern
