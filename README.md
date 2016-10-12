@@ -184,7 +184,7 @@ Jollen
 
 ### 第 18 章：Node.js 與 SmartHome - 使用 LinkIt Smart 7688
 
-## Part 5：IoT Maker
+## Part 5：IoT Architecture
 
 ### 第 19 章：物聯網架構入門
 
