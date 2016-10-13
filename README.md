@@ -174,17 +174,19 @@ Jollen
  * [15.4 使用 NTP－Network Time Protocol](chapter15/4-ntp.md)
  * [15.5 WoT 裝置的 Use Case](chapter15/5-wot.md)
 
-### 第 16 章：Node.js 與前端入門 - 串接 WebSocket
+### 第 16 章：Node.js 與前端 - 串接 WebSocket
 
 * [16.1 前後端整合初體驗](chapter16/1-flux.md)
 * 16.2 淺談 Flux 架構模式
 * 16.3 前端入門初體驗 - 使用 React.js
 
-### 第 17 章：Node.js 與私有雲入門 - 使用 MCS Lite
+### 第 17 章：Node.js 與私有雲 - 使用 MCS Lite
 
-### 第 18 章：Node.js 與 SmartHome - 使用 LinkIt Smart 7688
+### 第 18 章：Node.js 與 CoAP 通訊協定
 
-## Part 5：IoT Architecture
+* [18.1 CoAP 觀念初體驗](chapter18/1-coap-client.md)
+
+## Part 5：物聯網入門
 
 ### [第 19 章：物聯網架構入門](chapter19/README.md)
 
