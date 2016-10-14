@@ -1,4 +1,4 @@
-## 1.2 宣告 Class
+# 1.2 宣告 Class
 
 同樣地，JavaScript 沒有類似 Class 這樣的語法，所以要宣告 Class 的話，以 function 關鍵字來實作即可，等價於函數宣告：
 
@@ -50,4 +50,6 @@ JavaScript 裡生成物件的做法：
 - 使用 var 關鍵字宣告物件
 - Instantiable Function
 
-| [1.1](1-object.md) | 1.2 宣告 Class |
+---
+
+Next: [1.3 使用 Factory Pattern](3-factory.md)
