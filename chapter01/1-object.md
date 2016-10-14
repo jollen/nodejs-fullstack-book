@@ -1,6 +1,6 @@
 ## 1.1 Object
 
-JavaScript 第一個觀念，就是「物件生成」。利用 function 關鍵字來宣告類別，並且利用 new 關鍵字來實例化，是生成物件最簡單的寫法。另外一個做法是利用 Object.create() 方法。
+JavaScript 第一個觀念，就是「物件生成」。利用 function 關鍵字來宣告類別，並且利用 new 關鍵字來實例化，是生成物件最簡單的寫法。另外一個做法是利用 ```Object.create()``` 方法。
 
 在 JavaScript 裡，也可以直接宣告物件。利用一對大括號所宣告出來的變數，都是物件。
 
@@ -34,4 +34,4 @@ var person = {
 person.queryJob();
 ~~~~~~~~
 
-直接宣告物件是一種寫法，另外一種寫法是稱為 Instantiable Function，說明如下。
+直接宣告物件是一種寫法，另外一種寫法是稱為 Instantiable Function，於下節說明。
