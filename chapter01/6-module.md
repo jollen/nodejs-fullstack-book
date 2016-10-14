@@ -1,8 +1,8 @@
-## 1.6 Module Pattern
+# 1.6 Module Pattern
 
 如同此設計模式的名字所述，module pattern 的目的是把程式碼「模組化」；將 JavaScript 的程式碼模組化，有其固定的做法。要將程式碼模組化，前提是將程式碼 Closure，即封閉性。接下來，以一個連續的範例，來說明 Module Pattern。在繼續進行下去前，請務必熟讀並了解 JavaScript 物件的觀念。
 
-### 使用 Private/Public 觀念
+## 16.1 使用 Private/Public 觀念
 
 
 請不要再使用 Local variable 與 Global variable 的寫法了，這在 HTML5+JavaScript 的世界裡行不通。以下是一個標準的錯誤示範：
@@ -53,7 +53,7 @@ JavaScript 沒有明顯的物件導向語法，所以上面的一切都是觀念
 
 所以，我們要把軟體開發當做一個創作過程，而不是寫程式（Coding）的過程。
 
-### Import Modules
+## 1.6.2 Import Modules
 
 jQuery 是很好用的程式庫，它也被製作成 module。不過，由於 jQuery 強的擴充性，讓 jQuery 擁有為數可觀的「plugins」。所以，jQuery 本身就是一個平臺（Platform），或是一個開發框架（Framework），再加上有如空氣般，jQuery 在 Web 相關領域真是無所不在，所以就有 jQuery pattern 的出現，後續將會介紹 jQuery pattern。
 
@@ -91,3 +91,7 @@ var testModule = (function (jQ) {
 	
 }) ($);
 ~~~~~~~~
+
+---
+
+Next: [1.7 jQuery Pattern](7-jquery.md)
