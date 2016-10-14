@@ -38,13 +38,4 @@ person.queryJob();
 
 ---
 
- * 1.1 Object
- * [1.2 宣告 Class](2-class.md)
- * [1.3 使用 Factory Pattern](3-factory.md)
- * [1.4 Constructor Pattern](4-constructor.md)
- * [1.5 Design Pattern for Front-End](5-frontend.md)
- * [1.6 Module Pattern](6-module.md)
- * [1.7 jQuery Pattern](7-jquery.md)
- * [1.8 選擇器模式](8-selector.md)
- * [1.9 Prototype Pattern](9-prototype.md)
- * [1.10 其它模式](10-misc.md)
+1.1 Object | [1.2 宣告 Class](2-class.md)
