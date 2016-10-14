@@ -20,13 +20,13 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
  * Blog：http://www.jollen.org/blog
  * Github：https://github.com/jollen
 
-## Roadmap
+## Roadmap (2016 Q4)
 
 - [ ] 移除 ARM mbed 教學
 - [ ] 加入 MediaTek LinkIt Smart 7688 教學
 - [ ] 加入 Serverless 教學
 - [ ] 加入 P2P 教學
-- [ ] 第 1~13 章進行季度校對 (2015 Q4)
+- [ ] 第 1~13 章進行季度校對
 
 ## 公開時桯
 
