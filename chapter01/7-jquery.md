@@ -1,4 +1,4 @@
-## 1.7 jQuery Pattern
+# 1.7 jQuery Pattern
 
 jQuery pattern 就是開發 jQuery 插件（Plugin）的方式，所以技術上倒也沒有什麼學問。不過，jQuery pattern 有很高深的哲學道理，意思是說，在軟體工程領域裡，它創造了一個獨特的觀念。這個觀念就是 jQuery 知名的 "$"（Dollar sign），也就是「Selector」。
 
@@ -42,3 +42,7 @@ $("#message").createWebSocket();
 這是採用 jQuery pattern 的寫法。這種做法可以良好地組織 HTML5 與 JavaScript 程式碼。此外，JavaScript 的 module 具備「Closure」的特性，即封閉性，可以避免一些衍生問題。
 
 由於 HTML5+JavaScript 的設計思想，和 Natvie App 的作法有很大的不同，所以了解 HTML5+Javascript 的應用程式「如何設計」，會是重要的一門課。了解設計模式，除了能有效組織 HTML5+JavaScript 程式碼外，也能做出正確的設計。
+
+---
+
+Next: [1.8 選擇器模式](8-selector.md)
