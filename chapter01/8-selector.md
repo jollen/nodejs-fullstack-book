@@ -1,4 +1,4 @@
-## 1.8 選擇器模式
+# 1.8 選擇器模式
 
 我們在實作 Web Socket 連線生成時，利用了 jQuery pattern，這是一種選擇器模式。為什麼要使用選擇器模式，除了程式碼的組織較好外，另一個原因就是效能。事實上，讓程式碼組織更良好是次要的理由，真正的、主要的、最重要的原因是：使用選擇器方式可以讓 JavaScript 程式碼效能更好。
 
@@ -27,7 +27,7 @@ document.querySelector(“#header”);
 
 不過，使用 jQuery 的選擇器「$」是目前的主流做法。
 
-## jQuery Pattern 實作 (jQuery 插件開發)
+## 1.8.1 jQuery Pattern 實作 (jQuery 插件開發)
 
 簡單來說，jQuery pattern 就是撰寫 jQuery Plugins。要開發 jQuery 的插件，是相當輕鬆愉快的工作，這都歸功於 jQuery 的優良架構。
 
@@ -79,3 +79,7 @@ $(".content").hello();
 ~~~~~~~~
 
 上述的做法，是將自已的實作，設計成 jQuery Plugin 的形式。制作 jQuery 插件是非常簡單的，只要以上三個步驟即可完成。
+
+---
+
+Next: [1.9 Prototype Pattern](9-prototype.md)
