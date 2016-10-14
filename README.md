@@ -14,7 +14,7 @@
 
 ## 關於作者
 
-Jollen
+Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放創新學院創辦人與 Devify Inc 發起人。興趣是 Web Fullstack 技術、Android Framework、Linux 驅動程式、軟體架構設計、研發管理與產品規劃。近期的研究計畫有 [WoT.City](https://github.com/wotcity)、[DevifyPlatform])(https://github.com/DevifyPlatform) 與 [Flowchain](https://github.com/flowchain)，目前參與 2 個 Blockchain 相關新創團隊。
 
  * Email：<jollen@jollen.org> 
  * Blog：http://www.jollen.org/blog
