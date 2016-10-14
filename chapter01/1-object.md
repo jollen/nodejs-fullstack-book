@@ -1,4 +1,4 @@
-## 1.1 Object
+# 1.1 Object
 
 JavaScript 第一個觀念，就是「物件生成」。利用 function 關鍵字來宣告類別，並且利用 new 關鍵字來實例化，是生成物件最簡單的寫法。另外一個做法是利用 ```Object.create()``` 方法。
 
@@ -35,3 +35,16 @@ person.queryJob();
 ~~~~~~~~
 
 直接宣告物件是一種寫法，另外一種寫法是稱為 Instantiable Function，於下節說明。
+
+---
+
+1.1 Object
+1.2 宣告 Class
+1.3 使用 Factory Pattern
+1.4 Constructor Pattern
+1.5 Design Pattern for Front-End
+1.6 Module Pattern
+1.7 jQuery Pattern
+1.8 選擇器模式
+1.9 Prototype Pattern
+1.10 其它模式
