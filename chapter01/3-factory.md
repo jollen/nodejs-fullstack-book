@@ -1,4 +1,4 @@
-## 1.3 使用 Factory Pattern
+# 1.3 使用 Factory Pattern
 
 Instantiable Function 可以利用 new 關鍵字生成它的物件，我們可以進一步將生成物件的過程封裝起來。這就是 Factory Pattern 的用途。
 
@@ -49,3 +49,7 @@ alert(person instanceof Person); // true
 ~~~~~~~~
 
 在這個例子裡，物件 person 確實是 Person 類別的實例化。將 Person() 視為 constructor，而不是函數，觀念上就能達成上述的目的（判斷物件原本的 class type）。
+
+---
+
+Next: [1.4 Constructor Pattern](4-constructor.md)
