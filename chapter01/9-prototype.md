@@ -1,4 +1,4 @@
-## 1.9 Prototype Pattern
+# 1.9 Prototype Pattern
 
 每一個 JavaScript 的函數，都包含一個 *prototype* 的屬性。*prototype* 是一個物件，並且該函數的實例化，都能共用 *prototype*。所謂的 Prototype Pattern，就是擴充 *prototype* 物件。
 
@@ -25,3 +25,7 @@ Prototype Pattern 的優點：
 * 實例化之間共用 *prototype*
 
 實例化之間是共用同一份 *prototype*，這是 Prototype Pattern 與 Constructor Pattern 最大的不同。
+
+---
+
+Next: [1.10 其它模式](10-misc.md)
