@@ -43,9 +43,11 @@ person.queryJob();
 
 在這個例子裡，person 是 Person class 的實例化。所以，調用 person.queryJob() 方法時，所看到的畫面如下：
 
-![圖 1.1 example-1-1.html 執行結果](images/figure-1_1.png)
+![圖 1.1 example-1-1.html 執行結果](../images/figure-1_1.png)
 
 JavaScript 裡生成物件的做法：
 
 - 使用 var 關鍵字宣告物件
 - Instantiable Function
+
+| [1.1](1-object.md) | 1.2 宣告 Class |
