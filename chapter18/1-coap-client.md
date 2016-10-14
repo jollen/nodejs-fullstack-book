@@ -1,6 +1,10 @@
 # 18.1 第一個 CoAP 請求
 
-本節透過 CoAP Client 的實作，來認識 CoAP 通訊協定的基本觀念。
+本節透過 CoAP Client 的實作，來認識 CoAP 通訊協定的基本觀念。對於 Node.js 與 CoAP 通訊協定的初學者來說，建議可從以下 3 個主題開始學習：
+
+1. 如何使用 Node.js 撰寫 CoAP request 的 Client 端程式
+2. 了解並使用 2 種基本的 CoAP 訊息：Confirmable 與 Non-confirmable
+3. 了解並使用 CoAP Block 傳輸
 
 ## Step 1: 實作 CoAP Client
 
