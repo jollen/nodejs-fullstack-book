@@ -38,4 +38,4 @@ person.queryJob();
 
 ---
 
-1.1 Object | [1.2 宣告 Class](2-class.md)
+Next: [1.2 宣告 Class](2-class.md)
