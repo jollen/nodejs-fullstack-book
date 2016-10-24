@@ -9,7 +9,6 @@ JavaScript 比較講求模組化，所以我們繼續重構 hello.js。先將 We
 
 index.js的完整程式碼如下：
 
-{title="02-modules/hello.js"}
 ~~~~~~~~
 var server = require("./server");
 
@@ -18,7 +17,6 @@ server.start();
 
 主程式的部份，以 require() 函數將 server 模組（即 server.js 檔案）引入，接著呼叫模組裡的 start() 函數。server.js 完整程式碼如下：
 
-{title="02-modules/server.js"}
 ~~~~~~~~
  1 var http = require("http");
  2 
@@ -58,3 +56,7 @@ http.createServer(onRequest).listen(8080);
 物件接著下一個物件來連續呼叫多個方法的寫法，就叫 Chaining Pattern（鏈接模式）。這個設計模式的目的，同樣是為了提升程式碼的可維護性：不但能簡化程式碼，更能讓程式碼能構成一個句子。
 
 在接下來的範例裡，我們將善用具名函數以及 Chaining Pattern 來提昇程式碼的可維護性。
+
+---
+
+Next: [3.3 URL Routing](3-url-routing.md)
