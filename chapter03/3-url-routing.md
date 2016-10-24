@@ -4,7 +4,6 @@
 
 首先，先改寫 server.js 模組如下：
 
-{title="03-route/server.js"}
 ~~~~~~~~
  1 var http = require("http");
  2 var url = require("url");
@@ -51,7 +50,6 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 
 改寫 index.js 主程式如下：
 
-{title="03-route/index.js"}
 ~~~~~~~~
 1 var server = require("./server");
 2 var router = require("./router");
@@ -61,7 +59,6 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 
 將 Routing 的演算法製作成獨立的模組，並將 router() 函數傳遞給 start()，函數的參數，可以傳遞一個函數，這個觀念就是 Lambda。router.js 完整程式碼如下：
 
-{title="03-route/router.js"}
 ~~~~~~~~
 1 function route(pathname) {
 2     console.log("Route this request: " + pathname);
@@ -87,7 +84,6 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 
 實作的關鍵來了，我們要利用 Request Handler 的觀念來實作，首先，修改 index.js 如下：
 
-{title="04-request-handlers/index.js"}
 ~~~~~~~~
  1 var server = require("./server");
  2 var router = require("./router");
@@ -130,7 +126,6 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 
 修改後的 router.js 如下：
 
-{title="04-request-handlers/router.js"}
 ~~~~~~~~
  1 function route(pathname, handlers, response) {
  2     console.log("Route this request: '" + pathname + "'");
@@ -148,7 +143,6 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 
 再次修改 server.js 如下：
 
-{title="04-request-handlers/server.js"}
 ~~~~~~~~
  1 var http = require("http");
  2 var url = require("url");
@@ -175,7 +169,6 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 
 最重要的模組：requestHandlers.js，完整程式碼如下：
 
-{title="04-request-handlers/requestHandlers.js"}
 ~~~~~~~~
  1 function start(response) {
  2     console.log("Handler 'start' is started.");
@@ -190,3 +183,7 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 ~~~~~~~~
 
 到這裡，已經完成了一份很基本的 Web Service 實作。接下來，我們要將這個成果發展成一個即時聊天軟體，就命名為 NoChat。NoChat 將會是一個完全使用 HTML5 技術開發的即時聊天軟體。
+
+---
+
+Next: [3.4 設計 HTTP API](4-http-api.md)
