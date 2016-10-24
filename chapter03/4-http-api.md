@@ -12,7 +12,7 @@ NoChat 提供二個API，現在將 API 詳細定義如下。
 
 '/send' API 的 Query String 參數定義如表 3-1。這部份在第 2 章已做過說明。
 
-{title="表 3-1 API 的參數"}
+表 3-1 API 的參數
 |參數    |值       |用途說明      
 |-------|---------|--------------
 |m      |'hello'  | 指定要傳送的訊息 (message)
@@ -51,3 +51,7 @@ Web Service 的 API 定義，未來將重構為 REST 標準。基於 HTTP 的 We
 此外，呼叫 HTTP API 的方式，可使用 GET 與 POST 二種 HTTP 方式（HTTP Method），這二種方式都是定義在 HTTP 裡的標準。REST 標準，也引用了其它的 HTTP Method。
 
 目前，NoChat 仍暫時以 Query String 的方式來傳遞參數。
+
+---
+
+Next: [3.5 解析 Query String](5-query-string.md)
