@@ -2,6 +2,8 @@
 
 本書正在進行第 3 版的改版工程
 
+![](images/cover.jpg)
+
 ## 關於本書
 
 這是一本 Node.js Fullstack 的入門電子書，它的目標是成為優質的 Beginner to Beginner 教材。
