@@ -1,4 +1,4 @@
-## 4.3 製作 WebSocket 用戶端
+# 4.3 製作 WebSocket 用戶端
 
 現在是製作一個 Frontend 的時機了，透過一個簡單的 Frontend 來測試目前的實作成果。我們要 Frontend 的文件，命名為 client.html。實作 client.html 前，要瀏覽器必須支援 HTML5 的 WebSocket 標準。目前新版的瀏覽器都支援 WebSocket 標準。本書皆使用 Chrome 18+ 瀏覽器進行測試。
 

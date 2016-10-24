@@ -1,4 +1,4 @@
-## 6.2 REST
+# 6.2 REST
 
 SOAP 仍然太過於複雜，為了尋求一個更精簡的做法。Roy Fielding 博士於 2000 年提出一種稱為 REST 的 Web Service 軟體架構。[Roy Fielding][1] 是 Apache HTTP Server 專案的共同創辦人，他在 HTTP 協定上有非常重要的貢獻，REST 架構則是他的博士論文題目。
 

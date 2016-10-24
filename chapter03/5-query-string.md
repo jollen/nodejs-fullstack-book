@@ -1,4 +1,4 @@
-## 3.5 解析 Query String
+# 3.5 解析 Query String
 
 Client 端呼叫 Server 所提供的 Web Service API。所以，現在的關鍵是如何解析 Query String。如圖 2.2，Node.js 使用 querystring 模組來解析 Query String。先將 querystring 模組匯入，接著呼叫 parse() 函數：
 

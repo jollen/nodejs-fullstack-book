@@ -1,4 +1,4 @@
-## 6.1 再探 HTTP API
+# 6.1 再探 HTTP API
 
 延續第 5 章，在 Web Service 架構的部份，將會介紹 RESTful Architecture。要了解 RESTful Architecture 的精神，就要從 HTTP API 講起。
 

@@ -1,4 +1,4 @@
-## 2.2 從 Chrome 瀏覽器談起
+# 2.2 從 Chrome 瀏覽器談起
 
 Google 在 2012 年 2 月 7 式，正式發佈 Android 版的 Chrome 瀏覽器。它的出現，宣示 Chrome 是 HTML5 發展史的一個重要指標，筆者當時在 CTIMES 雜誌專欄上，發表時這個新聞的看法：
 

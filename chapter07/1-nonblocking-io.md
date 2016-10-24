@@ -1,4 +1,4 @@
-## 7.1 認識 Non-blocking IO
+# 7.1 認識 Non-blocking IO
 
 要繼續深入 Node.js 開發，許多 Node.js 的觀念必須陸續建立起來。對初學者來說，最重要的莫過於 Non-blocking IO 的觀念。
 

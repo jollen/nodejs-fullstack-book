@@ -1,4 +1,4 @@
-## 3.3 URL Routing
+# 3.3 URL Routing
 
 這是處理 URL（HTTP Request）與 Query String 的核心觀念，這是利用 Node.js 開發 Web Service 的重要步驟。讓我們先來了解 Routing 的寫法，再來探討它的觀念。
 

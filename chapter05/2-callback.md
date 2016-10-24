@@ -1,4 +1,4 @@
-## 5.2 Callback Function
+# 5.2 Callback Function
 
 Lambda 本質上是一種表示方法，用來表示 Input 與 Output。所以，要表示一個平方的運算的話，寫法如下：
 

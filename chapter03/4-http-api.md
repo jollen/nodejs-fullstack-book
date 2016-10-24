@@ -1,4 +1,4 @@
-## 3.4 設計 HTTP API
+# 3.4 設計 HTTP API
 
 完整的 NoChat 分為二個部份：
 

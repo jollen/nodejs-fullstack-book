@@ -1,4 +1,4 @@
-## 3.1 Hello, World
+# 3.1 Hello, World
 
 HTML5 的學習，可分為二個層面：
 

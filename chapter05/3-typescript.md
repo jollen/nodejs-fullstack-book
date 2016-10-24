@@ -1,4 +1,4 @@
-## 5.3 使用 TypeScript
+# 5.3 使用 TypeScript
 
 在深入了解 Lambda 的觀念後，就能知道根本之道在於「新的 JavaScript 語法」。目前有一些 Open Source 程式庫，就試著在解決這個問題。唯有透徹底了解 Lambda 的觀念，才能知道這些程式庫目地何在。
 

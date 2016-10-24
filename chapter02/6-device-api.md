@@ -1,4 +1,4 @@
-## 2.6 Device API 的革命時代
+# 2.6 Device API 的革命時代
 
 HTML5 應用程式大致可分為：Web App 以及 Mobile App。HTML5 本來就是「Web Application」的概念，這是它的核心思想。當然，在手機上使用瀏覽器也能執行（瀏覽）Web 應用程式；開發者可以將瀏覽器做適度的封裝，例如：去除網址列，這會讓使用者「好像在使用 Native 應用程式」一樣。沒錯，HTML5 在 Mobile 應用程式的價值，就是提供與 Native應用程式「相同」的體驗。
 
