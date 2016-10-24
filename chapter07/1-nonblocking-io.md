@@ -9,7 +9,7 @@ Node.js 的網站上，以精簡的 2 個特色來說明其技術特色：
 
 第一個特色，在第 1 章做過介紹，以 Event Loop（Event-driven）的觀念來取代 Multi-thread。第二個特色，則是 Node.js 最重要的技術。要了解 Non-blocking IO 的觀念，只要練習做一個題目即可：檔案讀取。
 
-![圖 7-1：Node.js 官網](images/figure-7_1.png)
+![圖 7-1：Node.js 官網](../images/figure-7_1.png)
 
 用 Node.js 撰寫二個範例：
 
@@ -79,3 +79,7 @@ console.log("[DATA] " + data);  // 錯誤寫法
 ~~~~~~~~
 
 這就是 Node.js 最重要的觀念：Non-blocking IO，實作上，搭配 Callback Function 的觀念。
+
+---
+
+Next: [7.2 非同步式讀取多個檔案](2-readfile-async.md)
