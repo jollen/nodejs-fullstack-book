@@ -4,7 +4,6 @@
 
 上述的例子雖然很直覺，不過還有一些缺點。第一件事情就是以 jQuery 模式來重構。將用戶端改寫如下：
 
-{title="client/02-ws-jquery-plugin-pattern.html"}
 ~~~~~~~~
  1 <!DOCTYPE html>
  2 <head>
@@ -78,7 +77,6 @@
 
 如果沒有把程式碼「關」起來，外界的程式碼可能干擾到我們，例如：全域變數被修改。再進行第二次的重構，結果如下：
 
-{title="client/err-ws-jquery-module-pattern.html"}
 ~~~~~~~~
  1 <!DOCTYPE html>
  2 <head>
@@ -132,3 +130,7 @@
 從程式碼第 9 行與第 42 行可以很明顯看出，我們將原本的程式碼封閉起來了。所以原本的程式碼具有了封閉性。並且根據第 1 章提到的觀念，jQuery 的選擇器（$）要以參數傳遞的方式匯入（Import）到 Module 內部後再使用。
 
 另外，這裡的實作也加入了 onmessage 與 onerror 二個回呼函數。當伺服器透過 WebSocket 傳送訊息過來時，onmessage 便會被呼叫。後續我們將擴充此函數，處理伺服器 Push 過來的即時訊息。
+
+---
+
+Next: [4.5 使用 *this* 物件](5-this.md)
