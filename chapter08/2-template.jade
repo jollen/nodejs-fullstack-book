@@ -1,4 +1,4 @@
-## 8.2 MVC 與 HTML Template Engine
+# 8.2 MVC 與 HTML Template Engine
 
 MVC 模式的全名是 Model-View-Controller，這是一種軟體架構。學習以 MVC 觀念，來重新製作 NoChat 用戶端網頁，很快就能體會到 MVC 的精神。MVC 中的 "V" 指的是 "View"，View 的意思是「可見」，也就是人類眼睛所能看到的畫面。
 
@@ -24,7 +24,7 @@ Jade 的語法非常容易學習，只要透過幾個基本的練習，就可以
 
 http://jade-lang.com
 
-![圖 8-2 Jade 是一個 Template Engine](images/figure-8_2.png)
+![圖 8-2 Jade 是一個 Template Engine](../images/figure-8_2.png)
 
 ### Exercise 1：<h1> 大標題
 
@@ -66,7 +66,6 @@ Jade 的語法就是這麼簡單：只要懂得 HTML5 標籤語法，就可以�
 
 繼續修改 *hello.jade*，將它發展成完整的 HTML5 文件。
 
-{title="views/hello.jade"}
 ~~~~~~~~
 1 doctype 5
 2 html
@@ -77,7 +76,7 @@ Jade 的語法就是這麼簡單：只要懂得 HTML5 標籤語法，就可以�
 7     p 這是一個文章段落。
 ~~~~~~~~
 
-![圖 8-3 *hello.jade* 輸出結果](images/figure-8_3.png)
+![圖 8-3 *hello.jade* 輸出結果](../images/figure-8_3.png)
 
 圖 8-3 是 *hello.jade* 的輸出結果，如果「檢視原始碼」的話，可以看到解析出來的 HTML5 內容：
 
@@ -86,3 +85,7 @@ Jade 的語法就是這麼簡單：只要懂得 HTML5 標籤語法，就可以�
 ~~~~~~~~
 
 Express.js 預設會輸出最小化（Minify）後的 HTML5 文件內容。要如何使用瀏覽器來瀏覽 *hello.jade* 呢？這就是學習如何新增 URL Routing 的時候了。
+
+---
+
+Next: [8.3 解析 app.js](3-app.md)

@@ -1,8 +1,7 @@
-## 9.2 使用 *app.use()* 撰寫 Middlware
+# 9.2 使用 *app.use()* 撰寫 Middlware
 
 Express.js 的 Middleware，也能針對所有的 URL，方式是使用 *app.use()* 函數。例如，我想為「所有的 URL」加上使用者認證的「流程」，做法非常簡單。以下是修改後的 *app.js*：
 
-{title="app.js"}
 ~~~~~~~~
  1 var express = require('express');
  2 var routes = require('./routes');
@@ -85,3 +84,7 @@ app.use(express.logger('dev'));
 ~~~~~~~~
 
 這個順序，可以讓 *express.logger()* 紀錄最少量的資訊。
+
+---
+
+Next: [9.3 解析 app.js](3-use-middleware.md)

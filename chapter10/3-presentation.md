@@ -1,4 +1,4 @@
-## 10.3 Presenetation 在 Client 端
+# 10.3 Presenetation 在 Client 端
 
 有了 3-Tier 與 REST API 架構的觀念後，再重新實作「即時聊天室 App」時，我們會發現整個思惟邏輯都不一樣了。主要的思考重點如下：
 
@@ -52,3 +52,7 @@ MVC 是最耳熟能詳的 Presentation 架構模式，在學習 Web Fullstack �
 這樣的觀念，就是 MVP 模式所要強調的重點。MVC 的 View 偏重於「display data to users」的觀念，而 MVP 則是更精進 View 與 Model 的設計。在 MVP 中的 View，強調的是 Passive View 的觀念。
 
 [1] Presentation Patterns : MVC, MVP, PM, MVVM, https://manojjaggavarapu.wordpress.com/2012/05/02/presentation-patterns-mvc-mvp-pm-mvvm/
+
+---
+
+Next: [10.4 Express.js 與 REST API](3-use-middleware.md)

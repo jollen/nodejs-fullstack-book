@@ -1,4 +1,4 @@
-## 9.1 Express Middleware
+# 9.1 Express Middleware
 
 第 8 章提到 Express.js 的 Middlware 分為二個部份：所有 URL 與特定 URL。要了解 Middlware 的觀念，最快的方法就是實作「頁面保護」的功能。現在，讓我們為 '/hello' URL 加上密碼 '123456' 的保護。
 
@@ -140,7 +140,6 @@ app.get('/hello', hello.index);
 
 完整的 *hello.js* 如下：
 
-{title="hello.js"}
 ~~~~~~~~
 1 exports.index = function(req, res, next) {
 2   res.render('hello');
@@ -161,7 +160,6 @@ Express.js Middleware 很像是 URL 的 Plugin，例如上述的範例，可以�
 
 以下是截至目前為止，最新版本的 *app.js*。
 
-{title="app.js"}
 ~~~~~~~~
  1 var express = require('express');
  2 var routes = require('./routes');
@@ -202,3 +200,7 @@ Express.js Middleware 很像是 URL 的 Plugin，例如上述的範例，可以�
 ~~~~~~~~
 
 目前為止的範例，都是為特定的 URL 來撰寫 Middleware。
+
+---
+
+Next: [9.2 MVC 與 HTML Template Engine](2-use.md)

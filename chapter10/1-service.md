@@ -1,4 +1,4 @@
-## 10.1 服務導向架構
+# 10.1 服務導向架構
 
 REST API 架構（或稱為 RESTful 架構）是[實作 Web Service 的一個方法][1]。Web Service 採用 SOA 設計模式，它的精神在於「Server 要以提供服務的形式存在」，至於提供服務的方式，就是對外公開 API。
 
@@ -23,3 +23,7 @@ REST API 架構（或稱為 RESTful 架構）是[實作 Web Service 的一個方
 - 有關 REST 的基本概念，請參考 6.2 節的說明。
 
 另外，第 8.5 節提到 Express.js 框架，能幫助開發者解決 4 個基本問題，其中之一就是「REST API 定義與實作」。
+
+---
+
+Next: [10.2 關於 SOA 與 3-Tier 架構](2-use.md)

@@ -1,14 +1,14 @@
-## 10.4 Express.js 與 REST API
+# 10.4 Express.js 與 REST API
 
 Express.js 實作 REST API 的方式相當簡單，請參考下表。
 
-{title="表 10-1 REST API 定義"}
 |CRUD       |HTTP Method      |Express.js 實作函數    
 |-----------|----------|--------------
 |Create     |POST      |app.post()
 |Read       |GET 	   |app.get()
 |Update     |PUT       |app.put()
 |Delete     |DELETE    |app.delete()
+表 10-1 REST API 定義
 
 Express.js 能支援 CRUD 所需的所有 HTTP Methods。所以，我們只要知道，在實作 URL Routing 時，要如何指定特定的 HTTP Methods 即可。例如：
 
@@ -70,7 +70,7 @@ http://localhost:3000/user/jollen
 
 就能看到以下的執行結果。從這個結果得知：*:username* = *jollen*。
 
-![圖 10-2 範例的執行結果](images/figure-10_2.png)
+![圖 10-2 範例的執行結果](../images/figure-10_2.png)
 
 ## RESTful 架構實務 - 即時聊天室
 
@@ -91,3 +91,7 @@ Server 的部份，應實作以下功能：
 
 - 產生最新訊息的 JSON，並回應給 Client 端應用程式
 - 接收 Client 端傳送的訊息，並儲存最新的 *n* 筆訊息
+
+---
+
+Next: [10.5 Node.js Chat Client](3-use-middleware.md)

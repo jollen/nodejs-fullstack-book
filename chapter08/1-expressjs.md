@@ -1,4 +1,4 @@
-## 8.1 Express.js 初體驗
+# 8.1 Express.js 初體驗
 
 經過前幾章的基礎學習後，接下來開始進入 Node.js 的進階主題。首要課題就是導入一個 Web Application Framework，以協助開發者發展 Web Application。現在，我們需要一個 Web Application Framework，來簡化 URL Routing 的開發，一個很好的選擇是 Express.js。
 
@@ -16,74 +16,74 @@ http://github.com/jollen/nodejs-express
 
 接下來，透過一個連貫性的實例，學習 Express.js、HTML Template 與 Jade 程式語言。
 
-### Step 1：安裝 Express CLI
+### Step 1：安裝 Express application generator
 
 NoChat 是第 3 章與第 4 章的實例，包含 Server 端與 Client 端。Client 端是一份 HTML5 網頁，這份網頁應該要放到 Web Server 上存取。典型的 Web Server 是 Apache 軟體，所以可以使用 Apache 來架構自已的 Web Server，以便瀏覽 Client 端網頁。
 
 另外一個做法，是使用 Node.js 的 Web Server 功能，將網頁放到 Node.js 的 Web Server 裡。這個功能如果使用 Express.js 來做的話，只需要幾個步驟即可完成。
 
-利用 npm 安裝 Express 的 CLI（Command Line Interface）：
+利用 npm 安裝 Express 的 application generator：
 
 ~~~~~~~~
-$ sudo npm -g i express
+$ npm install express-generator -g
 ~~~~~~~~
 
-接著利用 express 命令來建立新的 Express.js 專案。
+你可以利用 ```express -h``` 命令來查詢更多 Express application generator 的用法。
 
 ### Step 2：建立 Express.js 專案
 
 先建立一個新的專案目錄，在這個目錄下，使用 npm 安裝 Express.js：
 
 ~~~~~~~~
-$ mkdir nodejs-express
-$ cd nodejs-express
-$ npm i express
+$ express myapp
 ~~~~~~~~
 
 安裝完成後，執行 Express.js 命令列工具：
 
 ~~~~~~~~
 $ express .
-destination is not empty, continue? y
 
-   create : .
-   create : ./package.json
-   create : ./app.js
-   create : ./public
-   create : ./public/javascripts
-   create : ./public/images
-   create : ./public/stylesheets
-   create : ./public/stylesheets/style.css
-   create : ./routes
-   create : ./routes/index.js
-   create : ./routes/user.js
-   create : ./views
-   create : ./views/layout.jade
-   create : ./views/index.jade
+   create : myapp
+   create : myapp/package.json
+   create : myapp/app.js
+   create : myapp/public
+   create : myapp/public/javascripts
+   create : myapp/public/stylesheets
+   create : myapp/public/stylesheets/style.css
+   create : myapp/public/images
+   create : myapp/routes
+   create : myapp/routes/index.js
+   create : myapp/routes/users.js
+   create : myapp/views
+   create : myapp/views/index.jade
+   create : myapp/views/layout.jade
+   create : myapp/views/error.jade
+   create : myapp/bin
+   create : myapp/bin/www
 
    install dependencies:
-     $ cd . && npm install
+     $ cd myapp && npm install
 
    run the app:
-     $ node app
+     $ DEBUG=myapp:* npm start
 ~~~~~~~~
 
-在執行 app.js 前，需要安裝 Express 所需的相依模組：
+在執行 ```app.js``` 主程式前，需要安裝 Express 所需的相依模組：
 
 ~~~~~~~~
-$ npm i
+$ cd myapp
+$ npm install
 ~~~~~~~~
 
-接著依照提示畫面的說明，執行 Express 的主程式：
+接著執行 Express 的主程式：
 
 ~~~~~~~~
-$ node app.js 
-Express server listening on port 3000
+$ npm start
 ~~~~~~~~
 
-Express.js 會自動生成 app.js 框架，這是 Web Application 的主程式，開發人員只要基於 app.js 來做擴充即可。利用瀏覽器開啟 *http://localhost:3000/* 網址，可以看到圖 8-1 的畫面，表示一個基本的 Web Appication Framework 已經順利啟動了。
+Express application generator 自動幫我們生成了 Node.js 的專案架構，```app.js``` 是主要的 Web Application 主程式，開發人員只要基於 app.js 來做擴充即可。利用瀏覽器開啟 *http://localhost:3000/* 網址，可以看到圖 8-1 的畫面，表示一個基本的 Web Appication Framework 已經順利啟動了。
 
-![圖 8-1 啟動第一個 Express App](images/figure-8_1.png)
+![圖 8-1 啟動第一個 Express App](../images/figure-8_1.png)
 
 Express.js 是一個 Web Application Framework，也可以很方便地協助我們發展 Web Service API。基本上，Express.js 並不是一個 Web Server 的模組，因此不要誤解 Express.js 只是一個輕量級的 Web Server；Express.js 的本質是一個 Web Application 開發框架。
 
@@ -119,7 +119,7 @@ Express 框架把基本的 MVC 模式都做好了。簡單來說，利用 Node.j
 Express 生成的專案結構，規劃了一個存放靜態文件的目錄，常見的靜態文件有 CSS、JavaScript 與圖片等等。要將 Express 當做典型的 Web Server 來使用時，只要將靜態文件放置於 *public/* 目錄下即可。例如，要佈署 Bootstrap 至目前的 Express.js 專案，做法如下：
 
 ~~~~~~~~
-$ cd nodejs-express       (切換到專案目錄)
+$ cd myapp                (切換到專案目錄)
 $ cd public               (進入 public/ 目錄)
 $ cd stylesheets          (Express.js 所規劃用來存放 CSS 的目錄)
 ~~~~~~~~
@@ -173,3 +173,7 @@ $ wget http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js
 - Stage 5：練習新增 URL Routing
 
 截至目前為止，我們已經學會了 Stage 1~3 的做法，接下來繼續說明 Stage 4 與 Stage 5 的做法與觀念。
+
+---
+
+Next: [8.2 MVC 與 HTML Template Engine](2-template.md)

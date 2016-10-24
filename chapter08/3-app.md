@@ -1,4 +1,4 @@
-## 8.3 解析 app.js
+# 8.3 解析 app.js
 
 要知道如何新增 URL Routing，就要對 *app.js* 有基本的了解。*app.js* 是 Express.js 建立專案時，自動建立的 Web Application 主程式，內容如下：
 
@@ -54,7 +54,6 @@
 
 讓我們來了解一下 *routes.index* 函數的實作：
 
-{title="routes/index.js"}
 ~~~~~~~~
 1 
 2 /*
@@ -72,3 +71,7 @@
 - *res* 是 Response 物件，用來回應該請求
 
 在程式碼第 7 行的地方，呼叫了 *res.render* 函數，這個函數透過 Jade Template Engine 將 *index.jade* 解析（Rendering）成 HTML5 後回應（Response）給用戶端。
+
+---
+
+Next: [8.4 Express URL Routing](4-url-routing.md)

@@ -1,4 +1,4 @@
-## 8.4 Express URL Routing
+# 8.4 Express URL Routing
 
 Express.js 框架基本上，幫助開發者解決了 4 個基本問題：
 
@@ -13,7 +13,6 @@ Express.js 框架基本上，幫助開發者解決了 4 個基本問題：
 
 根據前文介紹的觀念，可以很快知道，新增 URL Routing 的第一個步驟就是加入 Handler Function。在 *routes/* 下新增 *hello.js* 檔案：
 
-{title="routes/hello.js"}
 ~~~~~~~~
 1 
 2 /*
@@ -31,7 +30,6 @@ Express.js 框架基本上，幫助開發者解決了 4 個基本問題：
 
 以下是修改後的 app.js 完整內容：
 
-{title="app.js"}
 ~~~~~~~~
  1 
  2 /**
@@ -81,3 +79,7 @@ Express.js 框架基本上，幫助開發者解決了 4 個基本問題：
 當 Express.js 收到 '/hello' 的請求時，Express.js 就會 Callback *hello.index* 函數，接著 *hello.index* 函數會解析 *hello.jade* 文件，並 Response 給用戶端。
 
 只需要二個很簡單的步驟，就可以新增 URL Routing，這就是 Express.js 框架帶來的便利性之一。
+
+---
+
+Next: [8.5 Middleware 的觀念](5-middleware.md)

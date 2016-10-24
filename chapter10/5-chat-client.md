@@ -1,4 +1,4 @@
-## 10.5 Node.js Chat Client
+# 10.5 Node.js Chat Client
 
 Client Application 的部份，應實作以下功能：
 
@@ -13,13 +13,13 @@ Client Application 的部份，應實作以下功能：
 
 假設主機名稱為 chatservice.org，接著定義 nodejs-chat 專案的 CRUD 操作，如表 10-2。
 
-{title="表 10-2 REST API 定義"}
 |CRUD       |HTTP Method      |URI 格式      
 |-----------|----------|--------------
 |Create     |POST      |http://chatservice.org/discussion/{message}
 |Read       |GET 	   |http://chatservice.org/discussion/latest/{items}
 |Update     |PUT       |無
 |Delete     |DELETE    |無
+表 10-2 REST API 定義
 
 這是一份最低消費的定義：僅支援新增與讀取訊息的功能。例如，現在要傳送 "Hello" 訊息，Client 端應呼叫的 API 為：
 
@@ -79,7 +79,7 @@ $ echo "hello" > db.txt
 
 REST API 的根節點（root node），也就是 */discussion*，它 是一個資源名稱（Resource）；而這個資源在整個系統裡，應該只有一個（一份）。理論上，root node 要符合 Singleton 設計模式的要求。
 
-![圖 10-3 Root Node 是 Singleton](images/figure-10_3.png)
+![圖 10-3 Root Node 是 Singleton](../images/figure-10_3.png)
 
 ### Step 3：實作 URL Routing
 
@@ -142,7 +142,6 @@ POST /discussion/hello 200 120013ms
 
 程式碼框架完成後，就可以進行實作工作了。以下是 *discussion.js* 的完整程式碼。
 
-{title="routes/discussion.js"}
 ~~~~~~~~
  1 /*
  2  * URL Routing Handlers
@@ -265,7 +264,6 @@ $ cd tests
 
 在 *test/* 目錄下建立第一個測試程式，將檔案命名為 *01-test-discussion-create.js*；*requestify* 的使用方式非常簡單，完整程式碼如下。
 
-{title="tests/01-test-discussion-create.js"}
 ~~~~~~~~
 1 var requestify = require('requestify'); 
 2 
