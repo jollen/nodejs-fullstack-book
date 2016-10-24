@@ -1,4 +1,4 @@
-## 7.2 非同步式讀取多個檔案
+# 7.2 非同步式讀取多個檔案
 
 以上是讀取一個檔案的範例。現在，讓我們來改寫程式：
 
@@ -87,7 +87,6 @@ $ npm i buffered-reader
 
 這個迴圈並不會因為「讀取檔案」，而花費太多的執行時間，這就是 Node.js 能做到「efficient」與「real-time」的關鍵。完整的程式碼如下：
 
-{title="readfile.js"}
 ~~~~~~~~
  1 // public modules
  2 var util = require('util');
