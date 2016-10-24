@@ -51,7 +51,7 @@ console.log("Result: " + result);
 
 這個輸出的輸出結果為 11。這可不是在賣弄程式碼，而是實現出 (λx.x*x)(λx.x+2) 這個 Lambda 演算。以暱名函數來表示 Lambda 是很常見的做法，但其實反應出 JavaScript 語法上的不足。如果能有一個更簡易的語法，讓我們表示 Lambda，這段程式碼就會比較精簡。
 
-所以，這很可能要從修改 JavaScript 語法的角度，來做強化。未來，新的 ECMAScript（JavaScript 的語法標準）或許可以讓我們這樣寫程式：
+所以，這需要從修改 JavaScript 語法的角度著手。例如：
 
 ~~~~~~~~
 function(x) { return x + 2 }  // 複雜的寫法
@@ -78,4 +78,8 @@ var result = (x => x * x) 3;  // 左結合寫法，輸入值 3 放在最右邊�
 	.map(x => x * x);		   // 希望可以有這種精簡的語法
 ~~~~~~~~
 
-在 ECMAScript 還沒有正式加入相關語法前，我們目前還是只能使用暱名函數的寫法。
+在 ECMAScript 還沒有正式加入相關語法前，我們只能使用暱名函數的寫法。ECMAScript 6（JavaScript 的語法標準）則加入了 Arrow Function 的語法。
+
+---
+
+Next: [5.3 從 TypeScript 談起](3-typescript.md)
