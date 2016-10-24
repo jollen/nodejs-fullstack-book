@@ -49,14 +49,16 @@
 
 重點說明如下：
 
+* 第 9 行：在 jQuery 裡加入 ```createWebSocket``` 函數，這就是 jQuery plugin 的做法
+* 第 37 行：以 jQuery selector 找出 ```#message``` 後，再呼叫它的 ```createWebSocket``` 函數
 
 ### jQuery 模式的精神
 
 非常簡單，就可以將程式碼重構為 jQuery 插件模式（請參考第 1 章）。但是，一定要這麼做嗎？這要從 jQuery 的精神說起。
 
-一般來說，JavaScript 最害怕去操作物件（Object）。根據XXX在他的著作「JavaScript Design Pattern」中的說明，使用選擇器（Selector）模式可以提升 JavaScript 程式碼的效能。效能的提昇關鍵為：選擇器模式以很有效率的方式去使用 DOM。jQuery 就是選擇器模式，並且能以高品質的代碼，提昇 DOM 的操作效率。
+一般來說，JavaScript 最害怕去操作物件（Object）。根據 Addy Osmani 在他的著作「[JavaScript Design Pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/)」中的說明，使用選擇器（Selector）模式可以提升 JavaScript 程式碼的效能。效能的提昇關鍵為：選擇器模式以很有效率的方式去使用 DOM。jQuery 就是選擇器模式，並且能以高品質的代碼，提昇 DOM 的操作效率。
 
-筆者使用另外一種更簡單的方式來說明。在 02-ws-jquery-plugin-pattern.html 裡有一個 Div 區塊叫做 'message'，重構後的例子使用了 jQuery 選擇器，並且呼叫了 'message' 的 createWebSocket() 方法。從物件導向的角度來看，createWebSocket() 被封裝在 'message' 物件裡了。所以，createWebSocket() 是 'message' 物件的一個方法，這個觀念得到二個好處：
+筆者使用另外一種更簡單的方式來說明。在上述範例中，裡有一個 Div 區塊叫做 'message'，重構後的例子使用了 jQuery 選擇器，並且呼叫了 'message' 的 createWebSocket() 方法。從物件導向的角度來看，createWebSocket() 被封裝在 'message' 物件裡了。所以，createWebSocket() 是 'message' 物件的一個方法，這個觀念得到二個好處：
 
 - createWebSocket() 函數的操作範圍（Scope）是在 'message' 物件裡面；簡單來說
 - 在 createWebSocket() 裡可以使用 'this' 物件，這實際上是一個參考（Reference），指向「物件自已」
@@ -71,7 +73,7 @@
 
 ### 考慮 Closure
 
-重構後的 02-ws-jquery-plugin-pattern.html 還有一個需要考量的地方：Closure（封閉性）。
+重構後的範例，還有一個需要考量的地方：Closure（封閉性）。
 
 首先，利用第 1 章所介紹的 Module Pattern 觀念 將程式碼全都「封閉起來」。Closure 是為了避免變數的污染：全域變數很容易受到其它地方程式碼的改寫。這就像老師開始上課時，要把教室門關起來一樣的道理：為了避免外界的干擾。
 
