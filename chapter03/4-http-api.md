@@ -12,11 +12,11 @@ NoChat 提供二個API，現在將 API 詳細定義如下。
 
 '/send' API 的 Query String 參數定義如表 3-1。這部份在第 2 章已做過說明。
 
-表 3-1 API 的參數
 |參數    |值       |用途說明      
 |-------|---------|--------------
 |m      |'hello'  | 指定要傳送的訊息 (message)
 |u      |'jollen' | 指定 Username
+表 3-1 API 的參數
 
 ### 測試案例
 
