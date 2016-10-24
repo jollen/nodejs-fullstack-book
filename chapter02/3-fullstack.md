@@ -52,3 +52,7 @@ HTML5 希望未來網路世界，有更加豐富的 Web Applications，這個願
 還有一個很重要的應用，就是「JavaScript in Browser」，也就是利用 JavaScript 來增強瀏覽器的功能，最為大家所熟悉的例子，就是 Google Chrome。Google Chrome 為了增強對 JavaScript 的支援與效能，開發了新的 JavaScript 引擎；在日記「HTML5 在手持裝置將開始爆發式成長」就提到了，「JavaScript 引擎的成熟度是關鍵」。
 
 所以，測試 JavaScript 的使用案例（Use Cases）在各大瀏覽器的效能，更為一項重要的工程工作。更進一步地，由於 JavaScript 現在搭配 HTML5 來開發「軟體」，而不只是用來製作動態網頁，所以研究 JavaScript 的軟體設計模式，當然也就變成一門顯學；目前被廣為推薦的就是「Essential JavaScript Design Patterns」一書。
+
+---
+
+Next: [2.4 JavaScript 也能開發雲端服務](4-js.md)
