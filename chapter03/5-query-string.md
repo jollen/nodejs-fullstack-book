@@ -25,7 +25,6 @@ querystring.parse(str, [sep], [eq])
 
 了解如何解析 Query String 後，就可以開始進行後續的工程了。再次修改 requestHandlers.js，如下：
 
-{title="05-query-string/requestHandlers.js"}
 ~~~~~~~~
  1 var querystring = require('querystring'); 
  2 
