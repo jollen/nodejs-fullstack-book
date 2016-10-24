@@ -4,7 +4,7 @@
 
  * [5.1 Lambda](1-lambda.md)
  * [5.2 Callback Function](2-callback.md)
- * [5.3 製作 使用 TypeScript](3-typescript.md)
+ * [5.3 從 TypeScript 談起](3-typescript.md)
 
 ## 本章小結
 
