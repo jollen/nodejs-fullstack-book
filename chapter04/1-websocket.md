@@ -7,11 +7,15 @@ WebSocket 分為 Client 端與 Server 端二個部份，本章要介紹的是利
 
 本章所使用的 WebSocket 模組，要使用 npm 工具另外安裝。利用 npm 安裝 WebSocket-Node：
 
-  $ npm install websocket
+```
+$ npm install websocket
+```
 
 WebSocket-Node 原始碼可由 Github 上取得：
 
+```
 https://github.com/Worlize/WebSocket-Node
+```
 
 安裝，依據需要，可引入不同的模組。WebSocket-Node 提供 4 個模組如下：
 
@@ -26,7 +30,6 @@ NoChat 範例，將會使用 'server' 模組。
 
 基於第 3 章最新的範例，繼續修改 server.js 的程式碼如下：
 
-{title="06-websocket-with-protocol/server.js"}
 ~~~~~~~~
  1 var http = require("http");
  2 var url = require("url");
@@ -118,7 +121,6 @@ function onWsRequest(request) {
 
 以下目前為止的最新程式碼。
 
-{title="07-websocket-data-push/server.js"}
 ~~~~~~~~
  1 var http = require("http");
  2 var url = require("url");
@@ -179,3 +181,7 @@ function onWsRequest(request) {
 57 // Export functions
 58 exports.start = start;
 ~~~~~~~~
+
+---
+
+Next: [4.2 學習 JSON 格式](2-json.md)
