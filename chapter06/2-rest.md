@@ -52,13 +52,13 @@ HTTP 協定所提供的 4 個方法，可以完整地對應到 CRUD。
 
 哪一個 HTTP Method 對應到 Create？整理如表 6.1。
 
-{title="表 6-1 CRUD 的對應"}
 |CRUD       |HTTP Method      |用途說明      
 |-----------|----------|--------------
 |Create     |POST      |新增
 |Read       |GET 	   |讀取
 |Update     |PUT       |更新
 |Delete     |DELETE    |刪除
+表 6-1 CRUD 的對應
 
 RESTful Web API 的定義，只有風格，沒有很固定的標準。所以只要依照這個風格，來定義自已的 API 即可。
 
