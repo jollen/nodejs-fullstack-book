@@ -90,7 +90,7 @@ app.get('/hello', express.basicAuth('jollen', '12345678'), hello.index);
 
 *basicAuth()* 使用 HTTP 的方式做認證，並不是 Query String 的做法。只要再次瀏覽網頁，就可以看到一個非常熟悉的畫面，如下圖。
 
-![圖 9-1 使用 *basicAuth()* Middleware](images/figure-9_1.png)
+![圖 9-1 使用 *basicAuth()* Middleware](../images/figure-9_1.png)
 
 同時，在 Node.js 的 Console 也可以看到以下訊息：
 
