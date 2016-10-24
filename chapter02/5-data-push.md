@@ -6,7 +6,8 @@ Server 透過 WebSocket 找到裝置，並以 JSON 格式將資料推送給裝�
 
 Data Push 的設計模式如圖 2.3。
 
-![圖 2.3：Data Push 架構圖](images/figure-2_3.png)
+![圖 2.3：Data Push 架構圖](../images/figure-2_3.png)
+圖 2.3：Data Push 架構圖
 
 步驟如下：
 
@@ -35,3 +36,7 @@ AJAX 也不夠即時，當伺服器有新內容時，必須依賴用戶端來主
 差異是：使用 AJAX 的方式來呼叫 Open API，而不是不斷的 Refreshing 頁面。
 
 另一個重點是，使用 NodeJS 與 Data Push 方式，才能實作真正的 Real-time Web Application。AJAX 搭配 Refresh 方式，顯然已經不合適了。
+
+---
+
+Next: [2.6 Device API 的革命時代](6-device-api.md)
