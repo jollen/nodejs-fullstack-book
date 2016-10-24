@@ -113,11 +113,15 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
  * [6.1 再探 HTTP API](chapter06/1-http-api.md)
  * [6.2 REST](chapter06/2-rest.md)
+ * 6.3 認識 HTTP 協定
 
 ### 第 7 章：軟體思惟 - Non-blocking IO 篇
 
  * [7.1 認識 Non-blocking IO](chapter07/1-nonblocking-io.md)
  * [7.2 非同步式讀取多個檔案](chapter07/2-readfile-async.md)
+ * 7.3 深入淺出 Asynchronous 
+ * 7.4 淺談 Callback Hell 與 Promise
+ * 7.5 Promise 初體驗
 
 ## Part 2：Getting Started
 
