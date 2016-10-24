@@ -48,3 +48,7 @@ GET http://www.moko365.com/api/add_user.php?username=james&type=admin&email=who@
 後來出現一些更嚴謹的 Web Service 實作技術，例如：SOAP（Simple Object Access Protocol）。SOAP 的請求與回應，都採用 XML 的文件形式，這讓 API 形式較為精簡，而且 Web Service 軟體架構也更為嚴謹。
 
 SOAP 的另一個貢獻是：標準化了交換格式。Client 與 Server 之門的資料交換，都採用 SOAP 的標準。這不像典型的 CGI 開發，交換格式沒有一定的標準。資料交換格式標準化後，就易於系統間的整合。例如，每家公司的 Web Service 資料格式都是自訂的，這種百家爭鳴的情況，會造成彼此間互換資料的困擾，當然整合與維護就會是個大問題。
+
+---
+
+Next: [6.2 REST](2-rest.md)
