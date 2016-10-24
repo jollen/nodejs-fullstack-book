@@ -50,3 +50,7 @@ PhoneGap提供許多「API」給JavaScript開發者使用，透過這些API，Ja
 使用PhoneGap或追隨OWD計畫，從商業面來看，並不是一個好主意。不過是PhoneGap或OWD，多少都隱含了一些商業企圖，以及競爭策略。身為設備製造商，「Build My Own」也是我的聰明選擇。
 
 以Android作業系統為例，要做出PhoneGap技術，並不是很難，事實上，對熟悉Android技術的開發者來說，這是沒有技術難度的工作。現在，為大家解密PhoneGap的技術原理。
+
+---
+
+Next: [2.7 重要的資訊交換格式：JSON](7-json.md)
