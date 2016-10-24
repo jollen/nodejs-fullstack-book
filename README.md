@@ -1,4 +1,4 @@
-# Node.js Fullstack 軟體開發《從零到一》
+# Node.js Fullstack《從零到一的進撃》
 
 本書正在進行第 3 版的改版工程
 
@@ -12,7 +12,10 @@
 
 * 每個主題都從基本觀念（Zero）開始講述，並介紹到能撰寫簡單的程式為止（One）
 * 希望在學習的過程中，培養同學「寫程式的修煉」
-* **寫程式的修煉**：完成培訓後，能開始具備「Computational Thinking」的能力，能開始閱讀豐富的網路文件，還能在拜讀優質電子書的過程中，對大神分享的內容產生共鳴
+
+## Learn to Think
+
+**寫程式的修煉** 是本書的宗旨。這份教材使用在我的培訓課程，內容多以步驟化方式引導入門，但更重要的是希望在 zero-to-one 的過程，培養「[Thinking(http://www.ybrikman.com/writing/2014/05/19/dont-learn-to-code-learn-to-think/)」的能力，而不是學習如何照本宣科地寫程式。有了 Thinking 的能力後，還能有另一項重要的收獲：能開始閱讀豐富的網路文件，還能在拜讀優質電子書的過程中，對大神分享的內容產生共鳴。
 
 ## 關於作者
 
@@ -32,8 +35,8 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 ## 公開時桯
 
-* 預計在完成 Roadmap 後正式公開發佈本書
-* 預計 2017.1.1
+* 預計在完成 Roadmap 後正式公開發佈本書 (目前本書為試讀階段)
+* 預計 2017.1.1 發表
 
 ## 種子老師
 
@@ -44,13 +47,16 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 2016-10-04：開始進行第 3 版改版工程
 * 2015-12-23：開始進行第 2 版改版工程
 
+## 授權方式
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權
+
 ## 專題練習
 
 這是我在課堂中使用的練習題，可搭配本書使用。
 
 * [01-weather-app](https://github.com/jollen/nodejs-fullstack-samples/tree/master/01-weather-app)
 * [03-messenger](https://github.com/jollen/nodejs-fullstack-samples/tree/master/03-messenger)
-
 
 # 目錄
 
