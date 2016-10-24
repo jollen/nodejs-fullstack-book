@@ -2,7 +2,7 @@
 
 本書正在進行第 3 版的改版工程
 
-![](images/cover.jpg)
+![](images/cover.jpg?1024)
 
 ## 關於本書
 
