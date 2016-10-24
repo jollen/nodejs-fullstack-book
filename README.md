@@ -15,7 +15,7 @@
 
 ## Learn to Think
 
-**寫程式的修煉** 是本書的宗旨。這份教材使用在我的培訓課程，內容多以步驟化方式引導入門，但更重要的是希望在 zero-to-one 的過程，培養「[Thinking(http://www.ybrikman.com/writing/2014/05/19/dont-learn-to-code-learn-to-think/)」的能力，而不是學習如何照本宣科地寫程式。有了 Thinking 的能力後，還能有另一項重要的收獲：能開始閱讀豐富的網路文件，還能在拜讀優質電子書的過程中，對大神分享的內容產生共鳴。
+**寫程式的修煉** 是本書的宗旨，也是一直以來做培訓的理念。這份教材使用在我的培訓課程，內容多以步驟化方式引導入門，但更重要的是希望在 zero-to-one 的過程，培養「[Thinking](http://www.ybrikman.com/writing/2014/05/19/dont-learn-to-code-learn-to-think/)」的能力，而不是學習如何照本宣科地寫程式。有了 Thinking 的能力後，還能有另一項重要的收獲：能開始閱讀豐富的網路文件，還能在拜讀優質電子書的過程中，對大神分享的內容產生共鳴。
 
 ## 關於作者
 
