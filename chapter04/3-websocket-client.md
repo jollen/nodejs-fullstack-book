@@ -8,7 +8,6 @@
 
 完整程式碼如下：
 
-{title="client/01-ws-open.html"}
 ~~~~~~~~
  1 <!DOCTYPE html>
  2 <head>
@@ -51,4 +50,8 @@
 
 當 WebSocket 建立成功後，瀏覽器會回呼 onopen 函數，即程式碼第 15 行。當 WebSocket 連線關閉後，則回呼 onclose 函數。伺服器將訊息推送給瀏覽器時，瀏覽器會回呼 onmessage 函數。這個部份將在後續做說明。使用瀏覽器將 01-ws-open.html 文件打開後，可以看到一個按紐，如圖 4.1。按下按紐時，呼叫 WebSocketTest() 函數。
 
-![圖 4.1：範例 01-ws-open.html](images/figure-4_1.png)
+![圖 4.1：範例 01-ws-open.html](../images/figure-4_1.png)
+
+---
+
+Next: [4.4 使用 jQuery 模式](4-jquery-pattern.md)
