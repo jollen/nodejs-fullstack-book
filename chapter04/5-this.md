@@ -14,7 +14,6 @@
 
 修正後的正確版本如下：
 
-{title="client/03-ws-jquery-module-pattern.html"}
 ~~~~~~~~
  1 <!DOCTYPE html>
  2 <head>
@@ -87,7 +86,6 @@
 
 首先，將 JavaScript 的部份重構為獨立的檔案，命名為 jquery.websocket.js。修改後的 HTML5 頁面如下：
 
-{title="client/04-ws-jquery-module-closure.html"}
 ~~~~~~~~
  1 <!DOCTYPE html>
  2 <head>
@@ -117,7 +115,6 @@
 
 在這裡，還是要不煩其煩地強調 Closure 的觀念。要學好 JavaScript 程式開發，Closure 是重要的第一課。完成後的最新版本如下：
 
-{title="client/jquery.websocket-1.0.js"}
 ~~~~~~~~
  1 (function($) {
  2 
