@@ -33,7 +33,6 @@ https://github.com/jollen/html5-websocket-nodejs
 
 我們提過了， Node.js 就是 Web Server。所以，不免俗地先了解 "Hello, World" 的寫法：
 
-{title="01-create-server/hello.js"}
 ~~~~~~~~
  1 var http = require('http');
  2 
@@ -72,7 +71,8 @@ $ node hello.js
 
 我們利用瀏覽器連到 http://127.0.0.1:1234/，結果如圖 3.1。
 
-![圖 3.1：hello.js 執行結果](images/figure-3_1.png)
+![圖 3.1：hello.js 執行結果](../images/figure-3_1.png)
+圖 3.1：hello.js 執行結果
 
 ### V8 JavaScript引擎介紹
 
@@ -101,3 +101,7 @@ JavaScript 引擎將成為手持裝置的重要技術。早期的 Android 系統
 - 使用 Callback Object 做為函數的參數（Lambda），易於處理 Non-blocking Operation 與 Event Handling
 
 Node.js 本身的 I/O 操作，也大多是（幾乎）Non-blocking 的機制。這點與 PHP 有很大的不同。這樣的機制，對於消化巨量的連線請求，有非常大的幫助。
+
+---
+
+Next: [3.2 製作 Node.js 模組](2-module.md)
