@@ -73,3 +73,9 @@ function lambda(x) {
 ~~~~~~~~
 
 這個時候，*lambda* 就是一個函數。那一種寫法比較好呢？理論上，採用暱名函數宣告的方式較佳，因為 JavaScript 本身是一種 Lambda 的程式語言。
+
+這裡有一本關於 Lambda 觀念的好書 [The Happy Lambda](https://leanpub.com/happylambda)，雖然這本書還沒有完稿，而且還是以 Ruby 程式語言為主，但裡面的觀念很值得一讀。
+
+---
+
+Next: [5.2 Callback Function](2-callback.md)
