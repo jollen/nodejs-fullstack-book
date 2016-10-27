@@ -143,11 +143,11 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 ### 第 10 章：REST API 架構 - 使用 Express.js
 
- * [10.1 服務導向架構](chapter10/1-middleware.md)
+ * [10.1 服務導向架構](/chapter10/1-service.md)
  * [10.2 關於 SOA 與 3-Tier 架構](chapter10/2-use.md)
  * [10.3 Presenetation 在 Client 端](chapter10/3-use-middleware.md)
- * [10.4 Express.js 與 REST API](chapter10/3-use-middleware.md)
- * [10.5 Node.js Chat Client](chapter10/3-use-middleware.md) 
+ * [10.4 Express.js 與 REST API](chapter10/4-rest-api.md)
+ * [10.5 Node.js Chat Client](chapter10/5-chat-client.md) 
 
 ## Part 3：Fullstack Beginner
 
