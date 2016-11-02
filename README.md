@@ -201,7 +201,44 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 * [18.1 CoAP 觀念初體驗](chapter18/1-coap-client.md)
 
-## Part 5：物聯網入門
+### [第 19 章：物聯網架構規劃初體驗](chapter19/README.md)
 
-### [第 19 章：物聯網架構入門](chapter19/README.md)
+## Part 5：P2P and Blockchain Beginner
+
+### 第 20 章：P2P 與 Blockchain 概論
+
+* 20.1 Decentralized vs Distributed
+* 20.2 常見的 Peer-to-Peer 協定
+* 20.3 認識 Bitcoin Networks 與 P2P 交易
+* 20.4 認識 Distributed Ledgers
+* 20.5 深入淺出 Transaction 技術
+
+### 第 21 章：Node.js 與 P2P 入門 - 使用 WebTorrent
+
+* 21.1 安裝 WebTorrent
+* 21.2 實作 P2P 檔案傳輸
+* 22.3 使用 WebTorrent 模組
+
+### 第 22 章：Node.js 與 Blockchain 入門
+
+* 22.1 認識 Merkle Tree
+* 22.2 如何自造 Blockchain
+* 22.3 創世區塊
+
+### 第 23 章：Node.js 與 Blockchain 應用
+
+* 23.1 串接 Bitcoin Network
+* 23.2 Distributed Ledger 操作初體驗
+* 23.3 Transaction 實作初體驗
+* 23.4 認識 OP_RETURN
+
+### 第 24 章：Blockchain 與 Fullstack 整合初體驗
+
+* 24.1 實作 Node.js Live Web App (視訊直播前端)
+* 24.2 實作 Node.js Streamming Server (視訊直播後端)
+* 24.3 實作 Broker Server (雲端架構)
+* 24.4 實作 Bitcoin Transaction (身份認證)
+* 24.5 實作 Blockchain (交易認證)
+* 24.6 實作 Live Streaming (P2P 直播)
+
 
