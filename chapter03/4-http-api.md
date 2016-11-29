@@ -30,7 +30,7 @@ NoChat 提供二個API，現在將 API 詳細定義如下。
 
 4. client.html 與 Server 建立 WebSocket 連線
 
-5. clieht.html 開始接收 Node.js 推送（Data Push）的即時訊息
+5. client.html 開始接收 Node.js 推送（Data Push）的即時訊息
 
 傳送訊息給 Node.js 的測試步驟：
 

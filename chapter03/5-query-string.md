@@ -4,7 +4,7 @@ Client 端呼叫 Server 所提供的 Web Service API。所以，現在的關鍵�
 
 ~~~~~~~~
 var querystring = require('querystring'); 
-var parsedstring = querystring.parse(“m=helll&u=jollen”); 
+var parsedstring = querystring.parse(“m=hello&u=jollen”); 
 ~~~~~~~~
 
 解析後的結果存放於 parsedstring 物件，回傳結果：
