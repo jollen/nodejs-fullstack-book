@@ -8,7 +8,8 @@ jQuery pattern 就是開發 jQuery 插件（Plugin）的方式，所以技術上
 $(“div#news”).html(“<h2>News Today</h2>”);
 ~~~~~~~~
 
-從 jQuery 設計模式的角度思考，上述的寫法似乎不太好。從 jQuery 設計模式的角度思考，如果今天我們想要透過 WebSocket 與伺服器溝通，並且在一個 "div" 裡來顯示結果，應該怎麼設計呢？想法如下：
+從 jQuery 設計模式的角度思考，上述的寫法似乎不太好。
+如果今天我們想要透過 WebSocket 與伺服器溝通，並且在一個 "div" 裡來顯示結果，應該怎麼設計呢？想法如下：
 
 - 將 WebSocket 的功能寫成一個 function
 - 將 JavaScript function 封裝成 module
