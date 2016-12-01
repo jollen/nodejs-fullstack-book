@@ -18,11 +18,35 @@ $(“div#news”).html(“<h2>News Today</h2>”);
 以下是一段程式碼樣板：
 
 ~~~~~~~~
+(function($) {
+$.fn.createWebSocket = function () {
+  if ("WebSocket" in window)
+  {
+     alert("WebSocket is supported by your Browser!");
+     var ws = new WebSocket("ws://<you-ip-adderess>:8888/start");
+     ws.onopen = function()
+     {
+     };
+     ws.onmessage = function (evt) 
+     { 
+     };
+     ws.onclose = function()
+     { 
+     };
+     ws.onerror = function()
+     { 
+     };
+  }
+  else
+  {
+     alert("WebSocket NOT supported by your Browser!");
+  }
+};
 
-
+})($);
 ~~~~~~~~
 
-上述的寫法，採用暱名模組來實作。接者，再將程式碼儲存為 jquery.websocket.js。使用方法如下：
+上述的寫法，採用暱名模組來實作。接著，再將程式碼儲存為 jquery.websocket.js。使用方法如下：
 
 ~~~~~~~~
 <!DOCTYPE html>
