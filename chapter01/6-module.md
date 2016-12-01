@@ -47,7 +47,7 @@ var testModule = (function () {
 
 Closure 的目的，在避免全域變數的污染。變數污染，指的是自已的全域變數，被外部的程式碼做修改。以上述例子來看，如果 counter 沒有在 Closure 裡的話，其它地方的 JavaScript 就可以任意修改其值：因為 counter 是全域變數。為了避免這個問題，將程式碼 Closure 起來：只有 Closure 裡的程式碼，能修改 counter 變數。
 
-外部程式碼，無法修改「封閉」程式碼裡的變數。概念上，以 module 將 attribute 與 method 進行封裝，這個關念就是「closure」。簡單說，將封閉的程式碼，放進 testModule 變數：testModule 成為一個模組。模組可被使用。
+外部程式碼，無法修改「封閉」程式碼裡的變數。概念上，以 module 將 attribute 與 method 進行封裝，這個觀念就是「closure」。簡單說，將封閉的程式碼，放進 testModule 變數：testModule 成為一個模組。模組可被使用。
 
 JavaScript 沒有明顯的物件導向語法，所以上面的一切都是觀念問題，而不是語法問題。軟體工程領域，很多時候都是在處理這樣的哲學思想；技術面只是整個軟體工程的一小部份。
 
