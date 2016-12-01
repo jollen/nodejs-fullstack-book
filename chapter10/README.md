@@ -2,11 +2,11 @@
 
 ## 開始閱讀
 
- * [10.1 服務導向架構](1-middleware.md)
- * [10.2 關於 SOA 與 3-Tier 架構](2-use.md)
- * [10.3 Presenetation 在 Client 端](3-use-middleware.md)
- * [10.4 Express.js 與 REST API](3-use-middleware.md)
- * [10.5 Node.js Chat Client](3-use-middleware.md)
+ * [10.1 服務導向架構](1-service.md)
+ * [10.2 關於 SOA 與 3-Tier 架構](2-soa.md)
+ * [10.3 Presenetation 在 Client 端](3-presentation.md)
+ * [10.4 Express.js 與 REST API](4-rest-api.md)
+ * [10.5 Node.js Chat Client](5-chat-client.md)
 
 ## 本章小結
 
