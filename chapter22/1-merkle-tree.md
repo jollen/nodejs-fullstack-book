@@ -4,7 +4,7 @@ Merkle tree 是一種 hash tree，用來表示 hash 值的資料結構。Merkle 
 
 Merkle tree 的基本結構是 binary tree（二元樹），每一個 non-leaf 的節點（node），都被標示一個 hash 值。
 
-圖 22-1 就是一個 binary Merkle Tree 的結構。
+圖 22-1 就是一個 binary Merkle Tree 的結構。其中，*Top hash* 的部份，就是 *Merkle Root*。
 
 ![圖 22-1 Merkle Tree（圖片來源：https://commons.wikimedia.org/wiki/File%3AHash_tree.png，By Davidgothberg at English Wikipedia，遵循 Public Domain 授權）](https://upload.wikimedia.org/wikipedia/commons/6/6d/Hash_tree.png)
 
