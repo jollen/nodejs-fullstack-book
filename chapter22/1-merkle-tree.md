@@ -12,7 +12,7 @@ Merkle tree 的基本結構是 binary tree（二元樹），每一個 non-leaf �
 
 學習 Merkle tree 資料結構，可以說是「Blockchain 系統開發者」的第 1 堂課。為什麼這麼說呢？
 
-以圖 22-2 來看，所謂的 Block（區塊）是分散（Distributed）的世界各地，並且區塊間是以一個鏈（Chain）串連在一起，這就是 Blockchain（區塊鏈）的概念與名稱由來。
+以圖 22-2 來看，分散（Distributed）在世界各地的所有 Block 之間，以一個鏈（Chain）的關係串連在一起，這就是 Blockchain（區塊鏈）的概念與名稱由來。
 
 ![圖 22-2 Block 與 Chain](../images/figure-22_2.jpg)
 
