@@ -20,13 +20,15 @@ Merkle tree 的基本結構是 binary tree（二元樹），每一個 non-leaf �
 
 ## Block #0
 
-每一個區塊都會有一個編號，如圖 22-3。
+這些分散在世界各地的 Block，都會有一個編號，如圖 22-3。這個編號就是區塊產生的「順序」。
 
 ![圖 22-3 Block #0](../images/figure-22_3.jpg)
 
 圖 22-3 Block #0
 
-當然就一定會有編號為 0 的第一個區塊，這個區塊就稱之為 Genesis Block（創世區塊），學習如何建立 Genesis Block 就是 Blockchain 系統開發者的第 2 堂課。
+這其中，就一定會有編號為 0 的第一個區塊，這個區塊就稱之為 Genesis Block（創世區塊），學習如何建立 Genesis Block 就是 Blockchain 系統開發者的第 2 堂課。
+
+而區塊的產生「方式」，則可以由 Blockchain 的系統開發者來設計。以 Nakamoto Blockchain 來說（Bitcoin 的 Blockchain 系統），區塊的產生過程，就稱為「挖礦」。
 
 ## Blockchain 與 Merkle Tree
 
