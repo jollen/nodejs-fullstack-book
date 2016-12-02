@@ -40,17 +40,17 @@ Merkle tree 的基本結構是 binary tree（二元樹），每一個 non-leaf �
 
 如果我發展一個叫做 Jollen's Blockchain 系統時，一個粗略的起步應該就是：
 
-* 建立 Genesis block，genesis block 會有自已的一個編號，這個編號是透過 hash 演算法產生，因此也叫做 hash ID
+* 建立 Genesis block，genesis block 會有自已的一個 hash 值，這個值是經由 hash 演算法產生，因此也叫做 hash ID
 
-* 利用演算法，經過一段困難的演算法運算，產生 Block #1
+* 利用演算法，經過一陣艱困的運算後，產生 Block #1
 
-* Block #1 也會有自已的 hash ID，並且利用 Block 裡的 *PreviousHash* 欄位，串接到 Genesis block（Block #0）
+* Block #1 也會有自已的 hash ID，同時， Block #1 要使用 PreviousHash 欄位，串接到前一個 Block，它的前一個 Block 就是 Genesis block（Block #0）
 
 * 同理，產生 Block #2 與更多 Blocks，這些 block 之間都用 *PreviousHash* 欄位串接，這條鏈就是 Block *chain*
 
 到這邊，還是很好奇 Merkle tree 的用途啊？回顧圖 22-4 發現，每個 Block 裡面都會有 *Merkle Root* 欄位，這個欄位就是一顆 Merkle tree。
 
-區塊倒底能做什麼呢？每一個區塊，都能用來「記帳」，整個 Blockchain 串接來就是一本完整的帳冊，所以說，Blockchain 也叫做 distributed ledger（分散式帳冊）。
+區塊倒底能做什麼呢？每一個區塊，都能用來「記帳」，整個 Blockchain 串接起來就是一本完整的帳冊，所以說，Blockchain 也叫做 distributed ledger（分散式帳冊）。
 
 更深入技術來看，區塊裡的 Merkle tree 就是負責記帳的欄位。
 
