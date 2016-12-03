@@ -222,7 +222,7 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 ### 第 22 章：Node.js 與 Blockchain 入門
 
 * 22.1 [認識 Merkle Tree](chapter22/1-merkle-tree.md)
-# 22.2 [SHA256 與 Genesis Block](chapter22/2-genesis.md)
+* 22.2 [SHA256 與 Genesis Block](chapter22/2-genesis.md)
 * 22.3 創世區塊
 
 ### 第 23 章：Node.js 與 Blockchain 應用
