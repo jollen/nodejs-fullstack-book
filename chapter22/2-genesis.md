@@ -1,4 +1,4 @@
-# 22.2 創建 Genesis Block
+# 22.2 SHA256 與 Genesis Block 
 
 ## Step 1：定義區塊資料結構
 
