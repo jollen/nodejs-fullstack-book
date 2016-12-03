@@ -22,7 +22,11 @@ function Block(block) {
 
 ## Step 2：生成 Hash ID
 
-Genesis block 的 hash ID 要如何生成呢？根據 Merkle tree 的演算法，hash ID 的生成方式是使用 SHA256 演算法。標準的 merkle tree 是使用二次的 SHA256 來計算出 hash ID，這樣的做法也稱為 double SHA256。
+每個 Block 都有一個獨一無二（uniquely）的編號，這個編號是使用 SHA256 演算法產生，稱之為 Block Hash（即 Block Hash ID）。
+
+Genesis block 的 hash ID 要如何生成呢？原則上是使用 SHA256 演算法來產生，當然開發者也能自行定義 Block Hash 的生成方式。在這篇教學裡，筆者打算根據 Merkle tree 的演算法來生成 Hash ID。
+
+Merkle tree 同樣是使用 SHA256 演算法來產生 Hash ID，標準的 Merkle tree 會使用二次的 SHA256 來計算出 hash ID，這樣的做法也稱為 double SHA256。本文的 Block Hash 就以 double SHA256 來產生。
 
 Node.js 內建的 ```crypto``` 模組，就提供了 SHA256 演算法函數。先引入 ```crypto``` 模組：
 
