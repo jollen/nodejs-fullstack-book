@@ -84,6 +84,23 @@ exports.genesis = {
 };
 ```
 
+## Step 4：建立 Genesis Block
+
+終於來到歷史性的一刻了。先引入事先準備好的 genesis block 定義：
+
+```
+var config = require('../config.js');
+```
+
+接著，再實例化 ```Block```，得到的物件，就是 Genesis Block 了。
+
+```
+// Filename: index.js
+var genesis = new Block(config.genesis);
+```
+
+後續可以將 ```genesis``` 物件，儲存在 NoSQL 資料庫裡。
+
 ## 小結
 
-定義好 genesis block 後，下一個步驟就是為它產生新的 merkle tree。
+創建出 Genesis Block 後，下一個步驟就是幫它加入一個空的 merkle tree。
