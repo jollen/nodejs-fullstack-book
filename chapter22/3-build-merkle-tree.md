@@ -24,14 +24,14 @@ HB = SAH256( SHA256(Tx1) )
 
 SHA-256 的運算結果，是一個 64 bytes 的 HEX（十六進位）字串。在得到 ```HA``` 與 ```HB``` 後，就將這二個字串連接（concat）在一起，成為一個 64*2=128 bytes 的字串，這裡以 ```HA + HB``` 來表示。
 
-再將 ```HA + HB``` 進行 double SHA-256 運算，結果儲存於 ```HAB``：
+再將 ```HA + HB``` 進行 double SHA-256 運算，結果儲存於 ```HAB```：
 
 
 ```
 HAB = SAH256( SHA256( HA + HB ) )
 ```
 
-```HAB``` 就是 ```HA``` 與 ```HB``` 的父節點，這就是一個 3 個節點的 binary Merkle tree。
+得到的結果 ```HAB``` 就是 ```HA``` 與 ```HB``` 的父節點。這就是一個 3 個節點的 binary Merkle tree。
 
 ## 更多交易
 
