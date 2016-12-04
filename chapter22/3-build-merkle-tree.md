@@ -102,7 +102,7 @@ merkleRoot.async(tx, function(err, tree){
 });
 ```
 
-透過 Callback 函數來取得 Merkle tree。根據 Merkle 官方文件的說明，可以呼叫 ```tree`` 物件的 ```root``` 函數，來取得 Merkle root 的 Hash 值。以下是完整的範例列表：
+透過 Callback 函數來取得 Merkle tree。根據 Merkle 官方文件的說明，可以呼叫 ```tree``` 物件的 ```root``` 函數，來取得 Merkle root 的 Hash 值。以下是完整的範例列表：
 
 ```
 var merkle = require('merkle');
