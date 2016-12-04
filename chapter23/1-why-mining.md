@@ -8,7 +8,7 @@
 
 ## Difficulty
 
-眾所皆知，Bitcoin 的控礦難度相當高，意思是：產生新的 Block 是一件非常困難的事情。Bitcoin 將挖礦設計的非常困難，其實是有一個很重要的原因：避免有人任意產生區塊。
+眾所皆知，Bitcoin 的挖礦難度是非常高的。這個意思是：產生新的 Block 是一件非常困難的事情。Bitcoin 將挖礦設計的非常困難，其實是有一個很重要的原因：避免有人任意產生區塊。
 
 要產生新的區塊，就會有所謂的 difficulty（難度），這個 difficulty 的作用是什麼呢？主要目的是：決定新的 hash 值產生條件。
 
@@ -43,18 +43,20 @@ function Block(block) {
 以 JavaScript 來實作時，只要以字串比對方式，就可以知道 hash 值是否為 success 了。例如：
 
 ```
-if ('CD18AC3E7343F016890C510E93F935261169D9E3F565436429830FAF0934F4' <'003FFFFF00000000000000000000000000000000000000000000000000000000') {
+if ('CD18AC3E7343F016890C510E93F935261169D9E3F565436429830FAF0934F4' <'00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF') {
 	// success
 }
 ```
 
+## 越來越難
+
 新的區塊產生後，會「重新調整」這個 difficulty。例如，將 difficulty 調整為「前面至少有 3 個零」，這時，可以將新區塊的 difficulty 欄位設定為：
 
 ```
-0003FFFFF0000000000000000000000000000000000000000000000000000000
+000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 ```
 
-Difficulty 的條件設定，由每一個區塊鏈系統的設計者所制定。
+Difficulty 的條件設定，由每一個區塊鏈系統的設計者所制定。但是有一個基本原則就是：難度必須越來越高，以上述例子來說，要產生「前面 3 個零」的 hash 值，其難度大於「前面 2 個零」的 hash 值。
 
 ## 小結
 
