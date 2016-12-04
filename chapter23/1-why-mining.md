@@ -36,7 +36,7 @@ function Block(block) {
 	this.previousHash = block.previousHash || '';
 	this.timestamp = block.timestamp || new Date();
 	this.merkleRoot = block.merkleRoot || {};
-	this.difficulty = block.difficulty || '003FFFFF00000000000000000000000000000000000000000000000000000000';
+	this.difficulty = block.difficulty || '00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF';
 }
 ```
 
@@ -45,6 +45,8 @@ function Block(block) {
 ```
 if ('CD18AC3E7343F016890C510E93F935261169D9E3F565436429830FAF0934F4' <'00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF') {
 	// success
+} else {
+	// failed
 }
 ```
 
