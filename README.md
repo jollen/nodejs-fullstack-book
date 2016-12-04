@@ -227,8 +227,8 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 ### 第 23 章：Node.js 與 Blockchain 應用
 
-* 23.1 串接 Bitcoin Network
-* 23.2 Distributed Ledger 操作初體驗
+* 23.1 [為什麼要 Mining？](chapter23/1-why-mining.md)
+* 23.1 簡單易懂的 Mining 演算法設計
 * 23.3 Transaction 實作初體驗
 * 23.4 認識 OP_RETURN
 
