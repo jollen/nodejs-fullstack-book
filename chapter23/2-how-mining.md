@@ -67,7 +67,7 @@ var header = {
 
 ### Step 3：Double SHA-256 運算
 
-使用這個「文件」做為本文：將物件 stringify（轉換為文件）後，進行 SHA-256 雜湊運算。方便起見，直接將這個文件做為 secret 使用：
+將 ```header``` 物件 stringify（轉換為文件）後，使用這個「文件」做為本文，來進行 SHA-256 雜湊運算。方便起見，直接將這個文件做為 secret 使用：
 
 ```
 var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header))
