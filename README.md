@@ -52,6 +52,11 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權
 
+## Contributors
+
+感謝 [@Hierom](https://github.com/Hierom)、[@benshiue](https://github.com/benshiue) 提交的貢獻與協助錯誤修正。
+
+
 ## 專題練習
 
 這是我在課堂中使用的練習題，可搭配本書使用。
