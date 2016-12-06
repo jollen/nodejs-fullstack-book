@@ -95,9 +95,9 @@ var hash2 = crypto.createHmac(‘sha256’, hash1)
 延續 23.1 節的介紹，假設困難度是「有足夠的零」時，就要進行困難度的確認：
 
 ```
-		if (hash2 < ‘00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
-			console.log(‘success: ‘ + id);
-		}
+if (hash2 < ‘00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
+	console.log(‘success: ‘ + id);
+}
 ```
 
 當 ```hash2``` 不滿足目前的 difficulty 條件時，就要重新計算，直到成功為止。
