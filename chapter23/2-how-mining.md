@@ -2,7 +2,7 @@
 
 ## Mining 演算法初體驗
 
-表 23-1 是截至目前為止，範例所設計的 Block 資料結構。假設這是「最新的 Block」內容，根據 23.1 節的介紹，要如何計算出 Hash 值呢？如果這個 Hash 值是「success」的話，表示「挖礦成功」了：一個新的區塊被計算出來了。
+表 23-1 是截至目前為止，範例所設計的 Block 資料結構。假設表 23-1 是「最後一個 Block」內容，根據 23.1 節的介紹，要如何挖出新區塊呢？
 
 |欄位       |範例      |用途說明 
 |--------|--------|--------
@@ -12,7 +12,9 @@
 |merkleRoot     |851AE7D7390A76384ACA2D7CC29BE820918CA900071FC22F41F5C399BE065558    |區塊的 Merkle Root
 |Difficulty     |00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF    |挖礦的困難度
 
-表 23-1 Block 資料結構
+表 23-1 最後一個 Block 內容
+
+表 23-1 的內容，將做為「挖礦」的依據：透過最後一個 Block 的資訊，計算出新區塊的 Hash 值。
 
 一個簡單的挖礦演算法實作步驟如下。
 
@@ -79,7 +81,7 @@ var hash2 = crypto.createHmac(‘sha256’, hash1)
 		                   .digest(‘hex’);
 ```
 
-現在，```hash2``` 存放的就是 Block Hash 的「候選人」。
+現在，```hash2``` 存放的就是 Block Hash 的「候選人」。如果 ```hash2``` 的值，確認為「success」的話，表示「挖礦成功」了：一個新的區塊被計算出來了。
 
 ### Step 4：Difficulty 運算
 
@@ -158,6 +160,8 @@ success: 005ded265d90ac28e9c6a98cd97c3ef97ff2562700cf326cedada10fbf1db111
 ### Step 6：難度調整
 
 難度調整是 mining 的重要技術。本節暫不涉及這個部份，現階段，可以採用「前面有足夠的零」做為難度設定條件，並使用上述的範例進行練習。
+
+調整後的 difficulty，以及 *nonce* 值，都必須儲存在新產生的區塊裡，以做為後續「挖礦」的依據。
 
 ## 更多 Mining 觀念
 
