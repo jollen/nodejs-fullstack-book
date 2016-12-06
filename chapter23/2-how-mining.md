@@ -10,7 +10,7 @@
 |previousHash       |0000000000000000000000000000000000000000000000000000000000000000 	   |前一個 Block 的 Hash 值
 |timestamp     |Tue Dec 06 2016 15:14:58 GMT+0800 (CST)       |區塊建立的時間
 |merkleRoot     |851AE7D7390A76384ACA2D7CC29BE820918CA900071FC22F41F5C399BE065558    |區塊的 Merkle Root
-|Difficulty     |00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF    |挖礦的困難度
+|difficulty     |00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF    |挖礦的困難度
 
 表 23-1 最後一個 Block 內容
 
@@ -51,7 +51,7 @@ merkleRoot.async(tx, function(err, tree){
 
 為簡化演算法的設計，可以將 *nonce* 定義為一個「流水號」。因為 *nonce* 只能使用一次，所以流水號只能「持續遞增」，不能歸零重算。
 
-以 JavaScript 的物件語法，來定義本文如下：
+本文所需的資訊都收集齊全了，接著以 JavaScript 的物件語法，來定義本文如下：
 
 ```
 var nonce = 0;
