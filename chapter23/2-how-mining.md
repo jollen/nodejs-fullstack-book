@@ -121,10 +121,9 @@ merkleRoot.async(tx, function(err, tree){
 			merkleRoot: hashMerkleRoot
 	    };
 
-		var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header))
-		                   .digest(‘hex’);
+		var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header)).digest(‘hex’);
 
-		var hash2 = crypto.createHmac(‘sha256’, hash1)		                   .digest(‘hex’);
+		var hash2 = crypto.createHmac(‘sha256’, hash1)	.digest(‘hex’);
 
 		return hash2;
     };
