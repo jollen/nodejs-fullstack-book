@@ -74,7 +74,7 @@ var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header))
 
 再將得到的 hash 值，做為新的 secret，進行第 2 次運算：
 
-
+```
 var hash2 = crypto.createHmac(‘sha256’, hash1)
 		                   .digest(‘hex’);
 ```
