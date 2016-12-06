@@ -67,18 +67,23 @@ var header = {
 
 ### Step 3：Double SHA-256 運算
 
-將 ```header``` 物件 stringify（轉換為文件）後，使用這個「文件」做為本文，來進行 SHA-256 雜湊運算。方便起見，直接將這個文件做為 secret 使用：
+將 ```header``` 物件 stringify（轉換為文件）後，使用這個「文件」做為本文，來進行 SHA-256 雜湊運算：
 
 ```
-var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header))
-		                   .digest(‘hex’);
+// Secret
+var secret = ‘Dummy Blockchain’;
+
+var hash1 = crypto.createHmac(‘sha256’, secret)
+					.update( JSON.stringify(header) )
+					.digest(‘hex’);
 ```
 
 再將得到的 hash 值，做為新的 secret，進行第 2 次運算：
 
 ```
 var hash2 = crypto.createHmac(‘sha256’, hash1)
-		                   .digest(‘hex’);
+					.update(‘powered by flowchain’)
+					.digest(‘hex’);
 ```
 
 現在，```hash2``` 存放的就是 Block Hash 的「候選人」。如果 ```hash2``` 的值，確認為「success」的話，表示「挖礦成功」了：一個新的區塊被計算出來了。
@@ -108,6 +113,9 @@ var crypto = require(‘crypto’);
 var merkle = require(‘merkle’);
 var merkleRoot = merkle(‘sha256’);
 
+// Secret
+var secret = ‘Dummy Blockchain’;
+
 // Unverified pool
 var tx = [‘Created by Jollen’];
 
@@ -123,9 +131,13 @@ merkleRoot.async(tx, function(err, tree){
 			merkleRoot: hashMerkleRoot
 	    };
 
-		var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header)).digest(‘hex’);
+		var hash1 = crypto.createHmac(‘sha256’, secret)
+							.update( JSON.stringify(header) )
+							.digest(‘hex’);
 
-		var hash2 = crypto.createHmac(‘sha256’, hash1)	.digest(‘hex’);
+		var hash2 = crypto.createHmac(‘sha256’, hash1)
+                   			.update(‘powered by flowchain’)
+							.digest(‘hex’);
 
 		return hash2;
     };
@@ -133,7 +145,7 @@ merkleRoot.async(tx, function(err, tree){
     while (1) {
     	var id = hash(nonce++);
     	console.log(nonce + ‘: ‘ + id);
-		if (id < ‘000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
+		if (id < ‘0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
 			console.log(‘success: ‘ + id);
 			break;
 		}
@@ -145,17 +157,17 @@ merkleRoot.async(tx, function(err, tree){
 
 ```
 …
-1336: f5ef49fc0fc191b58be51b02226a97e7f00d7214ad797e40c32753616d54e6bf
-1337: 71dead3fe3af4d871c7e167cf11ba30276ecb390dfae21ed6c40b05d821036b8
-1338: 14ba54dbfdb27cb16e0a05d9b57985ff148afb4571c8261fc6335ff623b91c0c
-1339: c4937104b85868f2573f185adddbd7f7e4d4ad4df39c3614918a3d2edbd95c5b
-1340: 005ded265d90ac28e9c6a98cd97c3ef97ff2562700cf326cedada10fbf1db111
-success: 005ded265d90ac28e9c6a98cd97c3ef97ff2562700cf326cedada10fbf1db111
+7590: 9208c185a5d218dcd1a9ce63b4609a21c9ac90e0cad65d3355ce436522ded234
+7591: 766ccefa06fd97cf8b1472809e03499321fde6ba1e7341e74bd7bbcdc0a7ce01
+7592: f3cb6f4f6ae187556a3ec8218453d3073958eed430155cd73d9a8d2976d30e1f
+7593: 74ff8bf0695100c6cce400fde5fcbfbb0574efb79664c229a8044df0525c39ca
+7594: 0002db2b239b29f52711a2629e98face0151c2020f48c94a12459a43b24a3f85
+success: 0002db2b239b29f52711a2629e98face0151c2020f48c94a12459a43b24a3f85
 ```
 
-由這個結果發現，總計 mining 了 1340 次才得到成功的 hash 值。當 difficulty 提升時，mining 所花的時間也會更多。
+由這個結果發現，總計 mining 了 7594 次才得到成功的 hash 值。當 difficulty 提升時，mining 所花的時間也會更多。
 
-例如，當困難度為「前面至少 3 個零」時，mining 的次數就增加到 3093 次。挖礦的困難度在於，產生的 hash 值有一定程度的「隨機」性，通常是不太可預期的。
+例如，當困難度為「前面至少 4 個零」時，mining 的次數就增加到 118432  次。挖礦的困難度在於，產生的 hash 值有一定程度的「隨機」性，通常是不太可預期的。
 
 ### Step 6：難度調整
 
