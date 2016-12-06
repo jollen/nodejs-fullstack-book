@@ -61,6 +61,7 @@ var header = {
 };
 ```
 
+本文的定義由區塊鏈開發者自行決定，例如：把 timestamp 也加入到本文裡。
 
 ### Step 3：Double SHA-256 運算
 
@@ -94,6 +95,8 @@ var hash2 = crypto.createHmac(‘sha256’, hash1)
 
 當 ```hash2``` 不滿足目前的 difficulty 條件時，就要重新計算，直到成功為止。
 
+以上述的範例來說，當 hash 值不滿足 difficulty 條件時，就變更 nonce 值後，再重新運算。本文範例，使用流水號的方式來產生 nonce 值。
+
 ### Step 5：完整範例
 
 根據前個的步驟，實作一段簡單的 mining 演算法如下：
@@ -103,7 +106,7 @@ var crypto = require(‘crypto’);
 var merkle = require(‘merkle’);
 var merkleRoot = merkle(‘sha256’);
 
-// 建立一筆新的交易紀錄
+// Unverified pool
 var tx = [‘Created by Jollen’];
 
 merkleRoot.async(tx, function(err, tree){
@@ -119,12 +122,9 @@ merkleRoot.async(tx, function(err, tree){
 	    };
 
 		var hash1 = crypto.createHmac(‘sha256’, JSON.stringify(header))
-		                   //.update(JSON.stringify(header))
 		                   .digest(‘hex’);
 
-		var hash2 = crypto.createHmac(‘sha256’, hash1)
-		                   //.update(hash1)
-		                   .digest(‘hex’);
+		var hash2 = crypto.createHmac(‘sha256’, hash1)		                   .digest(‘hex’);
 
 		return hash2;
     };
@@ -132,7 +132,7 @@ merkleRoot.async(tx, function(err, tree){
     while (1) {
     	var id = hash(nonce++);
     	console.log(nonce + ‘: ‘ + id);
-		if (id < ‘00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
+		if (id < ‘000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
 			console.log(‘success: ‘ + id);
 			break;
 		}
@@ -154,7 +154,11 @@ success: 005ded265d90ac28e9c6a98cd97c3ef97ff2562700cf326cedada10fbf1db111
 
 由這個結果發現，總計 mining 了 1340 次才得到成功的 hash 值。當 difficulty 提升時，mining 所花的時間也會更多。
 
-例如，當困難度為「前面至少 3 個零」時，mining 的次數就增加到 3093 次。
+例如，當困難度為「前面至少 3 個零」時，mining 的次數就增加到 3093 次。挖礦的困難度在於，產生的 hash 值有一定程度的「隨機」性，通常是不太可預期的。
+
+### Step 6：難度調整
+
+難度調整是 mining 的重要技術。本節暫不涉及這個部份，現階段，可以採用「前面有足夠的零」做為難度設定條件，並使用上述的範例進行練習。
 
 ## 更多 Mining 觀念
 
