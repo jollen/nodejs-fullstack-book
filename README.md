@@ -39,10 +39,6 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 預計在完成 Roadmap 後正式公開發佈本書 (目前本書為試讀階段)
 * 預計 2017.1.1 發表
 
-## 種子老師
-
-* 你可以在 [Mokoversity Fullstack IoT 2017](https://www.mokoversity.com/iotschool) 申請成為 Fullstack IoT 2017 的種子講師，並使用本教材於演講、教學與其它非商業性質活動
-
 ## 發行紀錄
 
 * 2016-10-04：開始進行第 3 版改版工程
@@ -233,6 +229,10 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 ### 附錄
 
 * A [練習用專案](projects)
+
+## 培訓課程
+
+* [Mokoversity Fullstack IoT 2017](https://www.mokoversity.com/iotschool)
 
 ## Contributors
 
