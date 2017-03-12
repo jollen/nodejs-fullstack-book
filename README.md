@@ -48,23 +48,6 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 2016-10-04：開始進行第 3 版改版工程
 * 2015-12-23：開始進行第 2 版改版工程
 
-## 授權方式
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權
-
-## Contributors
-
-感謝 [@Hierom](https://github.com/Hierom)、[@benshiue](https://github.com/benshiue) 提交的貢獻與協助錯誤修正。
-
-
-## 專題練習
-
-這是我在課堂中使用的練習題，可搭配本書使用。
-
-* [01-weather-app](https://github.com/jollen/nodejs-fullstack-samples/tree/master/01-weather-app)
-* [03-messenger](https://github.com/jollen/nodejs-fullstack-samples/tree/master/03-messenger)
-* [block0.org](https://block0.org)
-
 # 目錄
 
 ## Part 0：Fundamentals
@@ -247,4 +230,14 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 24.5 實作 Blockchain (交易認證)
 * 24.6 實作 Live Streaming (P2P 直播)
 
+### 附錄
 
+* A [練習用專案](projects)
+
+## Contributors
+
+感謝 [@Hierom](https://github.com/Hierom)、[@benshiue](https://github.com/benshiue) 提交的貢獻與協助錯誤修正。
+
+## 授權方式
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">創用 CC 姓名標示-非商業性 4.0 國際 授權條款</a>授權
