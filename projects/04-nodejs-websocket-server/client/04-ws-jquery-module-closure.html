@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+<script type='text/javascript' src="./jquery.min.js"></script>
+<script type='text/javascript' src="./jquery.websocket.js?v=0.1"></script>
+</head>
+<body>
+<div id="message"></div>
+
+<div id="admin">
+<input id="msg" type="text" value="Input message"></input>
+<button id="send">Send</button>
+</div>
+
+<script type="text/javascript">  
+$("#message").createWebSocket();
+$("#send").sendMessage();
+</script>
+</body>
+</html>

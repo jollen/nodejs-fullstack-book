@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript' src="./json2.js"></script>
+<script type='text/javascript' src="./jquery.min.js"></script>
+<script type='text/javascript' src="./jquery.websocket.js?v=0.2.1"></script>
+</head>
+
+<body>
+
+<form id="submit_form" method="GET" action="http://svn.moko365.com:8080/">
+<input type="hidden" name="u" id="username" value="jollen" />
+<input id="text" type="text" name="m" value="Input message" />
+<button type="submit" id="submit">Send</button>
+</form>
+
+<div id="message"></div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#message").createWebSocket();
+	initSubmitForm();
+});
+
+var initSubmitForm = function () {
+        $("#submit_form").submit(function () {
+            var $form = $("#submit_form");
+            var $submit = $("#submit");
+            $.ajax({
+                url: $form.attr("action") + "send",
+                type: "GET",
+                dataType: "json",
+                data: {
+				    m: $("#text").val(),
+				    u: $("#username").val(),
+                },
+            });
+            
+            return false;
+        });
+    };
+</script>
+</body>
+
+</html>

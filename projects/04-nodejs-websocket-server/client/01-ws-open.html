@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+<div id="header"></div>
+<button onClick="WebSocketTest();">Get News</button>
+
+<script type="text/javascript">  
+function WebSocketTest()
+{
+  if ("WebSocket" in window)
+  {
+     // Let us open a web socket
+     var ws = new WebSocket("ws://svn.moko365.com:8888/", "echo-protocol");
+     ws.onopen = function(evt)
+     {
+        alert("open");
+     };
+     ws.onclose = function(evt)
+     {
+        alert("close");
+     };
+  }
+  else
+  {
+     // The browser doesn't support WebSocket
+     alert("WebSocket NOT supported by your Browser!");
+  }
+}
+</script>
+</body>
+</html>

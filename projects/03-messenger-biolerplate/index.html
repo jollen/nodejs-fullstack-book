@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="stylesheets/timeline.css" />
+<link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css" />
+
+<script type='text/javascript' src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type='text/javascript' src='bower_components/underscore/underscore.js'></script>
+<script type='text/javascript' src='bower_components/backbone/backbone.js'></script>
+    
+<script type='text/javascript' src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type='text/javascript' src="bower_components/moment/moment.js"></script>
+<script type='text/javascript' src="app/app.backbone.js"></script>
+
+</head>
+
+<body>
+  
+<script type='text/template' id='tmpl-message'>
+<div class="container">
+    <ul class="timeline">
+        <% _.each(message, function(msg) { %>
+        <li>
+          <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">Jollen</h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i></small></p>
+            </div>
+            <div class="timeline-body">
+              <p><%= msg.message %></p>
+            </div>
+          </div>
+        </li>
+        <% }); %>
+    </ul>
+</div>
+</script>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-10 column" id="chat">
+            <div id="message"></div>
+            <div id="live-message"></div>
+        </div>
+        <div class="col-md-2" id="action">
+            <input type="text" class="form-control" id="text">
+            <button class="btn btn-primary" id='btn-message-save'>Send</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

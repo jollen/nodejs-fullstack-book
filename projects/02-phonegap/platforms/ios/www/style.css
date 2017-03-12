@@ -1,0 +1,26 @@
+body {
+	background-color: #662e91;
+}
+
+.wi {
+	color: #fff;
+	font-size: 10em;
+}
+
+
+.wi-temp {
+	color: #feffff;
+	font-size: 4em;
+}
+
+.wi-humidity {
+	color: #feffff;
+	font-size: 4em;
+}
+
+.wi-date {
+	display: block;
+	color: #fff;
+	font-size: 3.5em;
+	line-height: 2.3em;;
+}

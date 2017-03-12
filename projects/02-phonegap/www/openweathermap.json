@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": 120.62,
+        "lat": 31.31
+    },
+    "weather": [
+        {
+            "id": 803,
+            "main": "Clouds",
+            "description": "broken clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 305.98,
+        "pressure": 1006,
+        "humidity": 74,
+        "temp_min": 302.15,
+        "temp_max": 313.15
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 2,
+        "deg": 70
+    },
+    "clouds": {
+        "all": 75
+    },
+    "dt": 1437354401,
+    "sys": {
+        "type": 1,
+        "id": 7452,
+        "message": 0.0123,
+        "country": "CN",
+        "sunrise": 1437339972,
+        "sunset": 1437390072
+    },
+    "id": 1886760,
+    "name": "Suzhou",
+    "cod": 200
+}

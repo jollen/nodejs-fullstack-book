@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+<script type='text/javascript' src="./json2.js"></script>
+<script type='text/javascript' src="./jquery.min.js"></script>
+<script type='text/javascript' src="./jquery.websocket.js?v=0.2.1"></script>
+</head>
+<body>
+<div id="message"></div>
+
+<div id="admin">
+<form method="GET" action="http://svn.moko365.com:8080/send">
+<input type="hidden" name="u" value="jollen" />
+<input id="msg" type="text" name="m" value="Input message" />
+<button type="submit" id="send">Send</button>
+</form>
+</div>
+
+<script type="text/javascript">  
+$("#message").createWebSocket();
+</script>
+</body>
+</html>
