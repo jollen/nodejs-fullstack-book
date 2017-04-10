@@ -21,7 +21,15 @@ $ open mcs-lite-app.app/
 
 ![圖 17.1：在 MacOS 上執行 MCS Lite App](../images/figure-17_1.png)
 
-## Step 2：測試 MCS Lite App
+## Step 2：進入 MCS Lite 雲端管理介面
+
+MCS Lite App 執行後，直接使用瀏覽器即可進入 MCS Lite 雲端管理介面。如圖 17.1，取得 MCS Lite App 的 IP 地址為 ```172.20.10.4```。
+
+![圖 17.2：MCS Lite 雲端管理介面](../images/figure-17_2.png)
+
+在瀏覽器網址列輸入 ```http://172.20.10.4:3000``` 即可看到如圖 17.2 的畫面；請注意，伺服器的 Port 號碼為 ```3000```。
+
+## Step 3：測試 MCS Lite App
 
 在完成 MCS Lite App 安裝後，可以使用 ```wotcity.io``` 套件裡的測試程式，進行初步的 IoT 私有雲測試。
 
