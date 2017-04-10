@@ -1,6 +1,6 @@
 # 17.1 安裝 MCS Lite 私有雲環境
 
-
+MCS Lite App 是一套完全以 JavaScript 撰寫而成的 IoT 私有雲，並且使用到 [wotcity.io](https://github.com/wotcity/wotcity-wot-framework)  Web of Things Framework套件。
 
 ## Step 1：安裝 MCS Lite App
 
@@ -22,8 +22,6 @@ $ open mcs-lite-app.app/
 ![圖 17.1：在 MacOS 上執行 MCS Lite App](../images/figure-17_1.png)
 
 ## Step 2：測試 MCS Lite App
-
-MCS Lite App 是一套完全以 JavaScript 撰寫而成的 IoT 私有雲，並且使用到 [wotcity.io](https://github.com/wotcity/wotcity-wot-framework)  Web of Things Framework套件。
 
 在完成 MCS Lite App 安裝後，可以使用 ```wotcity.io``` 套件裡的測試程式，進行初步的 IoT 私有雲測試。
 
@@ -59,7 +57,7 @@ Pushing: {“temperature”:14}
 
 ## 小結
 
-
+MCS Lite 的目標，主要在滿足 IoT 的教學場景：教室對外網路不穩定或速度差、能建立私有雲平台、掌握自有資料與自建資料庫，與客製化 UI。
 
 
 
