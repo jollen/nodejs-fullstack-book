@@ -21,7 +21,45 @@ $ open mcs-lite-app.app/
 
 ![圖 17.1：在 MacOS 上執行 MCS Lite App](../images/figure-17_1.png)
 
+## Step 2：測試 MCS Lite App
+
+MCS Lite App 是一套完全以 JavaScript 撰寫而成的 IoT 私有雲，並且使用到 [wotcity.io](https://github.com/wotcity/wotcity-wot-framework)  Web of Things Framework套件。
+
+在完成 MCS Lite App 安裝後，可以使用 ```wotcity.io``` 套件裡的測試程式，進行初步的 IoT 私有雲測試。
+
+切換至 ```wotcity.io``` 套件的測試程式目錄：
+
+```
+$ cd mcs-lite-app/node_modules/wotcity.io/tests
+```
+
+開啟 ```websocket-send.js``` 程式，並修改 IoT 私有雲的伺服器 IP 地址：
+
+```
+client.connect(‘ws://172.20.10.4:8000/object/5550937980d51931b3000009/send', ‘’);
+```
+
+如圖 17.1，找到 MCS Lite IP 位址為 ```172.10.10.4```。修改完成後，執行此測試程式：
+
+```
+$ node websocket-send.js 
+```
+
+測試程式會模擬一個溫度感測器的節點（IoT Node），並且以 JSON 資料格式，將數據傳送給 MCS Lite App；成功執行可以看到以下畫面：
+
+```
+WebSocket client connected
+Pushing: {“temperature”:14}
+Pushing: {“temperature”:20}
+Pushing: {“temperature”:19}
+Pushing: {“temperature”:14}
+```
+
+接下來，就能使用自已的 Notebook 作為私有雲平台，進行 IoT 應用開發。
+
 ## 小結
+
+
 
 
 
