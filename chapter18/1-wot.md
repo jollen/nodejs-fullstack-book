@@ -1,4 +1,4 @@
-# 物聯網架構入門
+# 18.1 Web of Things 物聯網架構導論
 
 Broker 是一種觀念、模式與架構。過去在我的 Android Framework 培訓課程中，提到 Android Binder IPC 的設計，採用了 Proxy Pattern、Broker Pattern 與 Activator Pattern。
 

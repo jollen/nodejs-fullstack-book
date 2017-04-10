@@ -1,4 +1,4 @@
-# 23.1 為什麼要 Mining？
+# 20.1 為什麼要 Mining？
 
 交易（transaction）確認後的資訊以 Merkle tree 來做紀錄，所以就要有 Block 來儲存這個 Merkle tree。這個時候就需要有新的區塊。
 

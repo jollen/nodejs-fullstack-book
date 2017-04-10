@@ -184,37 +184,25 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 * [17.1 安裝 MCS Lite 私有雲環境](chapter17/1-mcs-lite.md)
 
-### 第 18 章：Node.js 與 CoAP 通訊協定
+### 第 18 章：Node.js 與 Web of Things 物聯網
 
+* [18.1 ]
 * [18.1 CoAP 觀念初體驗](chapter18/1-coap-client.md)
 
-### [第 19 章：物聯網架構規劃初體驗](chapter19/README.md)
+## Part 5：Blockchain Beginner
 
-## Part 5：P2P and Blockchain Beginner
+### 第 19 章：Node.js 與 Blockchain 入門
 
-### 第 20 章：P2P 與 Blockchain 概論
+* 19.1 [認識 Merkle Tree](chapter19/1-merkle-tree.md)
+* 19.2 [SHA256 與 Genesis Block](chapter19/2-genesis.md)
+* 19.3 [建立 Merkle Tree](chapter19/3-build-merkle-tree.md)
 
-* 20.1 Decentralized vs Distributed
-* 20.2 常見的 Peer-to-Peer 協定
-* 20.3 認識 Bitcoin Networks 與 P2P 交易
-* 20.4 認識 Distributed Ledgers
-* 20.5 深入淺出 Transaction 技術
+### 第 20 章：Node.js 與 Blockchain 應用
 
-### 第 21 章：Node.js 與 Smart Contracts 入門 - 使用 Hyperledger Fabric
-
-
-### 第 22 章：Node.js 與 Blockchain 入門
-
-* 22.1 [認識 Merkle Tree](chapter22/1-merkle-tree.md)
-* 22.2 [SHA256 與 Genesis Block](chapter22/2-genesis.md)
-* 22.3 [建立 Merkle Tree](chapter22/3-build-merkle-tree.md)
-
-### 第 23 章：Node.js 與 Blockchain 應用
-
-* 23.1 [為什麼要 Mining？](chapter23/1-why-mining.md)
-* 23.1 [簡單易懂的 Mining 演算法設計](chapter23/2-how-mining.md)
-* 23.3 Transaction 實作初體驗
-* 23.4 認識 OP_RETURN
+* 20.1 [為什麼要 Mining？](chapter20/1-why-mining.md)
+* 20.2 [簡單易懂的 Mining 演算法設計](chapter20/2-how-mining.md)
+* 20.3 Transaction 實作初體驗
+* 20.4 認識 OP_RETURN
 
 ### 附錄
 

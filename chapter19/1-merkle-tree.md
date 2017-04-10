@@ -1,4 +1,4 @@
-# 22.1 認識 Merkle Tree
+# 19.1 認識 Merkle Tree
 
 Merkle tree 是一種 hash tree，用來表示 hash 值的資料結構。Merkle tree 的發明人是 [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)，當然這就是這個資料結構的名稱由來。
 

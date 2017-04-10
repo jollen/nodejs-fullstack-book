@@ -1,4 +1,4 @@
-# 22.3 建立 Merkle Tree
+# 19.3 建立 Merkle Tree
 
 ## Merkle Tree 的生成過程
 
