@@ -1,8 +1,8 @@
-# 23.2 簡單易懂的 Mining 演算法設計
+# 簡單易懂的 Mining 演算法設計
 
 ## Mining 演算法初體驗
 
-表 23-1 是截至目前為止，範例所設計的 Block 資料結構。假設表 23-1 是「最後一個 Block」內容，根據 23.1 節的介紹，要如何挖出新區塊呢？
+表 1 是截至目前為止，範例所設計的 Block 資料結構。假設表 1 是「最後一個 Block」內容，根據先前教學的介紹，要如何挖出新區塊呢？
 
 |欄位       |範例      |用途說明 
 |--------|--------|--------
@@ -12,9 +12,9 @@
 |merkleRoot     |851AE7D7390A76384ACA2D7CC29BE820918CA900071FC22F41F5C399BE065558    |區塊的 Merkle Root
 |difficulty     |00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF    |挖礦的困難度
 
-表 23-1 最後一個 Block 內容
+表 1 最後一個 Block 內容
 
-表 23-1 的內容，將做為「挖礦」的依據：透過最後一個 Block 的資訊，計算出新區塊的 Hash 值。
+表 1 的內容，將做為「挖礦」的依據：透過最後一個 Block 的資訊，計算出新區塊的 Hash 值。
 
 一個簡單的挖礦演算法實作步驟如下。
 
@@ -26,7 +26,7 @@
 
 以 Bitcoin 的網路來說，Bitcoin network 裡一個稱為「unverified pool」的地方，就是存放這些「待確認」的交易。因此，unverified pool 的設計與實作，是區塊鏈開發者的另一個課程，本教學暫不涉及 unverified pool 的介紹。
 
-延續第 22 章的教學，為一筆交易建立 Merkle tree 的程式碼實作如下：
+延續先前的教學，為一筆交易建立 Merkle tree 的程式碼實作如下：
 
 ```
 // 一筆待確認的交易
@@ -92,7 +92,7 @@ var hash2 = crypto.createHmac(‘sha256’, hash1)
 
 候選人的意思是：它還不一定是成功的 hash 值。必須比對 difficulty 的條件設定，才能決定這個 hash 值是否能使用。
 
-延續 23.1 節的介紹，假設困難度是「有足夠的零」時，就要進行困難度的確認：
+延續先前教學的介紹，假設困難度是「有足夠的零」時，就要進行困難度的確認：
 
 ```
 if (hash2 < ‘00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF’) {
@@ -171,7 +171,7 @@ success: 0002db2b239b29f52711a2629e98face0151c2020f48c94a12459a43b24a3f85
 
 ### Step 6：難度調整
 
-難度調整是 mining 的重要技術。本節暫不涉及這個部份，現階段，可以採用「前面有足夠的零」做為難度設定條件，並使用上述的範例進行練習。
+難度調整是 mining 的重要技術。本文暫不涉及這個部份，現階段，可以採用「前面有足夠的零」做為難度設定條件，並使用上述的範例進行練習。
 
 調整後的 difficulty，以及 *nonce* 值，都必須儲存在新產生的區塊裡，以做為後續「挖礦」的依據。
 
