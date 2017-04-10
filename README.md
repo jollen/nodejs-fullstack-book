@@ -200,11 +200,8 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 20.4 認識 Distributed Ledgers
 * 20.5 深入淺出 Transaction 技術
 
-### 第 21 章：Node.js 與 P2P 入門 - 使用 WebTorrent
+### 第 21 章：Node.js 與 Smart Contracts 入門 - 使用 Hyperledger Fabric
 
-* 21.1 安裝 WebTorrent
-* 21.2 實作 P2P 檔案傳輸
-* 22.3 使用 WebTorrent 模組
 
 ### 第 22 章：Node.js 與 Blockchain 入門
 
@@ -218,15 +215,6 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 23.1 [簡單易懂的 Mining 演算法設計](chapter23/2-how-mining.md)
 * 23.3 Transaction 實作初體驗
 * 23.4 認識 OP_RETURN
-
-### 第 24 章：Blockchain 與 Fullstack 整合初體驗
-
-* 24.1 實作 Node.js Live Web App (視訊直播前端)
-* 24.2 實作 Node.js Streamming Server (視訊直播後端)
-* 24.3 實作 Broker Server (雲端架構)
-* 24.4 實作 Bitcoin Transaction (身份認證)
-* 24.5 實作 Blockchain (交易認證)
-* 24.6 實作 Live Streaming (P2P 直播)
 
 ### 附錄
 
