@@ -186,7 +186,7 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 ### 第 18 章：Node.js 與 Web of Things 物聯網
 
-* 18.1 [Web of Things 物聯網架構導論](chapter18/1-wot.md)
+* 18.1 [Broker 物聯網架構導論](chapter18/1-broker.md)
 * 18.2 [CoAP 觀念初體驗](chapter18/2-coap-client.md)
 
 ## Part 5：Blockchain Beginner
