@@ -180,7 +180,9 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 16.2 淺談 Flux 架構模式
 * 16.3 前端入門初體驗 - 使用 React.js
 
-### 第 17 章：Node.js 與私有雲 - 使用 MCS Lite
+### 第 17 章：Node.js 與 MCS Lite
+
+* [17.1 安裝 MCS Lite 私有雲環境](chapter17/1-mcs-lite.md)
 
 ### 第 18 章：Node.js 與 CoAP 通訊協定
 
