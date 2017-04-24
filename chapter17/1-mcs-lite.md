@@ -61,7 +61,7 @@ Pushing: {“temperature”:19}
 Pushing: {“temperature”:14}
 ```
 
-接下來，就能使用自已的 Notebook 作為私有雲平台，進行 IoT 應用開發。
+接下來，就能使用自已的 Notebook 作為私有雲平台，進行 IoT 應用開發。在完成 MCS Lite 安裝與初步測試後，請接著閱讀 [MCS Lite Introduction](https://www.gitbook.com/book/dariachen1/mcs-lite-introduction/details) 說明文件。
 
 ## 小結
 
