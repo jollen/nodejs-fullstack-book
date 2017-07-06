@@ -6,10 +6,10 @@ MCS Lite App 是一套完全以 JavaScript 撰寫而成的 IoT 私有雲，並�
 
 MCS Lite 是 MCS 的離線版本，可安裝在本地裝置，例如：支援 JavaScript 環境的 IoT 開發板、Notebook 或智慧型手機。MCS Lite App 是 MCS Lite 的 Desktop Application 套件，目前支援 Windows 64-bit 與 MacOS 64-bit 二個平台；下載位址分別如下：
 
-* [MCS Lite App for MacOS X (64-bit)](http://s3-ap-southeast-1.amazonaws.com/mtk.linkit/mcs-lite-app/osx64.tar)
-* [MCS Lite App for Windows (64-bit)](http://s3-ap-southeast-1.amazonaws.com/mtk.linkit/mcs-lite-app/win64.zip)
+* [MCS Lite App for MacOS X (64-bit)](https://github.com/MCS-Lite/mcs-lite-app/releases/latest)
+* [MCS Lite App for Windows (64-bit)](https://github.com/MCS-Lite/mcs-lite-app/releases/latest)
 
-以下說明使用 MacOS X 環境。下載 [MCS Lite App for Windows (64-bit)](http://s3-ap-southeast-1.amazonaws.com/mtk.linkit/mcs-lite-app/win64.zip) 後，直接解壓縮並執行即可：
+以下說明使用 MacOS X 環境。下載 [MCS Lite App for Windows (64-bit)](https://github.com/MCS-Lite/mcs-lite-app/releases/latest) 後，直接解壓縮並執行即可：
 
 ```
 $ tar xvf ~/Downloads/osx64.tar
@@ -61,7 +61,7 @@ Pushing: {“temperature”:19}
 Pushing: {“temperature”:14}
 ```
 
-接下來，就能使用自已的 Notebook 作為私有雲平台，進行 IoT 應用開發。在完成 MCS Lite 安裝與初步測試後，請接著閱讀 [MCS Lite Introduction](https://www.gitbook.com/book/dariachen1/mcs-lite-introduction/details) 說明文件。
+接下來，就能使用自已的 Notebook 作為私有雲平台，進行 IoT 應用開發。在完成 MCS Lite 安裝與初步測試後，請接著閱讀 [MCS Lite Introduction](https://mcs-lite-introduction.netlify.com/) 說明文件。
 
 ## 小結
 
