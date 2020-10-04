@@ -69,7 +69,7 @@ $ node hello.js
 
  Node.js 採用 Google 所開發的 V8 JavaScript 引擎，原本 V8 引擎是設計給瀏覽器使用的 JavaScript 引擎，現在有開發者把它抽離出來，變成一個獨立的直譯器，讓 JavaScript 程式碼升格為 Server-Side Script。
 
-我們利用瀏覽器連到 http://127.0.0.1:1234/，結果如圖 3.1。
+我們利用瀏覽器連到 http://127.0.0.1:8080/，結果如圖 3.1。
 
 ![圖 3.1：hello.js 執行結果](../images/figure-3_1.png)
 圖 3.1：hello.js 執行結果
