@@ -26,4 +26,4 @@ REST API 架構（或稱為 RESTful 架構）是[實作 Web Service 的一個方
 
 ---
 
-Next: [10.2 關於 SOA 與 3-Tier 架構](2-use.md)
+Next: [10.2 關於 SOA 與 3-Tier 架構](2-soa.md)
