@@ -55,4 +55,4 @@ MVC 是最耳熟能詳的 Presentation 架構模式，在學習 Web Fullstack �
 
 ---
 
-Next: [10.4 Express.js 與 REST API](3-use-middleware.md)
+Next: [10.4 Express.js 與 REST API](4-rest-api.md)
