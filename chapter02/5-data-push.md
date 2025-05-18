@@ -1,41 +1,45 @@
-# 2.5 Data Push 設計模式
+## 2.5 Data Push 設計模式
 
-Data Push 的優點之一，就是：處理百萬連線請求。原因很簡單。因為採用的是 Data Push 機制，所以伺服器可以控制用戶數；如果要處理用戶端超過 10 萬個（舉例），就可以將工作分散到其它伺服器。反之，Data Pull 的做法，難處在於，我們很難了解有多少使用者、在什麼時間，同時進行 Refresh。
+Data Push 的優勢，在於它能有效處理百萬級連線請求。原因很簡單：主動推送的架構讓 Server 掌握了節奏，使用者數量可以預先控制與分配。舉例來說，若同時在線的用戶超過 10 萬，可透過水平擴展（horizontal scaling）方式將負載分散。而在 Data Pull 架構下，使用者不定時發起的 Refresh 請求，會導致無法預測的流量暴衝。
 
-Server 透過 WebSocket 找到裝置，並以 JSON 格式將資料推送給裝置，這就是 Data Push 的觀念。此外，Server 端應該以什麼技術來實作呢？看來看去，現在最實際的技術就是 NodeJS。以 NodeJS 技術開發一個專用的 Web Server，透過這個 Web Server 將資料包裝成 JSON 後，經由 WebSocket 送出。
+Node.js 是實作 Data Push 的最佳工具之一。Server 使用 Node.js 架設 Web Server，資料經過封裝為 JSON，並透過 WebSocket 通道即時傳送至 Client 端。這就是 HTML5 時代下的「語意即時通訊」模式。
 
-Data Push 的設計模式如圖 2.3。
+Data Push 的設計模式如圖 2.3 所示：
 
 ![圖 2.3：Data Push 架構圖](../images/figure-2_3.png)
-圖 2.3：Data Push 架構圖
 
-步驟如下：
+**步驟簡述如下：**
 
-- Client 建立與 Server 的 Persistent Connection（WebSocket）
-- Server 保存此連線
-- Server 有新的資料時，將 Data Push 給所有的Client（經由 WebSocket）
-- Client 收到資料，並更新 HTML 內容
+* Client 與 Server 建立 Persistent Connection（WebSocket）
+* Server 記錄此連線狀態，作為語意路由節點
+* 當 Server 有資料更新，透過 WebSocket 將資料推送（Push）至所有已連線的 Client
+* Client 接收資料後，更新 HTML 內容或觸發 UI 重繪
 
-上述的步驟並不是什麼學問，因為是很典型的機制。不過，HTML5 已經制定標準做法了，就是 WebSocket。
+這樣的結構雖然不複雜，卻代表 Web 應用正進入一種「反應式語境」：用戶不再主動發問，而是語言模型與伺服器主動說話。
 
 ### AJAX Refresh 重要性下降
 
-AJAX 本質上是一種 Data Pull 模式，也就是由用戶端（Client）來拉取資料（因此也稱為 Data pull）。過去，開發者經常使用 AJAX 來實作 Refresh 功能。但是 AJAX Refresh 有以下的技術缺點：
+AJAX 本質上是 Data Pull —— 用戶端定時詢問伺服器「你有沒有更新資料？」這樣的問句很頻繁，但不夠有效。這種頻繁的 Refresh 請求，會導致：
 
-- 可能造成 Server 的負載
-- 不夠即時
+* Server 負載不可控
+* 即時性不佳，資料總是延遲一拍
 
-即便 AJAX 可以不斷更新（Refresh）資料，但還是不夠即時。要打造「Real-time Web Application」不使用 Data Push 模式是辦不到。因為用戶端，也就是瀏覽器，是以「Refresh」方式向 Web Server 要求資料。例如：每隔1秒鐘請求一次資料。
+在 Real-time Web Application 的場景中，Data Pull 不再適合。AJAX 雖然能實作資料更新，但這種更新是被動、間歇式的，而非語意觸發下的即時行動。
 
-使用 AJAX 與 Refresh 的模式，會讓伺服器端很難預期同時會有多少請求進來。可能在一些熱門時間，忽然有巨量請求，就會讓伺服器負載量提高，甚致有服務中斷的風險。
+更重要的是，在 Peak Time（尖峰時段），Server 可能突然收到大量 Client 請求，這種流量風暴將極度考驗系統的可用性與擴充性。
 
-AJAX 也不夠即時，當伺服器有新內容時，必須依賴用戶端來主動要求，因此會造成一段「Latency」時間。傳統的「聊天室」網站就是這樣設計：必須更新網頁，才能看到新的聊天訊息。
+此外，Data Pull 模式也產生「Latency」問題。例如早期聊天室網站設計，必須使用者主動刷新頁面才能看到最新訊息，這種體驗遠遠不如現今的 Push-Based 架構。
 
-從這個角度來看，NodeJS 的 Data Push 方式，才是好的做法。不過，AJAX 也不是全然沒有用處了。一些「Non Refreshing」的設計需求，AJAX 仍然非常有用，例如：設計「註冊表單」時，當使用者輸入帳號後，以使用 AJAX 向伺服器查詢「使用者帳號是否可用」。
+Node.js + WebSocket 提供了一條語意主動推送的通路，Server 不僅能即時傳送資料，也能準確控制何時發送、發送給誰、發送什麼。
 
-差異是：使用 AJAX 的方式來呼叫 Open API，而不是不斷的 Refreshing 頁面。
+這並不代表 AJAX 完全失效。當設計「註冊帳號查詢」這類非即時、且具明確使用時機的功能時，AJAX 仍然是方便的工具。例如：使用者輸入帳號後，即時查詢該帳號是否存在，這是一個單次事件，適合用 Data Pull 處理。
 
-另一個重點是，使用 NodeJS 與 Data Push 方式，才能實作真正的 Real-time Web Application。AJAX 搭配 Refresh 方式，顯然已經不合適了。
+真正的差別在於語意模式：
+
+* **AJAX Refresh 模式**：不斷詢問（Polling），適合低頻資料查詢
+* **Data Push 模式**：主動通知（Pushing），適合高頻、即時的語境溝通
+
+實作 Real-time Web Application，Data Push 是核心設計原則。Node.js 正是這場語意即時架構變革的主角之一。
 
 ---
 
