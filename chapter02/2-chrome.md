@@ -1,32 +1,34 @@
-# 2.2 從 Chrome 瀏覽器談起
+## 2.2 從 Chrome 瀏覽器談起
 
-Google 在 2012 年 2 月 7 式，正式發佈 Android 版的 Chrome 瀏覽器。它的出現，宣示 Chrome 是 HTML5 發展史的一個重要指標，筆者當時在 CTIMES 雜誌專欄上，發表時這個新聞的看法：
+Google 在 2012 年 2 月 7 日，正式發佈 Android 版的 Chrome 瀏覽器。它的現身，成為 HTML5 發展史上的一個重要節點。筆者當時在 CTIMES 雜誌專欄撰文，對此新聞提出以下觀察：
 
-* 預計今年 (2012 年) HTML5（Chrome）將全面走入各式產品，這宣告純硬體時代正式結束了
-* 未來的產品，少了軟體與雲端的加持，將顯得平傭而無奇
-* 純硬體能走進市場的機會，只會越來越少
-* 手機肯定首當其衝。特別是 Android 版的 Chrome 瀏覽器現身了，它將引發新軟體革命嗎？
+* 預計 2012 年 HTML5（Chrome）將全面進入各式產品，象徵純硬體時代的終結
+* 未來的產品若缺乏軟體與雲端的加值，將顯得平庸乏味
+* 純硬體單獨出擊的機會將越來越少
+* 手機勢必首當其衝，尤其是 Android 版 Chrome 問世後，是否將引發一場新軟體革命？
 
-Google 的這項措舉在當時 (2012 年) 無擬是一個重要的實驗。今天 (2016 年) 來看，這則新聞已經看似平淺無奇了，因為：
+Google 的這項動作，在當年（2012 年）堪稱是一項關鍵實驗。但若從 2016 年的角度回望，當時的新聞內容似乎已不再令人驚奇，因為：
 
 * 2016 年 10 月 19 日－[Chrome’s experimental browser comes to Android](https://www.engadget.com/2016/10/19/chrome-canary-for-android/)
 * 2016 年 10 月 3 日－[Google’s Andromeda: One OS to rule them all](http://www.recode.net/2016/10/3/13149670/google-new-os-andromeda-operating-system-chrome-android)
 
-回顧 2012 年到 2015 年的發展，我們知道，雲端應用目前有二大龍頭：Google 與 Facebook。Google 老大哥的 Gmail、相簿、位置服務等，儼然成為一項民生必須品。Facebook 則是在社交網路（Social Networking）領域獨佔鰲頭。他們都是網路巨擎，也都是以平臺（Platform）的概念經營。平臺的概念是什麼？簡單說，就是提供開發者 API 服務。
+回顧 2012 至 2015 年的雲端格局，我們看見兩大主導者：Google 與 Facebook。前者以 Gmail、相簿與位置服務等核心應用，成為民生級的基礎設施；後者則在社交網路中居於主導地位。他們的共通點是：皆採取「平臺化」經營。
 
-## 理解平臺的概念
+### 理解平臺的概念
 
-平臺是一個很容易理解的概念，就像大家手上的手機，裡頭安裝了許多使用到 Google 以及 Facebook API 的 App；這些 App 都會透過「雲端」，存取其服務。iPhone 與 Android手機裡的這些「雲端 App」，所使用到的核心技術，就是 HTML5。這代表著，[只要 HTML5 的規格能開始推出草案][3]（Draft），並且手機上的 HTML5 瀏覽器技術更加成熟，手機行業將會展開一場 HTML5 大戰。
+所謂平臺，其實就是提供 API 給開發者使用的服務中介層。就像我們手上的智慧型手機，裡面安裝的各種 App 多數都與 Google 或 Facebook 的 API 互動。這些 App 透過雲端連結至服務端，這種架構的核心技術，就是 HTML5。
 
-[3]: http://www.jollen.org/blog/2012/02/html5-evolution.html “該來的終於來了：HTML5大戰拉開序幕”
+換言之，[只要 HTML5 規格開始進入草案階段][3]，加上手機端的 HTML5 瀏覽器技術日趨成熟，整個產業將進入一場 HTML5 技術競爭。
 
-HTML5 大戰就是雲端運算的戰爭，這肯定是新一波的軟體革命。以 HTML5 技術，結合網路服務、開發 App，並整合至手機，將成為顯學。
+[3]: http://www.jollen.org/blog/2012/02/html5-evolution.html "該來的終於來了：HTML5大戰拉開序幕"
 
-所以，筆者認為，Android 版 Chrome的到來，從產業的角度來看，肯定是一個重要指標，具有特別的意義。它將帶領 HTML5 往前衝刺。其實，Chrome 很早就是 HTML5 的領頭羊了，例如：早在 2010 年，Google 就宣佈以 [HTML5 取代 Google Gear 技術][4]，從這裡可見一斑。
+HTML5 的競爭，本質上是雲端運算主權的爭奪。這是一場新一輪的軟體革命。開發者將以 HTML5 結合 Web API 建構 App，再部署至手機裝置上，這將不只是技術趨勢，更是產業生態的重塑。
 
-[4]: http://www.ithome.com.tw/itadm/article.php?c=66509 “Chrome 12將正式以HTML5取代Google Gear”
+因此，我認為 Android 版 Chrome 的推出，絕對是從產業角度出發的重要信號。它不僅強化了 HTML5 的前進動能，更讓 Chrome 成為語意應用的加速器。事實上，Chrome 早已是 HTML5 的旗手，例如：早在 2010 年，Google 即宣布以 [HTML5 取代 Google Gears 技術][4]，可見其企圖心早已顯現。
 
-我們可以這樣假設：有了 Chrome，雲（Cloud Computing）就更容易放進裝置裡。正因為如此，所以 Chrome 的出現，有了 HTML5 大戰的煙焇味。Chrome 將加速雲端應用走進手機 App，所以手機不能只有硬體功能，硬體廠將面臨新的一波挑戰。
+[4]: http://www.ithome.com.tw/itadm/article.php?c=66509 "Chrome 12 將正式以 HTML5 取代 Google Gear"
+
+我們可以這樣假設：有了 Chrome，雲端（Cloud Computing）將更容易進駐裝置之中。也因此，Chrome 的出現讓 HTML5 的競爭局面添了幾分煙硝味。它將推動雲端服務更快融入手機應用之中，而僅靠硬體規格的廠商，將難以在這場語意轉型中保持競爭力。
 
 ---
 
