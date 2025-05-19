@@ -4,7 +4,7 @@
 
 上述的例子雖然很直覺，不過還有一些缺點。第一件事情就是以 jQuery 模式來重構。將用戶端改寫如下：
 
-~~~~~~~~
+```javascript
  1 <!DOCTYPE html>
  2 <head>
  3 <script type='text/javascript' src="./jquery.min.js"></script>
@@ -45,12 +45,12 @@
 38 </script>
 39 </body>
 40 </html>
-~~~~~~~~
+```
 
 重點說明如下：
 
-* 第 9 行：在 jQuery 裡加入 ```createWebSocket``` 函數，這就是 jQuery plugin 的做法
-* 第 37 行：以 jQuery selector 找出 ```#message``` 後，再呼叫它的 ```createWebSocket``` 函數
+* 第 9 行：在 jQuery 裡加入 `createWebSocket` 函數，這就是 jQuery plugin 的做法
+* 第 37 行：以 jQuery selector 找出 `#message` 後，再呼叫它的 `createWebSocket` 函數
 
 ### jQuery 模式的精神
 
@@ -60,14 +60,14 @@
 
 筆者使用另外一種更簡單的方式來說明。在上述範例中，裡有一個 Div 區塊叫做 'message'，重構後的例子使用了 jQuery 選擇器，並且呼叫了 'message' 的 createWebSocket() 方法。從物件導向的角度來看，createWebSocket() 被封裝在 'message' 物件裡了。所以，createWebSocket() 是 'message' 物件的一個方法，這個觀念得到二個好處：
 
-- createWebSocket() 函數的操作範圍（Scope）是在 'message' 物件裡面；簡單來說
-- 在 createWebSocket() 裡可以使用 'this' 物件，這實際上是一個參考（Reference），指向「物件自已」
+* createWebSocket() 函數的操作範圍（Scope）是在 'message' 物件裡面；簡單來說
+* 在 createWebSocket() 裡可以使用 'this' 物件，這實際上是一個參考（Reference），指向「物件自已」
 
 重構前，因為沒有使用 jQuery 模式，所以差別如下：
 
-- createWebSocket() 函數的操作範圍是全域環境（Global）
-- 無法使用 'this' 物件
-- createWebSocket() 函數，操作的是外部物件
+* createWebSocket() 函數的操作範圍是全域環境（Global）
+* 無法使用 'this' 物件
+* createWebSocket() 函數，操作的是外部物件
 
 這是二個版本最大差異。所以，將程式碼重構為 jQuery 模式後，能給我們帶來許多好處。
 
@@ -79,7 +79,7 @@
 
 如果沒有把程式碼「關」起來，外界的程式碼可能干擾到我們，例如：全域變數被修改。再進行第二次的重構，結果如下：
 
-~~~~~~~~
+```javascript
  1 <!DOCTYPE html>
  2 <head>
  3 <script type='text/javascript' src="./jquery.min.js"></script>
@@ -103,7 +103,7 @@
 21      ws.onmessage = function (evt) 
 22      { 
 23         var received_msg = evt.data;
-24         this.html(received_msg);
+24         $("#message").html(received_msg);
 25      };
 26      ws.onclose = function()
 27      { 
@@ -111,7 +111,7 @@
 29      };
 30      ws.onerror = function()
 31      { 
-32         this.html("<h1>error</h1>");
+32         $("#message").html("<h1>error</h1>");
 33      };
 34   }
 35   else
@@ -127,11 +127,64 @@
 45 </script>
 46 </body>
 47 </html>
-~~~~~~~~
+```
 
-從程式碼第 9 行與第 42 行可以很明顯看出，我們將原本的程式碼封閉起來了。所以原本的程式碼具有了封閉性。並且根據第 1 章提到的觀念，jQuery 的選擇器（$）要以參數傳遞的方式匯入（Import）到 Module 內部後再使用。
+從程式碼第 9 行與第 42 行可以很明顯看出，我們將原本的程式碼封閉起來了。所以原本的程式碼具有了封閉性。並且根據第 1 章提到的觀念，jQuery 的選擇器（\$）要以參數傳遞的方式匯入（Import）到 Module 內部後再使用。
 
 另外，這裡的實作也加入了 onmessage 與 onerror 二個回呼函數。當伺服器透過 WebSocket 傳送訊息過來時，onmessage 便會被呼叫。後續我們將擴充此函數，處理伺服器 Push 過來的即時訊息。
+
+### 4.4.1 ES6 改寫：使用箭頭函數與模板字串
+
+基於前述的範例，我們可以將 WebSocket 客戶端重構為 ES6 版本：
+
+```javascript
+ 1 <!DOCTYPE html>
+ 2 <html lang="en">
+ 3 <head>
+ 4   <meta charset="UTF-8">
+ 5   <title>NoChat Client</title>
+ 6   <script src="./jquery.min.js"></script>
+ 7 </head>
+ 8 <body>
+ 9   <div id="message"></div>
+10   <script>
+11     (($) => {
+12       $.fn.createWebSocket = function () {
+13         if ("WebSocket" in window) {
+14           const ws = new WebSocket("ws://localhost:8080/start");
+15
+16           ws.onopen = () => {
+17             ws.send("Message to send");
+18           };
+19
+20           ws.onmessage = (evt) => {
+21             const msg = evt.data;
+22             $("#message").html(`Received: ${msg}`);
+23           };
+24
+25           ws.onerror = () => {
+26             $("#message").html(`<h1>Error</h1>`);
+27           };
+28         } else {
+29           alert("WebSocket NOT supported by your Browser!");
+30         }
+31       };
+32     })($);
+33
+34     $("#message").createWebSocket();
+35   </script>
+36 </body>
+37 </html>
+```
+
+#### 差異重點說明
+
+* 使用 `const` / `let` 取代 `var`，強化變數作用域與可預測性
+* 使用箭頭函數 `() => {}`，語意更清晰，避免 `this` 指向混淆
+* 使用模板字串 `` `Received: ${msg}` `` 取代字串相加，語意與可讀性更好
+* 用 IIFE（Immediately Invoked Function Expression）結合 ES6 語法實現閉包封裝
+
+這樣的寫法不僅讓語意邏輯更清晰，也與現代前端開發的主流接軌，更適合導入模組化與構建工具。
 
 ---
 
