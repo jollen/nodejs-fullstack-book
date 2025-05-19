@@ -1,85 +1,130 @@
 # 1.8 選擇器模式
 
-我們在實作 Web Socket 連線生成時，利用了 jQuery pattern，這是一種選擇器模式。為什麼要使用選擇器模式，除了程式碼的組織較好外，另一個原因就是效能。事實上，讓程式碼組織更良好是次要的理由，真正的、主要的、最重要的原因是：使用選擇器方式可以讓 JavaScript 程式碼效能更好。
+我們在前一節使用 jQuery pattern 實作 WebSocket 呼叫時，實際上也同時運用了「選擇器模式（Selector Pattern）」。這是一種以語意為核心、效能為導向的 DOM 查詢與操作策略。
 
-根據不同瀏覽器的實作，選擇器模式可以達到超過十倍以上的效能。再回顧一次上節的寫法：
+## 為什麼使用選擇器模式？
 
-~~~~~~~~
+除了能讓程式碼更具可讀性與結構清晰，選擇器模式的最大價值在於 **效能優化**。
+
+在現代瀏覽器的實作中，選擇器模式（尤其是 ID selector）通常可以比傳統 DOM API 提供更快的存取速度。有研究指出，選擇器模式甚至可達到 **數倍到十倍以上的查詢效能**。
+
+以下為實作範例：
+
+```html
 <div id="message"></div>
 
-<script type="text/javascript">  
-$("#message").createWebSocket();
+<script>
+  $("#message").createWebSocket();
 </script>
-~~~~~~~~
+```
 
-總計利用了三個模式：
+上述簡短程式碼中，實際融合了三種設計模式：
 
-- 以 Closure 模式將類別封閉，這與 static class 有關係，在這裡先不做討論
-- 使用選擇器模式，範例採用目前最流行的 jQuery selector "$"
-- Read/Write Div Pattern
+- 使用 **Closure 模式** 封閉變數作用域（模擬 static class 行為）
+- 使用 **選擇器模式** 呼叫 jQuery selector `$()`
+- 使用 **Read/Write Div Pattern**，將訊息輸出到指定 DOM 元素
 
-選擇器模式的效率取決於瀏覽器本身的實作，不過，以選擇器模式來代替直接存取 DOM，一般相信是最好的做法。因此，現代的 JavaScript 程式庫，幾乎都利用選擇器模式來實作（jQuery 一直都是最佳例子）；當我們實作自已的 JavaScript 程式庫時，也該善用選擇器模式。
+---
 
-典型的選擇器模式，是直接呼叫 DOM 的 API：
+## 1.8.1 Selector 效能分級與選用建議
 
-~~~~~~~~
-document.querySelector(“#header”);
-~~~~~~~~
+| Selector 類型 | 範例 | 效能 | 備註 |
+|---------------|------|------|------|
+| ID Selector | `#header` | ★★★★★ | 直接對應 DOM 索引，高效能 |
+| Class Selector | `.box` | ★★★☆☆ | 需遍歷整棵樹，效率中等 |
+| Tag Selector | `div` | ★★☆☆☆ | 易選中過多元素，效率偏低 |
+| Descendant Selector | `div .content` | ★☆☆☆☆ | 多層結構解析，效率最差 |
+| Attribute Selector | `input[type=text]` | ★☆☆☆☆ | 複雜解析，適用於特定需求 |
 
-不過，使用 jQuery 的選擇器「$」是目前的主流做法。
+**開發建議：** 儘量使用 ID 與 Class 為主的 selector，避免使用嵌套與屬性選擇器做為常態邏輯基礎。
 
-## 1.8.1 jQuery Pattern 實作 (jQuery 插件開發)
+---
 
-簡單來說，jQuery pattern 就是撰寫 jQuery Plugins。要開發 jQuery 的插件，是相當輕鬆愉快的工作，這都歸功於 jQuery 的優良架構。
+## 1.8.2 鏈式操作與語法語感
 
-### Step 1：加入新增函數
+jQuery 的選擇器不只是一種 DOM 查詢機制，它還支援鏈式操作語法：
 
-在 $.fn 物件裡，加入新的函數屬性。範例：
+```javascript
+$('.item')
+  .addClass('active')
+  .fadeIn()
+  .html('Ready');
+```
 
-~~~~~~~~
+這種語法設計讓我們可以把一連串操作串接起來，像是語言的動詞堆疊，使程式更貼近人類邏輯：**誰（selector）做什麼（method）**。
+
+這樣的設計稱為「語意流程式語法（semantic fluent syntax）」，有以下優勢：
+
+- 減少中斷與中介變數
+- 提高閱讀流暢性
+- 模擬人類語言結構（主詞 + 動作鏈）
+
+> 選擇器是語意流程的起點，鏈式操作是語言風格的延伸。
+
+---
+
+## 1.8.3 jQuery Selector 與原生 API 對照表
+
+| jQuery 語法 | 對應原生 API |
+|-------------|------------------|
+| `$('#id')` | `document.getElementById('id')` |
+| `$('.class')` | `document.querySelectorAll('.class')` |
+| `$('div')` | `document.getElementsByTagName('div')` |
+| `$(this)` | `event.target`（事件中使用） |
+
+這張表有助於開發者理解 jQuery 封裝背後實際呼叫的 DOM API，也利於後續過渡至框架或使用原生語法開發。
+
+---
+
+## 1.8.4 Plugin 製作流程（三步驟）
+
+### Step 1：新增函式到 `$.fn`
+
+```javascript
 $.fn.hello = function() {
-	// your code here
+  // 插件主邏輯
 };
-~~~~~~~~
+```
 
-### Step 2：將程式碼 Closure
+### Step 2：使用 Closure 封裝模組
 
-~~~~~~~~
+```javascript
 (function($) {
-	$.fn.hello = function() {
-		// your code here
-	};
-}) ($);
-~~~~~~~~
+  $.fn.hello = function() {
+    // 插件主邏輯
+  };
+})(jQuery);
+```
 
-為什麼要將程式碼 Closure（封閉）的原因，前文已做過說明。
+### Step 3：作為獨立模組匯入
 
-### Step 3：儲存為獨立檔案使用
+將上述程式儲存為 `jquery.foo.js`，並在 HTML 中使用：
 
-將上述程式碼，儲存為獨立檔案，例如：jquery.foo.js，並在 HTML5 裡使用。例如：
-
-~~~~~~~~
+```html
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-
-    <script type='text/javascript' src="./jquery.min.js"></script>
-    <script type='text/javascript' src="./jquery.foo.js"></script>
+  <meta charset="UTF-8">
+  <script src="./jquery.min.js"></script>
+  <script src="./jquery.foo.js"></script>
 </head>
-
 <body>
-	<div class="content">
-	</div>
-<script>
-$(".content").hello();
-</script>
+  <div class="content"></div>
+
+  <script>
+    $(".content").hello();
+  </script>
 </body>
 </html>
-~~~~~~~~
+```
 
-上述的做法，是將自已的實作，設計成 jQuery Plugin 的形式。制作 jQuery 插件是非常簡單的，只要以上三個步驟即可完成。
+---
+
+## 小結：Selector 是語言的入口，不只是 DOM 的指標
+
+選擇器的本質，是「指定語意操作的目標」，這不僅讓我們避開低效能的 DOM 操作，也讓程式更貼近自然語言思維。這樣的模式，是語言層級的 API 設計，不只是技術結構，更是一種開發哲學：
+
+> 選擇器不是查 DOM，而是呼叫語意結構。它是語言層的第一層 API。
 
 ---
 
