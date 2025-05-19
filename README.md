@@ -89,11 +89,11 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 ### 第 5 章：軟體思惟 - Lambda 篇
 
- * 5.1 [Lambda](1-lambda.md)
- * 5.2 [Callback Function](2-callback.md)
- * 5.3 [從 TypeScript 談起](3-typescript.md)
- * 5.4 [使用 Promise 封裝非同步處理流程](4-promise.md)
- * 5.5 [async/await：語意同步化](5-async.md)
+ * 5.1 [Lambda](chapter05/1-lambda.md)
+ * 5.2 [Callback Function](chapter05/2-callback.md)
+ * 5.3 [從 TypeScript 談起](chapter05/3-typescript.md)
+ * 5.4 [使用 Promise 封裝非同步處理流程](chapter05/4-promise.md)
+ * 5.5 [async/await：語意同步化](chapter05/5-async.md)
 
 ### 第 6 章：軟體思惟 - Web Service 篇
 
@@ -104,9 +104,6 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 * 7.1 [認識 Non-blocking IO](chapter07/1-nonblocking-io.md)
 * 7.2 [非同步式讀取多個檔案](chapter07/2-readfile-async.md)
-* 7.3 深入淺出 Asynchronous 
-* 7.4 淺談 Callback Hell 與 Promise
-* 7.5 Promise 初體驗
 
 ## Part 2：Getting Started
 
