@@ -7,6 +7,7 @@
  * [3.3 URL Routing](3-url-routing.md)
  * [3.4 設計 HTTP API](4-http-api.md)
  * [3.5 解析 Query String](5-query-string.md)
+ * [3.6 Node.js 語法標準](6-es5-es6.md)
 
 ## 本章小結
 
@@ -16,4 +17,5 @@
 - 學會啟動 HTTP Server
 - 了解並實作 URL Routing
 - 學會解析 Pathname 與 Query String
+- 了解 Node.js 的語法標準
 
