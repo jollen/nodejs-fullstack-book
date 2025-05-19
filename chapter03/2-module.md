@@ -1,28 +1,28 @@
-# 3.2 製作 Node.js 模組
+## 3.2 製作 Node.js 模組
 
-學習 Node.js 的第一件事情，就是了解如何將程式碼模組化，簡單來說，就是製作一個程式庫 Node.js 的模組隱含著 Closure 的特性，這與第一章介紹的觀念相同（但做法不同）。
+學習 Node.js 的第一步，就是理解如何將程式碼模組化。簡單來說，就是建立自己的程式庫。Node.js 的模組機制隱含著 Closure 的概念，這與第一章所提到的觀念一致（雖然實作手法不同）。
 
-JavaScript 比較講求模組化，所以我們繼續重構 hello.js。先將 Web Server 的部份獨立成一個模組，程式碼規劃如下：
+JavaScript 本身強調模組化的設計哲學，因此我們將重構前一節的 `hello.js` 程式碼，將 Web Server 的邏輯獨立為一個模組。規劃如下：
 
-- index.js：主程式
-- server.js：啟動Web server的模組
+* `index.js`：主程式入口點
+* `server.js`：負責啟動 Web Server 的模組
 
-index.js的完整程式碼如下：
+以下是 `index.js` 的完整程式碼：
 
-~~~~~~~~
-var server = require("./server");
+```javascript
+1 var server = require("./server");
+2 
+3 server.start();
+```
 
-server.start();
-~~~~~~~~
+主程式透過 `require()` 將 `server.js` 模組引入，並呼叫模組內部的 `start()` 函數。以下是 `server.js` 的內容：
 
-主程式的部份，以 require() 函數將 server 模組（即 server.js 檔案）引入，接著呼叫模組裡的 start() 函數。server.js 完整程式碼如下：
-
-~~~~~~~~
+```javascript
  1 var http = require("http");
  2 
  3 function start() {
  4   function onRequest(request, response) {
- 5     console.log("Request for " + pathname + " received.");
+ 5     console.log("Request for " + request.url + " received.");
  6 
  7     response.writeHead(200, {"Content-Type": "text/plain"});
  8     response.write("Hello World");
@@ -33,29 +33,35 @@ server.start();
 13   console.log("Server has started.");
 14 }
 15 
-16 // Export functions
+16 // 匯出函數
 17 exports.start = start;
-~~~~~~~~
+```
 
-程式碼第 3 行到第 16 行的地方，我們實作了一個函數，並且將它匯出。請特別留意，沒有匯出的函數，將不是 Public，它不能被外部的人呼叫。exports 是 Node.js 的一個 Global object，用來讓我們匯出模組裡的函數，成為 Public Function。
+在第 3 行至第 16 行中，我們實作了 `start()` 函數，並在最後使用 `exports` 將其匯出。這裡需要注意：若沒有匯出，該函數即為模組私有（private），無法被外部程式呼叫。`exports` 是 Node.js 中的全域物件，用來將模組內部的函數公開為 Public API。
 
-目前為止，我們發現了一些觀念：
+這裡我們可以觀察出幾個重要概念：
 
-- Frontend 與 Backend 都使用 JavaScript 做為主要的程式語言
-- Frontend 與 Backend 都要模組化，並引入 Closure 觀念
-- Frontend 與 Backend 的 Module / Closure，相念相通，實作方式不同
+* Frontend 與 Backend 現在都使用 JavaScript 作為主語言
+* 兩者都必須具備模組化思維，並引入 Closure 的語言特性
+* 雖然 Frontend 與 Backend 的模組實作方式不同，但邏輯上是相通的
 
 ### Chaining Pattern
 
-另外，server.js 裡也做了一些改寫。程式碼第 4 行的地方，以具名函數的方式重新實作，目的是讓程式碼更具可維護性。此外，程式碼第 14 行的地方：
+在 `server.js` 裡，我們也導入了具名函數與 Chaining Pattern。
 
-~~~~~~~~
-http.createServer(onRequest).listen(8080);
-~~~~~~~~
+第 14 行：
 
-物件接著下一個物件來連續呼叫多個方法的寫法，就叫 Chaining Pattern（鏈接模式）。這個設計模式的目的，同樣是為了提升程式碼的可維護性：不但能簡化程式碼，更能讓程式碼能構成一個句子。
+```javascript
+1 http.createServer(onRequest).listen(8080);
+```
 
-在接下來的範例裡，我們將善用具名函數以及 Chaining Pattern 來提昇程式碼的可維護性。
+這種以物件接續方法呼叫的寫法，稱為 Chaining Pattern（鏈式模式）。這個設計模式的好處在於：
+
+* 增強程式可維護性
+* 精簡語法，邏輯更清楚
+* 程式碼結構更接近語句（語意風格）
+
+這種風格將在後續範例中繼續出現，搭配具名函數使用，更有助於建構語意清晰的 Node.js 架構。
 
 ---
 
