@@ -168,4 +168,109 @@
 
 ---
 
+### 4.3.2 使用 ES6 Class 封裝 WebSocket 客戶端（含 async/await）
+
+在本節中，我們將進一步將 WebSocket 客戶端重構為一個具備封裝性與可重用性的 ES6 類別（Class），並導入 `async/await` 語法來處理初始化流程中的非同步行為。
+
+這樣做的目的不只是提升語意清晰度，更是對「封裝、行為控制、非同步處理」的最佳實踐。
+
+```html
+ 1 <!DOCTYPE html>
+ 2 <html lang="zh-Hant">
+ 3 <head>
+ 4   <meta charset="UTF-8">
+ 5   <title>NoChat Client - Class 封裝</title>
+ 6 </head>
+ 7 <body>
+ 8   <div id="header"></div>
+ 9   <input type="text" id="messageBox" placeholder="輸入訊息...">
+10   <button id="connectBtn">建立連線</button>
+11   <button id="sendBtn">送出訊息</button>
+12 
+13   <script type="module">
+14   class WebSocketClient {
+15     constructor(url, protocol) {
+16       this.url = url;
+17       this.protocol = protocol;
+18       this.ws = null;
+19     }
+20 
+21     async connect() {
+22       if (!('WebSocket' in window)) {
+23         alert('此瀏覽器不支援 WebSocket');
+24         return;
+25       }
+26 
+27       this.ws = new WebSocket(this.url, this.protocol);
+28 
+29       this.ws.onopen = () => {
+30         console.log('WebSocket 已連線');
+31         document.getElementById('header').textContent = 'WebSocket 已連線';
+32       };
+33 
+34       this.ws.onmessage = ({ data }) => {
+35         console.log(`接收到訊息：${data}`);
+36         alert(`接收到訊息：${data}`);
+37       };
+38 
+39       this.ws.onerror = (err) => {
+40         console.error('WebSocket 錯誤:', err);
+41       };
+42 
+43       this.ws.onclose = () => {
+44         console.log('WebSocket 已關閉');
+45       };
+46     }
+47 
+48     async send(msg) {
+49       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+50         this.ws.send(msg);
+51         console.log(`送出訊息：${msg}`);
+52       } else {
+53         alert('WebSocket 尚未建立連線。');
+54       }
+55     }
+56   }
+57 
+58   const client = new WebSocketClient('ws://svn.moko365.com:8080/', 'echo-protocol');
+59 
+60   document.getElementById('connectBtn').addEventListener('click', async () => {
+61     await client.connect();
+62   });
+63 
+64   document.getElementById('sendBtn').addEventListener('click', async () => {
+65     const msg = document.getElementById('messageBox').value;
+66     await client.send(msg);
+67   });
+68   </script>
+69 </body>
+70 </html>
+```
+
+---
+
+### ES6 封裝設計對照
+
+| 概念           | 傳統寫法（ES5）              | 封裝後寫法（ES6）                       |
+| ------------ | ---------------------- | -------------------------------- |
+| WebSocket 實例 | 全域變數 `var ws`          | 類別屬性 `this.ws`                   |
+| 建立連線         | 全域函數 `WebSocketTest()` | 類別方法 `connect()`                 |
+| 傳送訊息         | 全域函數 `sendMessage()`   | 類別方法 `send(msg)`                 |
+| 訊息處理         | 直接寫在 `onmessage` 事件中   | 封裝於 `connect()` 方法中              |
+| 非同步控制        | 傳統事件觸發                 | `async/await` 確保流程明確             |
+| 重複使用         | 無模組化，無法複用              | 任何頁面可建立多個 `WebSocketClient` 實例使用 |
+
+---
+
+### 封裝的效益
+
+1. **語意集中**：所有與 WebSocket 連線與互動邏輯集中於 `WebSocketClient` 類別中。
+2. **控制範圍**：變數不再污染全域空間，提升封裝與維護性。
+3. **可擴展性**：未來可為此類別增加自動重連、心跳偵測、訊息佇列等功能。
+4. **語法現代化**：透過 `async/await`，非同步邏輯清楚易懂，減少 callback 地獄的可能性。
+
+---
+
+下一節將進入 jQuery Pattern，並對比 `Class` 封裝與 jQuery Plugin Pattern 的差異。
+
 Next: [4.4 使用 jQuery 模式](4-jquery-pattern.md)
