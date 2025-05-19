@@ -1,102 +1,150 @@
 # 6.2 REST
 
-SOAP 仍然太過於複雜，為了尋求一個更精簡的做法。Roy Fielding 博士於 2000 年提出一種稱為 REST 的 Web Service 軟體架構。[Roy Fielding][1] 是 Apache HTTP Server 專案的共同創辦人，他在 HTTP 協定上有非常重要的貢獻，REST 架構則是他的博士論文題目。
+SOAP 雖然標準嚴謹，但實作成本高，過於繁複。為了尋求一種簡潔、易於實作且貼近 HTTP 原生語意的架構，Roy Fielding 博士於 2000 年提出了 REST（Representational State Transfer）—— 一種基於 Web 的軟體架構風格。
 
-[1]: http://en.wikipedia.org/wiki/Roy_Fielding "Roy Fielding"
+Fielding 是 Apache HTTP Server 的共同創辦人之一，他的博士論文便提出了 REST 架構，其核心思想奠基於 HTTP 協定的語意設計。
 
-REST 本質上是一種軟體架構，採用 REST 來定義 API 並開發 Web Service 軟體時，這個軟體就稱為 RESTful ARchitecture。RESTful Architecture 的 API 風格更為棈簡，並且以「資源」的角度去描述 Web 服務。例如，新增名為 James 的使用者，定義這個服務的思惟邏輯如下：
+## 6.2.1 REST 架構的思維：從資源出發
 
-### Step 1：找出資源項目
+REST 並不是一種技術或語言，而是一種設計風格。RESTful Web API 的關鍵，在於以「資源」為單位，而非「功能」為導向來定義 API。
 
-以「James 這個使用者」的角度來看，資源的項目應該是「使用者」，所以這個 RESTful Web API 的定義可寫為：
+舉例：若要新增一位名為 James 的使用者，REST 的設計流程如下：
 
-~~~~~~~~
+### Step 1：確認資源項目
+
+資源名稱為 user，因此 API URL 可為：
+
+```text
 http://www.moko365.com/resource/user
-~~~~~~~~
+```
 
-這是一種 URI 的形式，上述的 URL 也是 URI 的一種寫法。RESTful Web API 以 URI 形式定義，並且要遵循 REST 標準的風格，遵循 REST 風格可以讓 API 更精簡。
+### Step 2：定位特定資源
 
-### Step 2：描述一位使用者
+要描述 "James" 這位使用者，應使用路徑延伸：
 
-使用者的名稱是 James，所以 RESTful Web API 為：
-
-~~~~~~~~
+```text
 http://www.moko365.com/resource/user/james
-~~~~~~~~
+```
 
-### Step 3：說明請求（CRUD）
+### Step 3：對資源進行操作（CRUD）
 
-所謂的說明請求，就是說明我們想對 "James" 所做的動作。對於一個資源來說，動作不外乎：
+針對資源的基本操作對應如下：
 
-- 新增（Create）
-- 讀取（Read）
-- 更新（Update）
-- 刪除（Delete）
+| 操作       | HTTP 方法 | 意義     |
+|------------|-----------|----------|
+| Create     | POST      | 建立資源 |
+| Read       | GET       | 讀取資源 |
+| Update     | PUT       | 更新資源 |
+| Delete     | DELETE    | 刪除資源 |
 
-以上 4 個動作，就稱為 CRUD。怎麼跟 Web Service 說明動作呢？RESTful Web API 是基於 HTTP 協定，所以就是使用 HTTP 協定裡的 4 個方法（HTTP Method）：
+使用範例：
 
-- GET
-- PUT
-- POST
-- DELETE
+```http
+POST /resource/user/james HTTP/1.1
+```
 
-舉個例子，現在要新增 James 使用者，就要使用 POST 方法。完整的 HTTP 請求如下：
+表示對 `user/james` 資源執行「新增」操作。
 
-~~~~~~~~
-POST http://www.moko365.com/resource/user/james
-~~~~~~~~
+## 6.2.2 REST vs 功能導向：思維差異
 
-HTTP 協定所提供的 4 個方法，可以完整地對應到 CRUD。
+以 NoChat 系統為例，原本若採功能導向設計，API 如下：
 
-## CRUD 與 HTTP Method
-
-哪一個 HTTP Method 對應到 Create？整理如表 6.1。
-
-|CRUD       |HTTP Method      |用途說明      
-|-----------|----------|--------------
-|Create     |POST      |新增
-|Read       |GET 	   |讀取
-|Update     |PUT       |更新
-|Delete     |DELETE    |刪除
-表 6-1 CRUD 的對應
-
-RESTful Web API 的定義，只有風格，沒有很固定的標準。所以只要依照這個風格，來定義自已的 API 即可。
-
-了解 REST 的觀念後，馬上可以聯想到：要對第 3 章與第 4 章的 NoChat 範例做調整。原本傳送訊息的 API：
-
-~~~~~~~~
+```http
 http://localhost:8080/send?m=hello
-~~~~~~~~
+```
 
-要修改為儲存資源的概念，即 REST 架構：
+改寫為 RESTful 架構：
 
-~~~~~~~~
+```http
 POST http://localhost:8080/resource/message/hello
-~~~~~~~~
+```
 
-用 POST 方法，來描述 "/resource/message/hello" 這項資源，意思是新增 "hello" 訊息。上述的二個 API 是等價的，都是儲存訊息，但概念有很大的不同：
+語意上改變如下：
 
-- 定義 "/send" API，這是一個「傳送」的動作，這是以功能為導向的軟體思惟
-- 定義 "/resource/message" 項目，這是一個資源
-- "/resource/message/hello" 描述 "message" 資源裡的一個資源（項目）
-- 用 POST 來描述 "/resource/message/hello" 資源，表示對資源做新增的動作
+- `/send` 是功能，說明要「做一件事」
+- `/resource/message/hello` 是資料，說明要「處理某個資源」
+- 使用 POST 表示新增一筆訊息內容 `hello`
 
-如果要加入「讀取所有訊息」的 Web 服務，採用先前的觀念，會定義這個 API：
+類似地，若想讀取所有訊息，傳統方式可能是：
 
-~~~~~~~~
+```http
 http://localhost:8080/query?type=all
-~~~~~~~~
+```
 
-採用 REST 風格的話，寫法為：
+REST 寫法則為：
 
-~~~~~~~~
+```http
 GET http://localhost:8080/resource/message
-~~~~~~~~
+```
 
-除了 API 風格要改變外，NoChat 裡的「URL Routing」實作，也要一併做修改。
+REST 將所有操作簡化為：資源（URI）+ 方法（HTTP Method）= 意圖（語意）。
 
-實務上，我們會尋求一個現成的框架（Framework），讓我們更容易處理 URL Routing；除非有特別的原因，通常不會從零自行實作。Web Application Framework（或稱為 Web Service Framework）都具備 URL Routing 的處理能力。
+## 6.2.3 URI 命名設計的語意規則
 
-目前搭配 Node.js 最熱門的 Web Application Framework 就是 [Express.js][2]，我們將在第 8 章導入這項重要的技術。
+在 REST 架構中，URL（或稱 URI）並不代表動作，而是標示資源的位置。操作的語意，交由 HTTP Method 來描述。為了讓 API 結構更清晰，常見的 URI 設計原則如下：
 
-[2]: http://expressjs.com/
+| 類型         | URI 寫法                        | 說明                       |
+|--------------|----------------------------------|----------------------------|
+| 資源集合     | `/users`                         | 所有使用者資源             |
+| 資源單一項目 | `/users/james`                  | 特定使用者                 |
+| 子資源       | `/users/james/messages`          | 某位使用者的訊息集合       |
+| 篩選查詢     | `/users?role=admin&active=true` | 使用查詢參數進行過濾       |
+
+REST 的核心精神之一，即是**資源名稱（名詞）放進 URL，操作行為（動詞）交由 HTTP Method 負責**。這讓 API 更符合語言邏輯，並易於閱讀與維護。
+
+## 6.2.4 Express.js 與 RESTful 路由預告
+
+在 REST 架構中，若要對不同資源與行為做出應對，URL Routing 的邏輯必須清楚定義。
+
+以 Express.js 框架為例，它提供了非常直觀的方式來實作 RESTful API：
+
+```javascript
+// POST /users：新增使用者
+app.post('/users', (req, res) => {
+  // 處理新增邏輯
+});
+
+// GET /users：讀取所有使用者
+app.get('/users', (req, res) => {
+  // 回傳使用者清單
+});
+
+// GET /users/:id：讀取特定使用者
+app.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  // 回傳 id 對應的使用者資料
+});
+```
+
+從這些語法可以看到：**URL 對應資源，Method 對應動作，語意一目了然。**
+
+我們將在第 8 章正式導入 Express.js，並實作這樣一套 RESTful 架構的 Web Service。
+
+## 6.2.5 小結與思維轉換圖解（選讀）
+
+可以將 REST 的資源導向思維，整理為以下邏輯圖：
+
+```
+[資源：/users] → GET → 讀取使用者
+                POST → 新增使用者
+[資源：/users/:id] → GET → 讀取特定使用者
+                    PUT → 更新使用者
+                    DELETE → 刪除使用者
+```
+
+從這個角度看，REST 並非只是另一種 API 寫法，而是一種**重新設計資料與操作關係的語言結構觀**。
+
+## 6.2.6 後續實作與框架導入
+
+REST 架構對程式邏輯與 URL Routing 有結構性要求。在第 3 章與第 4 章中，我們是以原生方式實作 routing。若要轉向 RESTful 架構，需調整路由設計與方法解析。
+
+實務上，我們不會手寫所有 routing 規則，而是引入專業的 Web 應用框架。
+
+目前最常與 Node.js 搭配的框架是 [Express.js](http://expressjs.com/)。它提供：
+
+- 基於路徑與方法的 routing 規則定義
+- middleware 機制
+- JSON 自動處理
+- 與 REST 架構自然接軌的 API 設計方式
+
+在第 8 章，我們將正式導入 Express.js，並用它來實作完整的 RESTful Web API。
