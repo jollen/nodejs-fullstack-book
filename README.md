@@ -152,53 +152,6 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 13.3 [使用 Mongoose Driver](chapter13/3-mongoose.md)
 * 13.4 [CRUD 實作](chapter13/4-crud.md)
 
-## Part 4：IoT Beginner
-
-### 第 14 章：Node.js 物聯網概論 - 使用 Web of Things
-
-* 14.1 [淺談 Web of Things](chapter14/1-wot.md)
-* 14.2 [Constrained Device](chapter14/2-constrained.md)
-* 14.3 [Physical Object](chapter14/3-physical-object.md)
-* 14.4 [邁向 Open 的 IoT 時代](chapter14/4-open-iot.md)
-
-### 第 15 章：Node.js 物聯網入門 - 使用 ARM mbed
-
-* 15.1 [物聯網學習體系](chapter15/1-roadmap.md)
-* 15.2 [ARM mbed 作業系統](chapter15/2-arm-mbed.md)
-* 15.3 [ARM mbed Networking](chapter15/3-mbed-networking.md)
-* 15.4 [使用 NTP－Network Time Protocol](chapter15/4-ntp.md)
-* 15.5 [WoT 裝置的 Use Case](chapter15/5-wot.md)
-
-### 第 16 章：Node.js 與前端 - 串接 WebSocket
-
-* 16.1 [前後端整合初體驗](chapter16/1-flux.md)
-* 16.2 淺談 Flux 架構模式
-* 16.3 前端入門初體驗 - 使用 React.js
-
-### 第 17 章：Node.js 與 MCS Lite
-
-* 17.1 [安裝 MCS Lite 私有雲環境](chapter17/1-mcs-lite.md)
-
-### 第 18 章：Node.js 與 Web of Things 物聯網
-
-* 18.1 [Broker 物聯網架構導論](chapter18/1-broker.md)
-* 18.2 [CoAP 觀念初體驗](chapter18/2-coap-client.md)
-
-## Part 5：Blockchain Beginner
-
-### 第 19 章：Node.js 與 Blockchain 入門
-
-* 19.1 [認識 Merkle Tree](chapter19/1-merkle-tree.md)
-* 19.2 [SHA256 與 Genesis Block](chapter19/2-genesis.md)
-* 19.3 [建立 Merkle Tree](chapter19/3-build-merkle-tree.md)
-
-### 第 20 章：Node.js 與 Blockchain 應用
-
-* 20.1 [為什麼要 Mining？](chapter20/1-why-mining.md)
-* 20.2 [簡單易懂的 Mining 演算法設計](chapter20/2-how-mining.md)
-* 20.3 Transaction 實作初體驗
-* 20.4 認識 OP_RETURN
-
 ### 附錄
 
 * A [練習用專案](projects)
