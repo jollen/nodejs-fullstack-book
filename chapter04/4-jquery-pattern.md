@@ -226,6 +226,87 @@ const socket = createSocket('ws://localhost:8080/start', (msg) => {
 
 這樣的設計讓 WebSocket 用戶端成為獨立模組，與 UI 邏輯解耦，並利於未來擴展與測試，實踐「前後端分離」的現代開發哲學。
 
+### 4.4.3 jQuery 與 Class 封裝對照
+
+在前一節（4.3.2）中，我們已使用 ES6 `class` 封裝 WebSocket 前端邏輯，實現模組化與結構化的管理。在這一節，我們將其與第 4.4 節的 jQuery 模式進行觀念對照與程式結構比對，幫助讀者從程式風格與維護觀點，做出技術選擇。
+
+---
+
+#### 一、概念層級對照
+
+| 封裝方式     | jQuery Plugin Pattern    | ES6 Class 模式                  |
+| -------- | ------------------------ | ----------------------------- |
+| 封裝單元     | 函數（function plugin）      | 類別（class）                     |
+| 綁定資料與方法  | jQuery 物件內部透過 `this` 管理  | 使用 `constructor` 與實例屬性 `this` |
+| 對 DOM 操作 | 依賴 `$()` 與鏈式操作（chaining） | 需額外傳入 DOM 或使用 querySelector   |
+| 非同步處理    | callback 為主，支援 Promise   | 可整合 `async/await`             |
+| 可測性      | 綁定在 DOM 上，測試與邏輯耦合高       | 較易抽象與測試                       |
+| 擴充性      | 以 `$.fn.xxx` 方式擴充        | 以繼承或 mixin 模式延伸               |
+
+---
+
+#### 二、程式結構比對（片段）
+
+**jQuery Plugin 範例：**
+
+```js
+1 (function($) {
+2   $.fn.createWebSocket = function () {
+3     const self = this;
+4     const ws = new WebSocket("ws://localhost:8080/start");
+5     ws.onmessage = function (evt) {
+6       self.html(evt.data);
+7     };
+8   };
+9 })($);
+
+10 $("#message").createWebSocket();
+```
+
+**ES6 Class 封裝版本：**
+
+```js
+1 class WebSocketClient {
+2   constructor(url, targetId) {
+3     this.url = url;
+4     this.target = document.getElementById(targetId);
+5   }
+6   connect() {
+7     this.ws = new WebSocket(this.url);
+8     this.ws.onmessage = (evt) => {
+9       this.target.innerHTML = evt.data;
+10     };
+11   }
+12 }
+
+13 const client = new WebSocketClient("ws://localhost:8080/start", "message");
+14 client.connect();
+```
+
+---
+
+#### 三、jQuery 模式 vs Class 模式設計哲學
+
+jQuery 模式強調「介面驅動、事件導向」的程式設計方法，它將邏輯緊密綁定於 DOM 節點本身，適合快速開發、小型互動，屬於「語法簡便但可測性低」的思維框架。相對地，ES6 Class 模式則將事件與資料結構封裝於類別內部，將「狀態管理、邏輯組織、行為觸發」明確地包裝為可重用、可測試的單元模組。
+
+* jQuery 模式比較偏向「物件上的功能註冊」：你對 DOM 元素直接綁定一個 plugin 方法，程式碼更貼近介面事件，強調『事件發生 → 執行對應行為』的對映關係。
+* Class 模式則是「資料結構與行為的封裝」：你建立一個可重複使用的物件型單元，把邏輯歸納到結構內部。這在實作多人協作、測試、自動化場景更具優勢。
+
+這兩者對應於第 4.3.1 與 4.3.2 節中提到的實作風格：前者強調 UI 的操作便利性，後者則著重邏輯的模組性與測試友善性。若進一步整合 async/await（如 4.3.2 所示），則 Class 模式可進一步支援非同步處理的結構穩定性，這是在大型 WebSocket 應用中不可或缺的能力。
+
+---
+
+#### 四、總結：何時用哪一種？
+
+| 使用情境                    | 建議使用方式        |
+| ----------------------- | ------------- |
+| 快速建立單一頁面互動邏輯            | jQuery Plugin |
+| 專案需要模組化與可測試結構           | ES6 Class     |
+| 預期多個元件共用相同 WebSocket 行為 | ES6 Class 更適合 |
+| 整合 React/Vue 等框架開發流程    | Class 為主      |
+
+本書以 jQuery 為基礎切入，但逐步引導至 ES6 `class` 封裝模式，協助讀者掌握從「DOM-centric」思維過渡到「封裝導向」思維，為後續開發多人協作與大型應用打下穩固基礎。
+
 ---
 
 Next: [4.5 使用 *this* 物件](5-this.md)
