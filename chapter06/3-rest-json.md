@@ -73,7 +73,93 @@ res.end(JSON.stringify({ status: 'ok' }));
 
 這樣能確保整個請求／回應流程在語意上是一致的：都是以 JSON 為資料交換格式。
 
-### 小結：REST 與 JSON 的搭配邏輯
+## Step 5：組合成一個完整的 Node.js 小專案
+
+為了讓上述範例成為一個可執行的小專案，我們將整合前述步驟，並加入必要的結構。
+
+### 檔案：`server.mjs`
+
+本專案使用 Node.js 內建的 `http` 模組來建立伺服器。
+
+- `http` 模組是 Node.js 的核心模組之一，**無需額外安裝任何第三方套件**。
+- 為什麼？因為這個模組已經內建於 Node.js 核心中，只要安裝 Node.js，就可以直接使用。
+- 這樣的設計對於初學者非常友善，可快速啟動實作，專注在學習 Web Service 的基礎觀念與流程。
+- 官方文件可參考：https://nodejs.org/api/http.html
+- `http.createServer()` 是用來創建伺服器物件的函數，接收一個 request handler 作為參數。這個 handler 是一個函數，會接收兩個參數：`req`（請求物件）與 `res`（回應物件）。
+
+> 建議：Node.js 初學者可多了解有哪些內建 API，例如 `fs` 處理檔案、`url` 處理 HTTP 網址、`path` 處理 URI 路徑解析、`crypto` 處理資料加密；這些模組不需額外安裝，且能直接使用，是學習 Node.js 基礎應用的重要起點。
+
+以下是完整程式碼：
+
+```javascript
+import http from 'http';
+
+const PORT = 3000;
+
+const server = http.createServer((req, res) => {
+  if (req.method === 'POST' && req.url === '/messages') {
+    let body = '';
+
+    req.on('data', chunk => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      try {
+        const message = JSON.parse(body);
+        console.log('New message:', message);
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ status: 'ok', received: message }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid JSON' }));
+      }
+    });
+  } else {
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Not Found' }));
+  }
+});
+
+server.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
+```
+
+### 使用方式：
+
+1. 將此程式碼存為 `server.mjs`
+2. 在終端機執行 `node server.mjs`
+3. 使用 Postman 或 curl 發送請求：
+
+```bash
+curl -X POST http://localhost:3000/messages \
+  -H "Content-Type: application/json" \
+  -d '{"from":"Alice","to":"Bob","text":"Hello!"}'
+```
+
+4. 預期伺服器輸出：
+
+```json
+{
+  "status": "ok",
+  "received": {
+    "from": "Alice",
+    "to": "Bob",
+    "text": "Hello!"
+  }
+}
+```
+
+這個小專案結合了：
+- HTTP POST 方法
+- JSON 資料接收與解析
+- RESTful API 的 URI 設計
+
+這些正是第 4 章、5 章與本章所累積的語意與技術內容的首次完整整合。
+
+## 小結：REST 與 JSON 的搭配邏輯
 
 - REST 描述的是「語意 × 動作 × 資源」
 - JSON 承載的是「資料 × 結構 × 內容」
