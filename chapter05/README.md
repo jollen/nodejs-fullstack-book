@@ -5,6 +5,8 @@
  * [5.1 Lambda](1-lambda.md)
  * [5.2 Callback Function](2-callback.md)
  * [5.3 從 TypeScript 談起](3-typescript.md)
+ * [5.4 使用 Promise 封裝非同步處理流程](4-promise.md)
+ * [5.5 async/await：語意同步化](5-async.md)
 
 ## 本章小結
 
