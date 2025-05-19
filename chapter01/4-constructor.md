@@ -89,4 +89,61 @@ person.queryJob();
 
 ---
 
+### 進一步延伸：使用 prototype 擴充共用方法
+
+在 constructor 函數中，每建立一個新物件，其方法會被重複配置一次，造成記憶體的浪費。透過 `prototype`，我們可以將方法掛載到原型鏈上，讓所有實例共用同一份方法邏輯。
+
+```javascript
+function Person(name, job) {
+  this.name = name;
+  this.job = job;
+}
+
+Person.prototype.queryJob = function() {
+  alert(`${this.name}'s job is ${this.job}`);
+};
+
+const person1 = new Person("Jollen", "Software Developer");
+const person2 = new Person("Paul", "Product Manager");
+
+person1.queryJob();
+person2.queryJob();
+```
+
+此方式能有效節省記憶體資源，並保持邏輯一致性。
+
+### 原型鏈上的繼承：模擬類別繼承的機制
+
+JavaScript 並非傳統類別導向語言，但可透過原型鏈實現繼承行為。以下示範 `Employee` 繼承 `Person` 的範例：
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.sayHello = function() {
+  alert(`Hi, I'm ${this.name}`);
+};
+
+function Employee(name, job) {
+  Person.call(this, name); // 繼承屬性
+  this.job = job;
+}
+
+Employee.prototype = Object.create(Person.prototype); // 繼承方法
+Employee.prototype.constructor = Employee;
+
+Employee.prototype.describeJob = function() {
+  alert(`${this.name} is a ${this.job}`);
+};
+
+const emp = new Employee("Alice", "Engineer");
+emp.sayHello();      // 繼承自 Person
+emp.describeJob();   // 定義於 Employee
+```
+
+透過 `Object.create()` 可建立新的原型物件，實現方法繼承。再重新指定 `constructor` 以保留類別型別的正確性。
+
+---
+
 Next: [1.5 Design Pattern for Front-End](5-frontend.md)
