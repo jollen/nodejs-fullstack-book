@@ -1,10 +1,10 @@
-# 3.3 URL Routing
+## 3.3 URL Routing
 
-這是處理 URL（HTTP Request）與 Query String 的核心觀念，這是利用 Node.js 開發 Web Service 的重要步驟。讓我們先來了解 Routing 的寫法，再來探討它的觀念。
+URL Routing 是處理 HTTP Request 中 URL 與 Query String 的核心觀念，也是開發 Web Service 時不可或缺的一步。首先，我們來看看 Routing 的基本寫法，並進一步解釋其背後的語意架構。
 
-首先，先改寫 server.js 模組如下：
+### 改寫 `server.js`
 
-~~~~~~~~
+```javascript
  1 var http = require("http");
  2 var url = require("url");
  3 
@@ -25,125 +25,120 @@
 18   console.log("Server has started.");
 19 }
 20 
-21 // Export functions
-22 exports.start = start;
-~~~~~~~~
+21 exports.start = start;
+```
 
-Routing 觀念的主要用途是處理 URL，所以我們利用 url 模組來取出 URL 裡的 pathname，並將 pathname 交給 route() 函數來處理。這裡很特別的地方是，start() 函數裡所呼叫的 route()函數，是透過參數列傳遞進來的，這和模組的 Closure 特性有關係，觀念說明如下：
+這段程式碼利用 `url` 模組取出 `pathname`，並將它交由 `route()` 函數處理。特別之處在於，`route()` 並非內部定義，而是作為參數傳入，這與 JavaScript 的 Closure 特性息息相關：
 
-- route() 函數實作在 router 模組，而不是 server.js 模組
-- 目的是將 Routing 的功能，拆成單獨的模組來維護
-- route() 函數由 router.js 模組提供，必須引用 router 模組
+* `route()` 函數實作於 `router.js` 模組
+* 它是獨立於 `server.js` 的模組，促進解耦與維護
 
-在這裡範例裡，我們由 index.js 引入 router.js 模組，並且將裡頭的 router() 函數，透過參數列交給 start()函數。如此一來，start() 也可以呼叫到 route() 函數了。
+透過 `index.js` 將 `route()` 函數以參數形式傳入 `start()` 函數，可維持 `server.js` 的模組獨立性，也便於未來替換 Routing 演算法。這是典型的 **Component-based Software Engineering** 思維。
 
-這個部份，可以選擇另外一個實作方法：在 server.js 裡引用 router.js 模組。不過，就概念上來說，範例的實作方式好一些。原因如下。
+這裡其實還有另一種實作方式：直接在 `server.js` 中引用 `router.js` 模組。但就語意與結構設計來看，範例目前所採用的作法更佳，理由如下：
 
-- Decompostion：將 router.js 與 server.js 模組的相依性解除
-- Component-based software engineering：將 router.js 與 server.js 做成獨立的模組，他們之間如果沒有相依性，就可以做為二個不同的模組來使用。例如，將 router.js 模組抽換成其它專案的 Routing 模組，並且 server.js 可以重用。Node.js 的軟體架構，主軸是模組化，即 Component-based 軟體工程的觀念
+* **Decomposition**：解除 `router.js` 與 `server.js` 間的耦合關係，讓模組各自獨立。
+* **Component-based Software Engineering**：將 `router.js` 與 `server.js` 視為兩個獨立模組，彼此無相依性，就能被當作不同專案中的重用元件使用。舉例來說，我們可以將 `router.js` 替換成其他 Routing 策略的實作，而不需修改 `server.js`。
 
-目前透過 npm 指令，不但可以安裝到各式不同的 Node.js 模組，甚致可以將自已的模組出版（Publish）給其他開發者使用。
+這正是 Node.js 軟體架構的精神：模組化。每一個模組不只是一段程式，而是一個語意角色，可以被替換、重組、推廣與發佈。
 
-Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
+### 改寫 `index.js`
 
-接著，要開始處理 Pathname 與 Query String 的解析，請先參考圖 2.2。
+```javascript
+ 1 var server = require("./server");
+ 2 var router = require("./router");
+ 3 
+ 4 server.start(router.route);
+```
 
-改寫 index.js 主程式如下：
+將 Routing 函數作為物件傳遞，這就是 JavaScript 的語言特性：**函數即物件**（Function as First-Class Object）。
 
-~~~~~~~~
-1 var server = require("./server");
-2 var router = require("./router");
-3 
-4 server.start(router.route);   // 傳遞route物件
-~~~~~~~~
+請注意，這個範例雖然陽春，卻揭示了一個非常關鍵的語意觀念：
 
-將 Routing 的演算法製作成獨立的模組，並將 router() 函數傳遞給 start()，函數的參數，可以傳遞一個函數，這個觀念就是 Lambda。router.js 完整程式碼如下：
+* **函數即物件**：我們將 `route` 函數物件作為參數傳入 `start()`，這是 JavaScript 語言的基本能力；在其他語言中，這可能需要更複雜的手法模擬。
+* **語意鬆耦合**：若我們直接在 `start()` 裡面呼叫 `route()`，這就不是 JavaScript 式的思維了——那像是 C 語言的函數呼叫，會強化彼此的耦合，削弱可維護性與可重構性。
+* **設計開放式架構**：將函數物件作為參數傳遞，才能在不同專案中自由替換 router 或 handlers，實現語意彈性的架構設計。
 
-~~~~~~~~
-1 function route(pathname) {
-2     console.log("Route this request: " + pathname);
-3 }
-4 
-5 exports.route = route;
-~~~~~~~~
+接下來，要讓 `route()` 開始真正處理 pathname 對應的邏輯。舉例來說，假設我們定義兩個 HTTP API：
 
-請注意，這個範例雖然陽春，但是展示了一個非常重要的觀念：
+* `http://localhost:8080/start`：接收即時訊息
+* `http://localhost:8080/send`：送出使用者輸入的訊息
 
-- 函數就是物件，所以我們把 *route* 物件交給 start() 函數，讓 start() 函數去使用物件
-- 直接在 start() 裡呼叫 route() 函數也可以，為什麼不這樣做？因為這不是 JavaScript 的觀念，倒是有點像是標準 C 語言呼叫函數的觀念，同時也會降低程式碼的可維護性
+這兩個路徑的對應關係如下：
 
-接下來，要讓 route() 解析 pathname。例如，我們定義了二個 API：
+* `/start`：對應到 handler 中的 `start()` 函數
+* `/send`：對應到 handler 中的 `send()` 函數
 
-- http://localhost:8080/start，用來連接伺服器並接收即時訊息
-- http://localhost:8080/send，送出文字訊息
+這就是我們開始建構 Routing × Handler 架構的起點。
 
-分別要處理二個 pathname 如下：
+### 建立 `router.js`
 
-- /start，呼叫專屬的 Handler 'start()' 來處理
-- /send，呼叫專屬的 Handler 'send()' 來處理
+```javascript
+ 1 function route(pathname) {
+ 2     console.log("Route this request: " + pathname);
+ 3 }
+ 4 
+ 5 exports.route = route;
+```
 
-實作的關鍵來了，我們要利用 Request Handler 的觀念來實作，首先，修改 index.js 如下：
+雖然這只是基本範例，但已體現語言抽象能力：把行為作為參數進行傳遞與組裝，而非硬編寫死結。
 
-~~~~~~~~
+### 延伸 API Routing
+
+當我們要將 `/start` 與 `/send` 分別對應至不同的函數處理器，可在 `index.js` 中這樣撰寫：
+
+```javascript
  1 var server = require("./server");
  2 var router = require("./router");
  3 var handlers = require("./requestHandlers");
  4 
- 5 // 使用 Object 來對應 pathname 與 request handlers
- 6 var req = {
- 7    "/": handlers.start,
- 8    "/start": handlers.start,
- 9    "/send": handlers.send
-10 };
-11 
-12 // 傳遞 request handler 
-13 server.start(router.route, req);
-~~~~~~~~
+ 5 var req = {
+ 6    "/": handlers.start,
+ 7    "/start": handlers.start,
+ 8    "/send": handlers.send
+ 9 };
+10 
+11 server.start(router.route, req);
+```
 
-上述的二個 Handler 函數：start() 與 send() 將另行實作於 requestHandlers 模組。requestHandlers 模組匯出 start() 與 send() 函數，分別處理相對應的 pathname。
+這裡 `req` 是一個 JavaScript Object，用於對應 URL 路徑與對應的函數。傳遞給 `start()` 後，會在 `router()` 裡透過物件鍵值存取相應的處理邏輯。
 
-因此，主程式在第 6 行到第 10 行的地方，利用 *req* 物件來對應這個關係。在呼叫 start() 時，將 req 物件傳入。
+若使用 associative array 的方式，也可實作如下（不推薦）：
 
-另外，JavaScript 雖然不是物件導向式語言，但仍要以物件的觀念來撰寫。所以，我們將 *req* 以 var 語法定義成 object。很多時候，或許也能以 associative array 來實作，但並不是很建議。
-
-以下就是一個以 associative array 的實作範例，原則上不推薦：
-
-~~~~~~~~
+```javascript
  1 var server = require("./server");
  2 var router = require("./router");
  3 var handlers = require("./requestHandlers");
  4 
- 5 // 使用 associative array 來對應 pathname 與 request handlers
- 6 var req = {};
- 7
- 8 req["/"] = handlers.start;
- 9 req["/start"] = handlers.start;
-10 req["/send"] = handlers.upload;
-11 
-12 // 傳遞 request handler 
-13 server.start(router.route, req);
-~~~~~~~~
+ 5 var req = {};
+ 6 req["/"] = handlers.start;
+ 7 req["/start"] = handlers.start;
+ 8 req["/send"] = handlers.upload;
+ 9 
+10 server.start(router.route, req);
+```
 
-修改後的 router.js 如下：
+建議使用 `Object Literal` 的方式，語意清晰，結構更接近語言模型。
 
-~~~~~~~~
+### 改寫 `router.js`：支援 Request Handler
+
+```javascript
  1 function route(pathname, handlers, response) {
  2     console.log("Route this request: '" + pathname + "'");
  3 
- 4     // 檢查 pathname 是否有對應的 request handlers
- 5     if (typeof handlers[pathname] == "function") {
- 6         handlers[pathname](response);
- 7     } else {
- 8         console.log("No request handler for this pathname: '" + pathname + "'");
- 9     }
-10 }
-11 
-12 exports.route = route;
-~~~~~~~~
+ 4     if (typeof handlers[pathname] == "function") {
+ 5         handlers[pathname](response);
+ 6     } else {
+ 7         console.log("No request handler for this pathname: '" + pathname + "'");
+ 8     }
+ 9 }
+10 
+11 exports.route = route;
+```
 
-再次修改 server.js 如下：
+### 改寫 `server.js`：支援 Routing 與 Response 傳遞
 
-~~~~~~~~
+```javascript
  1 var http = require("http");
  2 var url = require("url");
  3 
@@ -163,13 +158,12 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
 17   console.log("Server has started.");
 18 }
 19 
-20 // Export functions
-21 exports.start = start;
-~~~~~~~~
+20 exports.start = start;
+```
 
-最重要的模組：requestHandlers.js，完整程式碼如下：
+### 建立 `requestHandlers.js`
 
-~~~~~~~~
+```javascript
  1 function start(response) {
  2     console.log("Handler 'start' is started.");
  3 }
@@ -180,10 +174,10 @@ Node.js 的事件處理機制，採用典型的 Callback Functions 做法。
  8 
  9 exports.start = start;
 10 exports.send = send;
-~~~~~~~~
-
-到這裡，已經完成了一份很基本的 Web Service 實作。接下來，我們要將這個成果發展成一個即時聊天軟體，就命名為 NoChat。NoChat 將會是一個完全使用 HTML5 技術開發的即時聊天軟體。
+```
 
 ---
+
+至此，我們完成了一個基本 Web Service 架構，具備：Routing × 模組 × 函數導向設計。這是即將開發的聊天應用 NoChat 的語意骨架——全用 HTML5 技術打造的即時通訊系統。
 
 Next: [3.4 設計 HTTP API](4-http-api.md)
