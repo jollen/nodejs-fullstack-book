@@ -92,13 +92,11 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 5.1 [Lambda](chapter05/1-lambda.md)
 * 5.2 [Callback Function](chapter05/2-callback.md)
 * 5.3 [從 TypeScript 談起](chapter05/3-typescript.md)
-* 5.4 Arrow Function 初體驗
 
 ### 第 6 章：軟體思惟 - Web Service 篇
 
 * 6.1 [再探 HTTP API](chapter06/1-http-api.md)
 * 6.2 [REST](chapter06/2-rest.md)
-* 6.3 認識 HTTP 協定
 
 ### 第 7 章：軟體思惟 - Non-blocking IO 篇
 
