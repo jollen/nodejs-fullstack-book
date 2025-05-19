@@ -1,6 +1,6 @@
 # Node.js Fullstack《從零到一的進撃》
 
-本書正在進行第 3 版的改版工程
+本書正在進行第 4 版（2025 年最新版）的改版工程。
 
 ![](images/cover.jpg?1024)
 
@@ -25,22 +25,19 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
  * Blog：http://www.jollen.org/blog
  * Github：https://github.com/jollen
 
-## Roadmap (2016 Q4)
+## v4 時桯
 
-- [ ] 移除 ARM mbed 教學
-- [ ] 加入 MediaTek LinkIt Smart 7688 教學
-- [ ] 加入 Serverless 教學
-- [ ] 加入 P2P 教學
-- [ ] 第 1~13 章進行季度校對
-- [ ] 加入 IoT 初體驗
-
-## 公開時桯
-
-* 預計在完成 Roadmap 後正式公開發佈本書 (目前本書為試讀階段)
-* 預計 2017.1.1 發表
-
+* 預計 2025 年 6 月完成
+* 預計 2025 年 6 月底電子書上市
+* 改版要點
+  * 精簡文字描述
+  * 更新過時內容
+  * 更新 JavaScript 程式碼片斷
+  * (TBD)
+    
 ## 發行紀錄
 
+* 2025：開始進行第 4 版改版工程
 * 2016-10-04：開始進行第 3 版改版工程
 * 2015-12-23：開始進行第 2 版改版工程
 
