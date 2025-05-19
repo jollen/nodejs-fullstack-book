@@ -50,6 +50,53 @@ alert(person instanceof Person); // true
 
 在這個範例中，物件 `person` 確實為 `Person` 類別的實例。將函數 `Person()` 視為 constructor，而非一般函數，能在概念上達到明確判斷 class type 的目的。
 
+## Factory Pattern 的優點與限制
+
+使用 Factory Pattern 建立物件時，有以下的優點與限制：
+
+**優點：**
+
+* 提高物件建立邏輯的封裝性與可重用性
+* 能彈性地建立不同結構的物件，適合動態決定物件屬性的情境
+* 避免程式碼過度依賴具體的建構函數，提升系統的擴充性與維護性
+
+**限制：**
+
+* 生成的物件無法透過 `instanceof` 判斷原始類型
+* 建立物件的方式較為隱晦，可能增加程式碼閱讀的困難度
+
+## 實務範例：動態物件生成
+
+以下提供一個更具實務價值的範例，展示 Factory Pattern 如何動態生成不同屬性的物件：
+
+```javascript
+// 動態決定生成物件屬性
+function employeeFactory(type, name) {
+  const employee = { name };
+
+  if (type === 'Developer') {
+    employee.job = 'Software Developer';
+    employee.queryJob = () => alert(`${name} writes code.`);
+  } else if (type === 'Manager') {
+    employee.job = 'Product Manager';
+    employee.queryJob = () => alert(`${name} manages products.`);
+  } else {
+    employee.job = 'Unknown';
+    employee.queryJob = () => alert(`Unknown role for ${name}.`);
+  }
+
+  return employee;
+}
+
+const emp1 = employeeFactory('Developer', 'Alice');
+const emp2 = employeeFactory('Manager', 'Bob');
+
+emp1.queryJob(); // Alice writes code.
+emp2.queryJob(); // Bob manages products.
+```
+
+此範例清楚說明 Factory Pattern 如何透過動態條件，建立具不同屬性與行為的物件，有效提升程式設計上的彈性與抽象化能力。
+
 ---
 
 Next: [1.4 Constructor Pattern](4-constructor.md)
