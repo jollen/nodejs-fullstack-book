@@ -56,13 +56,13 @@
 * 範例片段將同步展示 ES5 與 ES6 寫法，以利從觀念出發，建立語法演進的理解
 * 完整實作與範例程式碼，則一律採用 ES6 寫法，符合當代 Node.js 主流實務
 
-## 3.7 全章程式碼語法升級（ES6）
+### 程式碼語法升級（ES6）
 
-本節將對第 3 章的所有範例程式碼進行 **ECMAScript 6（ES6）語法升級**，並在每段標註與原範例的語法差異，方便學習者理解語法轉換原理與效益。
+本節針對第 3 章的所有範例程式碼進行 **ECMAScript 6（ES6）語法升級**，並在每段標註與原範例的語法差異，方便學習者理解語法轉換原理與效益。
 
-### 範例一：`hello.js`
+#### 範例一：`hello.js`
 
-#### ES5 原寫法：
+##### ES5 原寫法：
 
 ```javascript
 1 var http = require('http');
@@ -74,7 +74,7 @@
 7 console.log('Server running at http://127.0.0.1:8080/');
 ```
 
-#### ES6 改寫：
+##### ES6 改寫：
 
 ```javascript
 1 const http = require('http');
@@ -92,11 +92,9 @@
 * 匿名函數 → Arrow Function `()=>{}`
 * 字串拼接 → Template Literal（`` `...` ``）
 
----
+#### 範例二：模組 `server.js`
 
-### 範例二：模組 `server.js`
-
-#### ES5 原寫法（節錄）：
+##### ES5 原寫法（節錄）：
 
 ```javascript
 1 var http = require("http");
@@ -107,7 +105,7 @@
 6     var pathname = url.parse(request.url).pathname;
 ```
 
-#### ES6 改寫：
+##### ES6 改寫：
 
 ```javascript
 1 const http = require("http");
@@ -123,7 +121,7 @@
 * 所有 `var` 改為 `const`
 * 所有函數改為 Arrow Function
 
-### 附錄：「Node.js 語法遷移表」
+#### 附錄：「Node.js 語法遷移表」
 
 | 語法主題    | ES5 範例                                          | ES6+ 對應語法                                                 |
 | ------- | ----------------------------------------------- | --------------------------------------------------------- |
