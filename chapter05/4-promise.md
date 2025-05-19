@@ -91,4 +91,6 @@ Promise 並不會讓非同步變同步，它也不是效能上的優化工具。
 
 在下一節，我們將介紹 async/await —— 它不是替代 Promise，而是讓 Promise 更像「可閱讀的同步語法」。
 
+---
+
 Next: [5.5 async/await：語意同步化](5-async.md)
