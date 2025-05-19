@@ -1,6 +1,6 @@
 # 1.10 其它模式
 
-本章作為入門設計模式的總結與過渡，我們簡要整理了 JavaScript 常見的結構與語意設計方式。從 Constructor 到 Prototype、從 Module 到 Selector，每一種模式都對應著一種「語言內部的架構觀」。
+本章作為入門設計模式的總結與過渡，我們簡要整理了 JavaScript 常見的結構與語意設計方式。從 Constructor 到 Prototype、從 Module 到 Selector，每一種模式都對應著一種「JavaScript 程式語言的內部架構觀」。
 
 當然，這些只是起點。在實務開發中，還有許多關鍵模式值得我們進一步探索與精煉。
 
