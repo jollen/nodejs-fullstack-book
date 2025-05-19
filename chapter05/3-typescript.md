@@ -63,4 +63,4 @@ TypeScript 支援的不僅是 Arrow Function，還包括 **Promise、async/await
 
 下一節，我們將透過 TypeScript，認識 Promise 的語法與它背後的語言觀。
 
-Next: [5.4 Promise 的語意](4-promise.md)
+Next: [5.4 使用 Promise 封裝非同步處理流程](4-promise.md)
