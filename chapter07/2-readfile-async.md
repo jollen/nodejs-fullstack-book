@@ -1,148 +1,166 @@
-# 7.2 非同步式讀取多個檔案
+# 7.2 非同步式讀取多個檔案：從混亂到掌控的歷程
 
-以上是讀取一個檔案的範例。現在，讓我們來改寫程式：
+## 問題背景：不只是讀一個檔案
 
-- 讀取 index.txt 檔案，index.txt 列出多個文字檔
-- 再讀取 index.txt 裡列出的檔案
+在上一節，我們學會了如何非同步讀取單一檔案。但如果任務升級成：「先讀取一個檔案清單，再逐一讀取清單中列出的每個檔案內容」，你會怎麼做？
 
-例如，index.txt 的內容如下：
+這正是本節要處理的問題：
 
-~~~~~~~~
+### 目標：
+- 先讀取 `index.txt` 檔案，其內容為：
+
+```
 chapter1.txt
 chapter2.txt
 chapter3.txt
 chapter4.txt
 chapter5.txt
-~~~~~~~~
+```
 
-再分別去讀取上述共 5 個檔案的內容。撰寫這個練習題，要先分析幾個觀念：
+- 接著，逐一讀取這些章節檔案的內容，並印出結果
 
-- 以 Line-by-Line 方式讀取 index.txt
-- 讀取 index.txt 的動作，是 Non-blocking IO
-- 等到 index.txt 讀取完成後，再開始讀取其它檔案
-- 如上，在 Callback Function 裡，撰寫「讀取其它檔案」的程式碼
+我們將依照下列步驟完成這項任務，並在每個階段揭露背後潛藏的非同步挑戰，並逐步演化出更好的控制策略。
 
-有一個 Node.js 的模組：Node-BufferedReader，可以協助我們做 Line-by-Line 的讀取。必須先安裝這個模組：
+---
 
-$ npm i buffered-reader
+## Step 1：使用 Callback 組裝非同步讀取
 
-用法如下：
+我們先用傳統方式：先讀取清單，再逐行處理。這裡我們用 `buffered-reader` 套件讀取 `index.txt`，並儲存每一行（每個檔案名稱）。
 
-~~~~~~~~
- 1 var reader = require ("buffered-reader");
- 2 var DataReader = reader.DataReader;
- 3 
- 4 new DataReader ('index.txt', { encoding: "utf8" })
- 5     .on ("error", function (error){
- 6         console.log(error);
- 7     })
- 8     .on ("line", function (line, nextByteOffset){
- 9         console.log("[LINE] " + line);
-10     })
-11     .on ("end", function (){
-12         // finish reading
-13     })
-14     .read();
-~~~~~~~~
+### 安裝模組：
+```bash
+npm install buffered-reader
+```
 
-*buffered-reader* 會逐行讀取 'index.txt'，完成單行讀取後，觸發 *line* 事件，並 Callback 一個函數。這部份實作在第 8 行，Callback Function 的第一個參數 *line* 存放讀取到的內容。
+### 程式碼片段：讀取檔名清單
+```javascript
+import { DataReader } from 'buffered-reader';
+import fs from 'fs';
 
-接著，將檔名儲存到陣列裡備用：
+const files = [];
 
-~~~~~~~~
- 1 // the file list
- 2 var files = [];
- 3 
- 4 new DataReader (path + 'index.txt', { encoding: "utf8" })
- 5     .on ("error", function (error){
- 6         console.log (error);
- 7     })
- 8     .on ("line", function (line, nextByteOffset){
- 9         files.push({
-10             filename: line
-11         });
-12     })
-13     .on ("end", function (){
-14         // finish reading
-15     })
-16     .read();
-~~~~~~~~
+const getFileList = (filepath, callback) => {
+  new DataReader(filepath, { encoding: 'utf8' })
+    .on('line', (line) => {
+      files.push(line);
+    })
+    .on('end', () => {
+      callback(files);
+    })
+    .read();
+};
+```
 
-要如何讀取 *files* 陣列裡的檔案呢？只要撰寫一個迴圈即可：
+### 接著，讀取每個檔案：
+```javascript
+getFileList('index.txt', (fileList) => {
+  for (let i = 0; i < fileList.length; i++) {
+    fs.readFile(fileList[i], 'utf8', (err, data) => {
+      if (err) throw err;
+      console.log(`[DATA ${i}]`, data);
+    });
+  }
+});
+```
 
-~~~~~~~~
-1 for (var i = 0; i < files.length; i++) {
-2 	var filename = files[i].filename;
-3 
-4     fs.readFile(filename, 'utf8', function(err, data) {
-5 	    console.log("[DATA] " + data);
-6 	});
-7 }
-~~~~~~~~
+## 問題：非同步順序不可預測
 
-這段程式碼，是本章的另一個重點：
+執行時你會發現：
 
-- 第 4 行是 Non-blocking IO
-- 所以不會等到 *readFile()* 讀完檔案，會立即往下執行，進入下一個迴圈
+```text
+[DATA 4] This is chapter 5.
+[DATA 0] This is chapter 1.
+[DATA 3] This is chapter 4.
+[DATA 2] This is chapter 3.
+[DATA 1] This is chapter 2.
+```
 
-這個迴圈並不會因為「讀取檔案」，而花費太多的執行時間，這就是 Node.js 能做到「efficient」與「real-time」的關鍵。完整的程式碼如下：
+問題來了：**你無法保證讀取結果的順序**。
 
-~~~~~~~~
- 1 // public modules
- 2 var util = require('util');
- 3 var fs = require('fs');
- 4 var reader = require ("buffered-reader");
- 5 var DataReader = reader.DataReader;
- 6 
- 7 // the file list
- 8 var files = [];
- 9 
-10 /**
-11  * Use BufferedReader to read text file line by line.
-12  *
-13  * See: https://github.com/Gagle/Node-BufferedReader
-14  */
-15 var getFilelist = function(path, cb) {
-16     new DataReader (path + 'index.txt', { encoding: "utf8" })
-17         .on ("error", function (error){
-18             console.log (error);
-19         })
-20         .on ("line", function (line, nextByteOffset){
-21             files.push({
-22                 filename: line
-23             });
-24         })
-25         .on ("end", function (){
-26             cb(files);
-27         })
-28         .read();
-29 };
-30 
-31 // Application
-32 getFilelist('manuscript/', function(files) {
-33     for (var i = 0; i < files.length; i++) {
-34     	var filename = 'manuscript/' + files[i].filename;
-35 
-36         fs.readFile(filename, 'utf8', function(err, data) {
-37     	    console.log("[DATA] " + data);
-38     	});
-39     }
-40 });
-~~~~~~~~
+為什麼？因為 `fs.readFile()` 是非同步操作，它會同時啟動所有讀檔任務，誰先完成就誰先輸出。
 
-以下是執行結果：
+> ✅ 這正是 callback 無法處理「非同步流程順序控制」的最大弱點。
 
-~~~~~~~~
-[DATA] This is chapter 1.
+---
 
-[DATA] This is chapter 2.
+## Step 2：引入 Promise，讓流程可控
 
-[DATA] This is chapter 3.
+我們將每次 `fs.readFile()` 的動作包裝成 Promise 物件，讓每個讀檔變成一個「可以等待」的操作。
 
-[DATA] This is chapter 4.
+### 封裝成 Promise：
+```javascript
+const readFileAsync = (filepath) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filepath, 'utf8', (err, data) => {
+      if (err) reject(err);
+      else resolve(data);
+    });
+  });
+};
+```
 
-[DATA] This is chapter 5.
+### 使用 Promise.all 同步非同步：
+```javascript
+getFileList('index.txt', async (fileList) => {
+  const promises = fileList.map((file) => readFileAsync(file));
 
-~~~~~~~~
+  try {
+    const contents = await Promise.all(promises);
+    contents.forEach((content, index) => {
+      console.log(`[DATA ${index}]`, content);
+    });
+  } catch (err) {
+    console.error('Error reading files:', err);
+  }
+});
+```
 
-要特別注意的是，上述的訊息順序是「非確定性」。由於 *readFile* 是 Non-blocking IO，所以「先讀取的檔案」，不一定「先完成讀取」。例如，'chapter1.txt' 的檔案很大時，就可能比其它後續的檔案，更晚完成讀取。
+### 好處：
+- 順序一致（Promise.all 回傳的陣列順序對應原始檔案清單）
+- 錯誤集中處理（用 try/catch）
+- 程式碼層次平坦，不再巢狀
+
+---
+
+## Step 3：進一步優化 async/await 結構
+
+你也可以將整體流程寫成一個 async 函式，讓語法更接近同步邏輯：
+
+```javascript
+const run = async () => {
+  const fileList = await new Promise((resolve) => {
+    const list = [];
+    new DataReader('index.txt', { encoding: 'utf8' })
+      .on('line', (line) => list.push(line))
+      .on('end', () => resolve(list))
+      .read();
+  });
+
+  for (const filename of fileList) {
+    try {
+      const data = await readFileAsync(filename);
+      console.log(`[DATA] ${data}`);
+    } catch (err) {
+      console.error('Error reading file:', filename, err);
+    }
+  }
+};
+
+run();
+```
+
+這就是 async/await 的力量：用同步邏輯書寫非同步流程。
+
+---
+
+## 小結：非同步程式的三種寫法比較
+
+| 寫法         | 結構        | 可讀性 | 控制性 | 錯誤處理 | 適合場景         |
+|--------------|-------------|--------|--------|----------|------------------|
+| callback     | 巢狀        | 差     | 差     | 分散     | 簡單非同步任務   |
+| Promise      | 線性        | 中     | 好     | 集中     | 多任務併發       |
+| async/await | 最線性結構 | 最佳   | 最佳   | try/catch | 複雜流程與錯誤控制 |
+
+從這裡開始，我們將逐步搭建起一個能處理多重請求、回應與錯誤的非同步伺服器。
+
+下一節，我們將回到 Web context：如何用非同步方式設計一個 JSON API 回應？
