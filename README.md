@@ -99,6 +99,7 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 * 6.1 [再探 HTTP API](chapter06/1-http-api.md)
 * 6.2 [REST](chapter06/2-rest.md)
+* 6.3 [REST + JSON 範例](chapter06/3-rest-json.md)
 
 ### 第 7 章：軟體思惟 - Non-blocking IO 篇
 
