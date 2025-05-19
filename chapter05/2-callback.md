@@ -119,4 +119,4 @@ Lambda → Callback 的過渡，其實是從「函數做為定義」走向「函
 
 在下一節，我們將走向更進一步的結構化設計：使用 Promise 將 Callback 轉為可組合的語意契約。
 
-Next: [5.3 從 TypeScript 談起](3-typescript.md)
+Next: [5.3 從 TypeScript 談 Promise](3-promise.md)
