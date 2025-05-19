@@ -75,6 +75,7 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 * 3.3 [URL Routing](chapter03/3-url-routing.md)
 * 3.4 [設計 HTTP API](chapter03/4-http-api.md)
 * 3.5 [解析 Query String](chapter03/5-query-string.md)
+* [3.6 Node.js 語法標準](6-es5-es6.md)
 
 ### 第 4 章：Node.js 入門 - WebSocket 與 JSON 篇
 
