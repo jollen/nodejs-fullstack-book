@@ -58,16 +58,16 @@
 
 一般來說，JavaScript 最害怕去操作物件（Object）。根據 Addy Osmani 在他的著作「[JavaScript Design Pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/)」中的說明，使用選擇器（Selector）模式可以提升 JavaScript 程式碼的效能。效能的提昇關鍵為：選擇器模式以很有效率的方式去使用 DOM。jQuery 就是選擇器模式，並且能以高品質的代碼，提昇 DOM 的操作效率。
 
-筆者使用另外一種更簡單的方式來說明。在上述範例中，裡有一個 Div 區塊叫做 'message'，重構後的例子使用了 jQuery 選擇器，並且呼叫了 'message' 的 createWebSocket() 方法。從物件導向的角度來看，createWebSocket() 被封裝在 'message' 物件裡了。所以，createWebSocket() 是 'message' 物件的一個方法，這個觀念得到二個好處：
+筆者使用另外一種更簡單的方式來說明。在上述範例中，裡有一個 Div 區塊叫做 'message'，重構後的例子使用了 jQuery 選擇器，並且呼叫了 'message' 的 `createWebSocket()` 方法。從物件導向的角度來看，`createWebSocket()` 被封裝在 'message' 物件裡了。所以，`createWebSocket()` 是 'message' 物件的一個方法，這個觀念得到二個好處：
 
-* createWebSocket() 函數的操作範圍（Scope）是在 'message' 物件裡面；簡單來說
-* 在 createWebSocket() 裡可以使用 'this' 物件，這實際上是一個參考（Reference），指向「物件自已」
+* `createWebSocket` 函數的操作範圍（Scope）是在 'message' 物件裡面；簡單來說
+* 在 `createWebSocket()` 裡可以使用 'this' 物件，這實際上是一個參考（Reference），指向「物件自已」
 
 重構前，因為沒有使用 jQuery 模式，所以差別如下：
 
-* createWebSocket() 函數的操作範圍是全域環境（Global）
+* `createWebSocket()` 的操作範圍是全域環境（Global）
 * 無法使用 'this' 物件
-* createWebSocket() 函數，操作的是外部物件
+* `createWebSocket()` 操作的是外部物件
 
 這是二個版本最大差異。所以，將程式碼重構為 jQuery 模式後，能給我們帶來許多好處。
 
@@ -131,7 +131,7 @@
 
 從程式碼第 9 行與第 42 行可以很明顯看出，我們將原本的程式碼封閉起來了。所以原本的程式碼具有了封閉性。並且根據第 1 章提到的觀念，jQuery 的選擇器（\$）要以參數傳遞的方式匯入（Import）到 Module 內部後再使用。
 
-另外，這裡的實作也加入了 onmessage 與 onerror 二個回呼函數。當伺服器透過 WebSocket 傳送訊息過來時，onmessage 便會被呼叫。後續我們將擴充此函數，處理伺服器 Push 過來的即時訊息。
+另外，這裡的實作也加入了 `onmessage` 與 `onerror` 二個回呼函數（Callback Function）。當伺服器透過 WebSocket 傳送訊息過來時，`onmessage` 便會被呼叫。後續我們將擴充此函數，處理伺服器 Push 過來的即時訊息。
 
 ### 4.4.1 ES6 改寫：使用箭頭函數與模板字串
 
@@ -185,6 +185,46 @@
 * 用 IIFE（Immediately Invoked Function Expression）結合 ES6 語法實現閉包封裝
 
 這樣的寫法不僅讓語意邏輯更清晰，也與現代前端開發的主流接軌，更適合導入模組化與構建工具。
+
+### 4.4.2 WebSocket 用戶端模組化
+
+若要將 WebSocket 的 client 邏輯進一步模組化，可將通訊行為獨立封裝，便於日後重用與測試。以下是一個簡化的模組化範例：
+
+```javascript
+export function createSocket(endpoint, onMessage) {
+  const socket = new WebSocket(endpoint);
+
+  socket.onopen = () => {
+    console.log('WebSocket opened');
+  };
+
+  socket.onmessage = (event) => {
+    onMessage(event.data);
+  };
+
+  socket.onerror = (err) => {
+    console.error('WebSocket error:', err);
+  };
+
+  socket.onclose = () => {
+    console.log('WebSocket closed');
+  };
+
+  return socket;
+}
+```
+
+搭配 ES6 `import` 語法即可簡潔引入：
+
+```
+import { createSocket } from './ws-client.js';
+
+const socket = createSocket('ws://localhost:8080/start', (msg) => {
+  $('#message').html(msg);
+});
+```
+
+這樣的設計讓 WebSocket 用戶端成為獨立模組，與 UI 邏輯解耦，並利於未來擴展與測試，實踐「前後端分離」的現代開發哲學。
 
 ---
 
