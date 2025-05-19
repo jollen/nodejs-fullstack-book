@@ -1,85 +1,93 @@
 # 7.1 認識 Non-blocking IO
 
-要繼續深入 Node.js 開發，許多 Node.js 的觀念必須陸續建立起來。對初學者來說，最重要的莫過於 Non-blocking IO 的觀念。
+## 7.1.1 Node.js 是事件驅動的語言
 
-Node.js 的網站上，以精簡的 2 個特色來說明其技術特色：
+從第 6 章我們所寫的 `server.mjs` 程式中，出現了這樣的寫法：
 
-- Event-driven
-- Non-blocking IO
+```javascript
+req.on('data', chunk => {
+  body += chunk;
+});
+```
 
-第一個特色，在第 1 章做過介紹，以 Event Loop（Event-driven）的觀念來取代 Multi-thread。第二個特色，則是 Node.js 最重要的技術。要了解 Non-blocking IO 的觀念，只要練習做一個題目即可：檔案讀取。
+這不是平常同步語言中常見的寫法。這段程式代表了一個核心觀念：Node.js 是事件導向（Event-Driven）架構的語言。它不使用傳統的「一行一行、等資料回來再往下執行」的思維，而是透過事件註冊與非同步回呼來處理 I/O。
 
-![圖 7-1：Node.js 官網](../images/figure-7_1.png)
+這樣的設計來自於 Node.js 的兩大特性：
 
-用 Node.js 撰寫二個範例：
+- Event-driven（事件導向）
+- Non-blocking I/O（非阻塞輸入輸出）
 
-- 讀取一個檔案
-- 讀取多個檔案
+## 7.1.2 初探 Non-blocking IO
 
-看似簡單的二個題目，思惟邏輯卻經常困擾 Node.js 的新手，特別是從 C/PHP/Java 語言，進入 Node.js 程式設計的初學者。
+若要深入理解 Non-blocking I/O，只要從一個日常任務出發就好：**檔案讀取**。
 
-範例程式可由 Github 取得：
+Node.js 提供 File System 模組（`fs`）來處理檔案讀取。查閱官方 API 說明文件，我們會找到這個函數：
 
-https://github.com/jollen/nodejs-readfile
-
-再繼續進行前，大家不妨使用 C/PHP/Java 任何一個語言，撰寫「讀取多個檔案」的程式，並搭配本章的範例，進行觀念的探討。
-
-## Node.js File System
-
-Node.js 提供 File System 模組，支援檔案的讀取等功能。參考 Node.js 的 API 手冊，找到 [*fs.readFile()* 函數][1]：
-
-~~~~~~~~
+```javascript
 fs.readFile(filename, [options], callback)
-~~~~~~~~
+```
 
-*readFile()* 的第三個參數，是一個 Callback Function，這就是第 5 章所介紹的 Lambda 觀念。為什麼要傳遞 Callback Function 做為參數呢？這要從 Non-blocking IO 的觀念說起。
+這個 `callback` 就是我們在第 5 章所熟悉的 Lambda（暱名函數）。為什麼讀檔案不直接 return 結果？為什麼要給一個 callback？這就是 Non-blocking I/O 的精髓。
 
-[1]: http://nodejs.org/api/fs.html#fs_fs_readfile_filename_options_callback
+### 同步 vs 非同步：觀念比較
 
-典型的 C/PHP/Java 語言，都支援同步式的 File System 操作。例如，從 C/PHP/Java 語言進到 Node.js 開發的初學者，可能會寫出這段程式碼邏輯：
+從傳統 C / PHP / Java 的思維來看，初學者常常會寫出這樣的程式結構（虛擬碼）：
 
-~~~~~~~~
+```javascript
 fs.readFile('hello.txt', data);
-console.log(data);
-~~~~~~~~
+console.log(data); // 想像這行可以直接印出結果
+```
 
-請注意，這只是一段虛擬碼，並不能執行。這段虛擬碼的想法如下：
+這是同步式邏輯 —— 呼叫 `readFile()`，等它回傳結果，再印出。
 
-- 呼叫 readFile() 來讀取 'hello.txt' 檔案
-- 讀取的內容放到 *data* 變數
-- 然後將 *data* 變數的內容（檔案內容）送出
+然而，在 Node.js 中這樣寫會失敗，因為：
 
-這是一個循序邏輯（Procedure）的觀念。Node.js 的 *readfile()* 是非同步式操作，也就是 Non-blocking IO 的觀念。Node.js 並不會等到 *readFile()* 完成工作後，「才繼續往下執行」，而是「立即往下一行執行」。
+> Node.js 的 I/O 操作預設是非同步進行的，並不會「等」檔案讀完才執行下一行。
 
-也就是說，當下一行執行時，*readFile()* 可能還在讀取 'hello.txt' 檔案。所以 *console.log()* 不一定能印出完整內容。*data* 變數也有可能是空的。
+也就是說，當執行 `console.log(data)` 時，檔案可能尚未讀完，`data` 仍是 undefined。
 
-Node.js 的特色是支援 Non-blocking IO：它不會等到 IO 完成後，才往下執行。所以，完成檔案讀取時，很可能程式碼已經執行到非常後面了。要如何知道檔案已讀取完成呢？*readFile()* 完成工作後，就會 Callback 我們指定的函數。如此一來，就知道檔案已經讀取完成了。
+### 正確實作：使用 Callback
 
-正確的程式實作如下：
+```javascript
+import fs from 'fs';
 
-~~~~~~~~
-var fs = require('fs');
-
-fs.readFile(filename, 'utf8', function(err, data) {
-    console.log("[DATA] " + data);
+fs.readFile('hello.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log("[DATA]", data);
 });
-~~~~~~~~
+```
 
-Callback Function 是一個暱名函數（Lambda），當它被呼叫時，表示已完成檔案讀取，並且收到二個參數。根據 Node.js 的手冊，第二個參數存放讀取到的內容。
+當 `readFile` 讀取完成時，Node.js 會主動「回呼」這個 Lambda 函數，並傳入結果。
 
-了解 Non-blocking IO 的觀念後，就會知道以下是一個錯誤寫法：
+### 錯誤示範：將非同步當同步用
 
-~~~~~~~~
-var fs = require('fs');
-
-fs.readFile(filename, 'utf8', function(err, data) {
+```javascript
+let data;
+fs.readFile('hello.txt', 'utf8', (err, result) => {
+  data = result;
 });
 
-console.log("[DATA] " + data);  // 錯誤寫法
-~~~~~~~~
+console.log("[DATA]", data); // 錯誤！此時 data 尚未被賦值
+```
 
-這就是 Node.js 最重要的觀念：Non-blocking IO，實作上，搭配 Callback Function 的觀念。
+這是初學者最容易遇到的問題：**尚未理解事件與非同步執行順序的差異**。
 
----
+### 圖像輔助：Non-blocking I/O 思維
 
-Next: [7.2 非同步式讀取多個檔案](2-readfile-async.md)
+```
+主程式執行 → 呼叫 readFile()
+              ↓
+        建立 callback 等待完成
+              ↓
+     下一行立即繼續執行
+              ↓
+     （完成後才觸發 callback）
+```
+
+### 小結
+
+> Non-blocking I/O 就是：不要卡住主線程，讓事件完成後通知我。
+
+這樣的設計，讓 Node.js 特別適合高併發、即時應用、網路伺服器等場景。
+
+在下一節，我們將進一步探討：非同步寫法如何進化為 Promise 與 async/await，進而改善 callback 地獄的可讀性與維護性。
