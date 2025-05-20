@@ -1,57 +1,77 @@
-# 10.3 Presenetation 在 Client 端
+# 10.3 Presentation 在 Client 端
 
-有了 3-Tier 與 REST API 架構的觀念後，再重新實作「即時聊天室 App」時，我們會發現整個思惟邏輯都不一樣了。主要的思考重點如下：
+延續上一節所介紹的 3-Tier 架構與 REST API 設計思維，本節將重心轉向最上層的介面層（Presentation Tier），並從一位 Node.js 開發者的角度來理解：**為何 HTML5 文件應該交由 Client 渲染？而非由 Server 動態生成？**
 
-- Presentation 儲存在 Client 端，而不是 Server 端
-- Express.js 僅負責提供 Presentation 文件，但不進行 Server-Side Rendering
-- 透過 REST API 取得 Response Data 後，進行 Client-Side Rendering
-- Client 與 Server 透過 API 形式連結，這就是 API Architecture 的觀念
+### REST 架構下的 Client 角色再定義
 
-再舉一個例子：實作即時新聞 App。典型的 PHP 開發者，是以「網頁」的概念來架構這個軟體，打造出來的軟體，Scenario 會是這樣：
+過去，我們經常以 Server-Side Rendering 的方式回應請求，也就是當使用者輸入網址時，伺服器不只回傳資料，還同步產出完整的 HTML 網頁。但在 REST API 架構中，這樣的做法會讓邏輯混合、耦合提高。
 
-1. Client 輸入 URL（網址）
-2. Server 取得即時新聞
-3. Server 將即時新聞 Parse 成 HTML 語法
-4. 將完整的 HTML 文件送出
-5. Client 端的瀏覽器顯示這份 HTML 文件
+REST 強調的核心精神是：**Server 僅提供資料，Client 負責呈現與互動邏輯。**
 
-但以 REST API 架構觀念重構後，Scenario 應該是：
+因此，整體開發邏輯將出現以下轉變：
 
-1. Client 端向 Server 請求 HTML 文件
-2. Server 送出模板文件（Template）
-3. Client 端瀏覽器顯示模板文件
-4. Client 端呼叫 REST API，向 Server 取得即時新聞
-5. Server 端以 JSON 格式返回即時新聞
-6. Client 端解析收到的 JSON 資料，並顯示新聞至 UI 上的對應位置（這個觀念就叫做 ViewModel）
+* HTML Template 由 Server 提供，但不包含資料
+* 資料以 JSON 格式透過 API 傳輸給 Client
+* Client 使用 JavaScript 框架（如 Vue、React）進行頁面渲染（Client-Side Rendering）
 
-後者才是 REST API 架構的觀念，也是 3-Tier 架構的正確實作方法。這又是 Web Page 與 Web App 的另外一個重要差異：
+這種分工方式，才能真正落實 3-Tier 架構中 Presentation 與 Logic 的責任分離。
 
-- Web App 要考慮軟體架構，即 3-Tier 與 API Architecture
-- Web Page 只是一份文件，而不是「軟體」
+### 實作觀點：即時聊天室 App 的兩種版本
 
-最後，經由以上的討論，可以知道一個很重要的細節：REST API 架構下，Client 與 Server 是經由 API 來連結，Presenetation（也就是 HTML5 文件）的部份，主要是放置在 Client 端。這才是正確的 REST API 架構觀念。當然 API 的定義與實作，並不一定要遵循 REST API 的規範，但重要的觀念是相同的，其通則如下：
+當我們以 RESTful 架構重構「即時聊天室 App」，將不再由伺服器輸出包含資料的 HTML，而是改為：
 
-- 任何以 API 架構來連接 Client 與 Server 端的實作，都要將 Presentation 放置在 Client 端
-- Server 只做運算與服務供應，這就是 Service-Oriented Computing 的觀念
-- 在 SOA 模式下，Server 理論上不供應「網頁文件」
+1. Server 提供基本的 HTML5 模板（空殼）
+2. Client 於畫面載入後發送 AJAX / fetch 請求，取得聊天室歷史訊息
+3. JavaScript 將資料插入頁面中的 DOM 元素，完成畫面顯示
 
-思考清楚 REST API、SOA 與 Web Service 的觀念後，就讓我們來重新實作即時聊天室：nodejs-chat。範例可由 Github 取得：
+同樣的應用邏輯，若以傳統 PHP 結構撰寫，其流程將會是：
 
-	http://github.com/jollen/nodejs-chat
+1. Client 發送 URL 請求
+2. Server 端撈取資料、生成 HTML 字串
+3. 將包含資料的完整 HTML 回傳
+4. Client 瀏覽器直接顯示網頁
 
-nodejs-chat 的開發是基於 http://github.com/jollen/nodejs-express，因此請在完成前 9 個章節的學習後，再繼續往下閱讀。
+這兩者的差異，就是 Web Page（PHP 式）與 Web App（REST 式）在架構上的分水嶺。
 
-### Presentation 架構模式
+| 架構思維        | 傳統 Web Page        | 現代 Web App（REST） |
+| ----------- | ------------------ | ---------------- |
+| Server 工作內容 | 查資料 + 組 HTML       | 提供資料（JSON）       |
+| Client 角色   | 顯示 Server 組好的 HTML | 組合畫面 + 呈現資料      |
+| 資料與畫面耦合     | 高（混在 HTML 中）       | 低（畫面與資料分離）       |
 
-MVC 是最耳熟能詳的 Presentation 架構模式，在學習 Web Fullstack 時，第一個要知道的觀念如下[1]：
+### API 架構下的通則：Server 不產生畫面
 
-* 有一種稱為 Passive View 的 View
-* Passive View 非常輕量化，例如以元件形式呈現
-* Passive View 與 Model 沒有關係
+回到核心觀念，在 API 架構下（無論是否嚴格遵循 REST 規範），有一個通則：
 
-這樣的觀念，就是 MVP 模式所要強調的重點。MVC 的 View 偏重於「display data to users」的觀念，而 MVP 則是更精進 View 與 Model 的設計。在 MVP 中的 View，強調的是 Passive View 的觀念。
+> **Presentation 層應由 Client 負責，而非 Server。Server 僅負責邏輯與資料。**
 
-[1] Presentation Patterns : MVC, MVP, PM, MVVM, https://manojjaggavarapu.wordpress.com/2012/05/02/presentation-patterns-mvc-mvp-pm-mvvm/
+這不只是一種效能考量，更是一種工程分工原則，也正是 Service-Oriented Computing 的基本信念。
+
+若以 Express.js 架構設計，即可實現這種邏輯分離。伺服器端僅提供 `/api/messages`、`/api/user` 等資料 API，而前端透過 fetch API 在畫面初始化後，主動取得資料並渲染畫面。
+
+### 實務應用：nodejs-chat 專案
+
+若你已完成前 9 章的學習，建議可以參考以下範例：
+
+GitHub：[http://github.com/jollen/nodejs-chat](http://github.com/jollen/nodejs-chat)
+
+此專案即為一個以 Express.js 為底層、採用 API 架構方式設計的簡易即時聊天室系統。它的基礎框架為：[http://github.com/jollen/nodejs-express](http://github.com/jollen/nodejs-express)
+
+透過這個專案，你將看到如何將 Client 與 Server 明確分工，並透過 API 進行資料互動與畫面更新。
+
+## Presentation 架構模式：Passive View × MVP 思維
+
+MVC 是最耳熟能詳的 Presentation 架構模式，在學習 Web Fullstack 時，我們還需要進一步認識其延伸模式——MVP（Model-View-Presenter）。
+
+尤其是其中的「Passive View」觀念，極具實務啟發性：
+
+* View 僅負責畫面呈現，不直接操作 Model
+* 所有邏輯由 Presenter 控制，實作上可對應為 Controller / handler function
+* Passive View 可視為一種輕量、模組化的 UI 元件架構
+
+這種結構將頁面轉為「純顯示」，讓資料綁定與邏輯處理交給 JavaScript 管理，是現代 SPA（Single Page Application）框架的設計基礎。
+
+進一步閱讀參考：[Presentation Patterns: MVC, MVP, PM, MVVM](https://manojjaggavarapu.wordpress.com/2012/05/02/presentation-patterns-mvc-mvp-pm-mvvm/)
 
 ---
 
