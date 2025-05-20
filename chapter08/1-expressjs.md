@@ -32,7 +32,7 @@ $ npm install -g express-generator
 
 ## Step 2：建立 Express.js 專案
 
-先建立一個新的專案目錄，，在這個目錄下，使用以下指令快速建立專案原型：
+先建立一個新的專案目錄，在這個目錄下，使用以下指令快速建立專案原型：
 
 ```bash
 $ express myapp
@@ -122,13 +122,66 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
+
+// 處理 404 未匹配的路由
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// 錯誤處理中介層：統一攔截錯誤
+app.use((err, req, res, next) => {
+  console.error('[Express Error]', err.message);
+  res.status(err.status || 500);
+  res.send('Server Error');
+});
+
+module.exports = app;
 ```
 
-## NoChat 專案啟動：全書整合實戰
+透過 Step 5 範例程式碼，我們學會 Express.js 與 7.3 節非同步錯誤處理的觀念應用：
+
+| 機制位置           | 作用說明                               | 對應 7.3 概念      |
+|--------------------|----------------------------------------|-------------------|
+| next(err)          | 非同步中斷流程並觸發錯誤中介層         | reject() / throw |
+| app.use((err...))  | 統一處理所有異常，集中處理訊息與回應   | catch / try/catch |
+  
+### app.use 與錯誤處理中介層
+
+Express.js 的 `app.use()` 方法，用來掛載（mount）中介層（middleware）函數（callback function）。這些函數可攔截請求，進行前處理、路由分派、錯誤回應等。
+
+錯誤處理中介層包含四個參數（`err, req, res, next`）：
+
+```javascript
+app.use((err, req, res, next) => {
+  // err：錯誤物件，由 next(err) 傳入
+  // req：HTTP Request 請求物件
+  // res：處理 HTTP Response 物件
+  // next：下一個 middleware 函式
+});
+```
+
+這是 Express 專門設計用來「處理錯誤」的中介層（middleware）。只要呼叫 `next(err)`，Express 就會自動跳出當前的 middleware，進入下一個 middlware。
+
+常見用途如下：
+
+- 統一格式化錯誤訊息回傳（如 JSON 結構）
+- 自訂 HTTP status code 與錯誤內容
+- 記錄錯誤日誌、送出告警通知
+- 與外部系統（如 APM）整合
+
+使用錯誤處理中介層，我們可視需求進行錯誤日誌記錄、回傳格式調整（如 JSON）、整合 APM（Application Performance Monitoring）等進階功能。這類結構化的錯誤控制，正是大型應用系統的必要能力。
+
+這種結構式的錯誤控制設計，不僅提升應用程式的可靠性，也能幫助開發者快速除錯與擴充邏輯。這與第 7.3 節的觀念相對應，在 `callback → Promise → async/await` 的流程中，我們會將錯誤集中於 `.catch()` 或 `try/catch` 裡，Express 也提供類似的「集中攔截機制」。而不像 callback 模式下，錯誤可能分散在不同函式中。
+
+總結來說，錯誤中介層是大型系統中的必備機制，能讓你明確地掌握系統每一個失敗節點。這也正是現代 Web Framework 比 CGI 編碼模式更具工程性的重要基礎。
+
+## NoChat 專案：整合實戰
 
 在後續章節中，NoChat 將使用 `async/await` 處理 WebSocket 與 REST API 的非同步請求，並結合 Express 的錯誤中介層，打造一個具備容錯能力的 Web 應用骨架，完整實踐 7.3 節所介紹的錯誤管理策略。
 
-從這一章開始，我們將建構一個貫穿全書的整合性實作：NoChat 專案。它是一個簡易但完整的聊天室系統，具備以下能力：
+從這一章開始，我們開啟了貫穿本書的整合實作：NoChat 專案。它是一個簡易但完整的聊天室系統，具備以下能力：
 
 - 使用 Express.js 建構 REST API 與畫面框架
 - 客戶端使用 HTML5 + WebSocket 與伺服器連線
