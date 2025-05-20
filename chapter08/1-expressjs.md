@@ -202,4 +202,6 @@ NoChat 不只是練習範例，它將成為你實戰 Node.js 應用的第一個�
 
 截至目前，我們已經完成 Stage 1～3。下一節將說明 Stage 4 與 Stage 5 的實作，正式進入 View 建構與 Routing 開發核心。
 
+---
+
 Next: [8.2 MVC 與 HTML Template Engine](2-template.md)
