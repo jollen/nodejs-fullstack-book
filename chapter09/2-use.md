@@ -1,4 +1,4 @@
-# 9.2 使用 `app.use()` 撰寫全域 Middleware：語境的預設入口
+# 9.2 使用 `app.use()` 撰寫全域 Middleware
 
 在上一節我們學會了如何為單一路由加入 Middleware，現在，我們要進一步掌握 `app.use()` 的全域特性——讓 Middleware 成為所有請求的前哨站。
 
@@ -228,8 +228,8 @@ app.use(app.router);
 
 很多人以為 `app.use()` 是 express 特有語法，其實它是語意上的設計——「預設所有請求都先經過這裡」。
 
-這讓我們能在一個地方，掌控整個 Web App 的語境入口：身份驗證、API 權限、統一前處理……都是這裡的責任。
+這讓我們能在一個地方，掌控整個 Web App 的語境入口，不管是身份驗證、API 權限、統一前處理等實作，都是 `app.use()` 的責任。
 
 ---
 
-Next: [9.3 解析 app.js](3-use-middleware.md)
+Next: [9.3 常用的 Middleware](3-use-middleware.md)
