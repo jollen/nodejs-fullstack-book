@@ -102,6 +102,8 @@ $ wget http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js
 
 ## Step 5：擴充 app.js
 
+在第 7.3 節中，我們學會如何用 `Promise` 與 `async/await` 管理非同步錯誤，Express.js 也提供相容的方式來承接這類錯誤。在 `app.js` 裡設定的錯誤中介層（error-handling middleware），會自動攔截來自非同步流程中 `next(err)` 所拋出的錯誤，這與我們前一章提到的 `try/catch` 或 `.catch()` 機制在語意上一致。
+
 `app.js` 是整個 Web Application 的主控制器，其核心包含：
 
 - 匯入所需模組（例如 `http`, `path`, `express`）
@@ -124,6 +126,8 @@ app.use('/', indexRouter);
 
 ## NoChat 專案啟動：全書整合實戰
 
+在後續章節中，NoChat 將使用 `async/await` 處理 WebSocket 與 REST API 的非同步請求，並結合 Express 的錯誤中介層，打造一個具備容錯能力的 Web 應用骨架，完整實踐 7.3 節所介紹的錯誤管理策略。
+
 從這一章開始，我們將建構一個貫穿全書的整合性實作：NoChat 專案。它是一個簡易但完整的聊天室系統，具備以下能力：
 
 - 使用 Express.js 建構 REST API 與畫面框架
@@ -144,7 +148,5 @@ NoChat 不只是練習範例，它將成為你實戰 Node.js 應用的第一個�
 - Stage 5：練習新增 URL Routing
 
 截至目前，我們已經完成 Stage 1～3。下一節將說明 Stage 4 與 Stage 5 的實作，正式進入 View 建構與 Routing 開發核心。
-
----
 
 Next: [8.2 MVC 與 HTML Template Engine](2-template.md)
