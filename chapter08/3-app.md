@@ -1,22 +1,23 @@
 # 8.3 解析 app.js
 
-要知道如何新增 URL Routing，就要對 *app.js* 有基本的了解。*app.js* 是 Express.js 建立專案時，自動建立的 Web Application 主程式，內容如下：
+要新增 URL Routing，首先要對專案中的主程式 *app.js* 有基本認識。
 
-{title="app.js"}
-~~~~~~~~
- 1 
+在使用 Express CLI 建立專案時，系統會自動生成 *app.js* 作為應用程式的進入點。以下為範例內容：
+
+```js
+ 1
  2 /**
  3  * Module dependencies.
  4  */
- 5 
+ 5
  6 var express = require('express');
  7 var routes = require('./routes');
  8 var user = require('./routes/user');
  9 var http = require('http');
 10 var path = require('path');
-11 
+11
 12 var app = express();
-13 
+13
 14 // all environments
 15 app.set('port', process.env.PORT || 3000);
 16 app.set('views', path.join(__dirname, 'views'));
@@ -28,50 +29,55 @@
 22 app.use(express.methodOverride());
 23 app.use(app.router);
 24 app.use(express.static(path.join(__dirname, 'public')));
-25 
+25
 26 // development only
 27 if ('development' == app.get('env')) {
 28   app.use(express.errorHandler());
 29 }
-30 
+30
 31 app.get('/', routes.index);
 32 app.get('/users', user.list);
-33 
+33
 34 http.createServer(app).listen(app.get('port'), function(){
 35   console.log('Express server listening on port ' + app.get('port'));
 36 });
-~~~~~~~~
+```
 
-程式碼說明如下：
+### 程式碼逐段說明
 
-- 第 6~10 行，匯入外部 Node.js 模組，其中 *routes/* 目錄就是存放 URL Routing 程式碼的位置
-- 第 12 行，匯入 Express.js 模組
-- 第 15~17 行，呼叫 Express.js 的 *set()* 函數來定義常數，當中的 'port' 常數用來定義 Express.js 的 Listerning Port 編號
-- 第 18~24 行，呼叫 *use()* 函數，來載入（使用）Middleware，Express.js Middleware 的觀念後續再做說明
-- 第 32~32 行，這裡就是 URL Routing 的關鍵，呼叫 *get()* 函數來指定 URL 的 Handler Funtion
+* **第 6～10 行**：匯入外部模組與本地模組，包含核心的 `express`、`http` 與 `path`，以及 `routes` 目錄中的路由模組。
+* **第 12 行**：建立一個 Express 應用實例。
+* **第 15～17 行**：使用 `app.set()` 設定應用層級變數，如：
 
-以第 32 行為例，當瀏覽器發出 '/' 的請求時（例如：*http://localhost:3000/*），Express.js 就會呼叫（Callback） *routes.index* 函數來做處理。
+  * `port`：指定伺服器監聽的 Port
+  * `views`：設定樣板（View）檔案的資料夾路徑
+  * `view engine`：設定樣板引擎為 Jade（建議更新為 Pug）
+* **第 18～24 行**：使用 `app.use()` 註冊各項 Middleware，處理請求前的各種前置作業。
+* **第 31～32 行**：設定 URL Routing，當用戶請求 `'/'` 或 `'/users'` 時，分別交由 `routes.index` 與 `user.list` 處理。
+* **第 34～36 行**：建立 HTTP 伺服器並開始監聽，啟動整個 Web 應用。
 
-讓我們來了解一下 *routes.index* 函數的實作：
+### Routing 範例：routes.index
 
-~~~~~~~~
-1 
+以第 31 行為例，當瀏覽器請求 `/` 路徑（如 `http://localhost:3000/`）時，Express 會呼叫 `routes.index` 函數。其內容如下：
+
+```js
+1
 2 /*
 3  * GET home page.
 4  */
-5 
+5
 6 exports.index = function(req, res){
 7   res.render('index', { title: 'Express' });
 8 };
-~~~~~~~~
+```
 
-這是一個 Node.js 的模組，裡面匯出了 *index* 函數，當 '/' 請求發生時，Express.js 就會 Callback 這個 函數，並且傳入二個參數：
+這段程式碼說明：
 
-- *req* 是 Request 物件，存放這此請求的所有資訊
-- *res* 是 Response 物件，用來回應該請求
+* 這是 Node.js 的模組語法，將 `index` 函數作為模組輸出（`exports.index`）。
+* 當 `index()` 被呼叫時，Express 會傳入兩個參數：
 
-在程式碼第 7 行的地方，呼叫了 *res.render* 函數，這個函數透過 Jade Template Engine 將 *index.jade* 解析（Rendering）成 HTML5 後回應（Response）給用戶端。
+  * `req`：Request 物件，封裝所有來自瀏覽器的請求資訊
+  * `res`：Response 物件，用來產生伺服器回應
+* 在第 7 行中，透過 `res.render()` 呼叫樣板引擎將 `views/index.pug`（舊稱 jade）編譯為 HTML 並送出給用戶端。
 
----
-
-Next: [8.4 Express URL Routing](4-url-routing.md)
+下一節將深入說明如何設計 URL Routing 並延伸其結構設計能力。
