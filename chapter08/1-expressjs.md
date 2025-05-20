@@ -6,9 +6,9 @@ Express.js 是目前最受歡迎的 Node.js Web Framework，不僅是 REST API �
 
 Express.js 除了支援 URL Routing 的功能外，也提供很完整的 Web Application 支援。Express.js 的功能強大，對 Express.js 的初學者來說，要先學好以下 3 個主題：
 
-- 使用 Express.js 做 URL Routing
-- Express.js 與 HTML Template 的結合
-- 學習 Jade Programming Language
+* 使用 Express.js 做 URL Routing
+* Express.js 與 HTML Template 的結合
+* 學習 Jade Programming Language
 
 > Jade 自 2016 年因商標問題改名為 Pug，本書範例使用 Jade，但實作建議使用新版 Pug。
 
@@ -54,7 +54,7 @@ Express application generator 自動幫我們生成了 Node.js 的專案架構�
 
 ![圖 8-1 啟動第一個 Express App](../images/figure-8_1.png)
 
-利用瀏覽器開啟 http://localhost:3000/ 即可看到 Express 啟動的預設頁面。
+利用瀏覽器開啟 [http://localhost:3000/](http://localhost:3000/) 即可看到 Express 啟動的預設頁面。
 
 Express.js 是一個 Web Application Framework，也可以很方便地協助我們發展 Web Service API。基本上，Express.js 並不是一個 Web Server 的模組，因此不要誤解 Express.js 只是一個輕量級的 Web Server；Express.js 的本質是一個 Web Application 開發框架。
 
@@ -66,23 +66,26 @@ Express.js 是一個 Web Application Framework，也可以很方便地協助我�
 
 以下是 Express 所生成的專案結構（Structure）：
 
-- `app.js`：Web Application 原型與主程式
-- `package.json`：NPM 套件設定檔
-- `public/`：放置靜態文件，如 CSS、JS、圖片
-- `routes/`：處理 URL Routing 的程式碼
-- `views/`：放置 Jade View 模板
+* `app.js`：Web Application 原型與主程式
+* `package.json`：NPM 套件設定檔
+* `public/`：放置靜態文件，如 CSS、JS、圖片
+* `routes/`：處理 URL Routing 的程式碼
+* `views/`：放置 Jade View 模板
 
 Express 預設使用 Jade 作為 HTML Template Engine（現稱為 Pug）。
 
 此外，Express 採用的是 MVC 架構設計：Model–View–Controller。
 
-- View：以 Jade 撰寫的模板，定義畫面外觀（儲於 `views/`）
-- Controller：以 JavaScript 撰寫的 routing 控制器（儲於 `routes/`）
-- Model：可由後端資料邏輯或 JSON 結構支援
+* View：以 Jade 撰寫的模板，定義畫面外觀（儲於 `views/`）
+* Controller：以 JavaScript 撰寫的 routing 控制器（儲於 `routes/`）
+* Model：可由後端資料邏輯或 JSON 結構支援
 
 這種分層方式，有助於將「資料處理邏輯」與「畫面表現」做出明確區分。
 
 目前的首頁畫面並非由 `index.html` 提供，而是由 `views/index.jade` 動態產生。
+
+📌 **語境提示：Routing、Middleware、View 構成了 Express 的語意流程鏈。**
+在後續的章節中，我們會學到如何使用 Middleware 來控制使用者是否能進入某些頁面，Routing 負責將請求導向對應的處理器，而 View 則輸出畫面。這三者密不可分，共同構成語境控制與回應渲染的雙層架構。
 
 ## Step 4：佈署靜態文件
 
@@ -104,12 +107,15 @@ $ wget http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js
 
 在第 7.3 節中，我們學會如何用 `Promise` 與 `async/await` 管理非同步錯誤，Express.js 也提供相容的方式來承接這類錯誤。在 `app.js` 裡設定的錯誤中介層（error-handling middleware），會自動攔截來自非同步流程中 `next(err)` 所拋出的錯誤，這與我們前一章提到的 `try/catch` 或 `.catch()` 機制在語意上一致。
 
+📌 **系統觀補充：** `app.js` 不只是主程式檔，它也是整個 Express 應用的中控層。
+從 Middleware 註冊、Routing 綁定、樣板引擎設定，到錯誤處理與靜態檔案服務，所有邏輯起始點皆匯聚於此。
+
 `app.js` 是整個 Web Application 的主控制器，其核心包含：
 
-- 匯入所需模組（例如 `http`, `path`, `express`）
-- 設定中介層（Middleware），例如 body-parser、logger、靜態服務等
-- 設定 URL Routing
-- 錯誤處理機制（404 與一般錯誤處理）
+* 匯入所需模組（例如 `http`, `path`, `express`）
+* 設定中介層（Middleware），例如 body-parser、logger、靜態服務等
+* 設定 URL Routing
+* 錯誤處理機制（404 與一般錯誤處理）
 
 以下為範例片段解說：
 
@@ -142,11 +148,11 @@ module.exports = app;
 
 透過 Step 5 範例程式碼，我們學會 Express.js 與 7.3 節非同步錯誤處理的觀念應用：
 
-| 機制位置           | 作用說明                               | 對應 7.3 概念      |
-|--------------------|----------------------------------------|-------------------|
-| next(err)          | 非同步中斷流程並觸發錯誤中介層         | reject() / throw |
-| app.use((err...))  | 統一處理所有異常，集中處理訊息與回應   | catch / try/catch |
-  
+| 機制位置              | 作用說明               | 對應 7.3 概念         |
+| ----------------- | ------------------ | ----------------- |
+| next(err)         | 非同步中斷流程並觸發錯誤中介層    | reject() / throw  |
+| app.use((err...)) | 統一處理所有異常，集中處理訊息與回應 | catch / try/catch |
+
 ### app.use 與錯誤處理中介層
 
 Express.js 的 `app.use()` 方法，用來掛載（mount）中介層（middleware）函數（callback function）。這些函數可攔截請求，進行前處理、路由分派、錯誤回應等。
@@ -162,14 +168,14 @@ app.use((err, req, res, next) => {
 });
 ```
 
-這是 Express 專門設計用來「處理錯誤」的中介層（middleware）。只要呼叫 `next(err)`，Express 就會自動跳出當前的 middleware，進入下一個 middlware。
+這是 Express 專門設計用來「處理錯誤」的中介層（middleware）。只要呼叫 `next(err)`，Express 就會自動跳出當前的 middleware，進入下一個 middleware。
 
 常見用途如下：
 
-- 統一格式化錯誤訊息回傳（如 JSON 結構）
-- 自訂 HTTP status code 與錯誤內容
-- 記錄錯誤日誌、送出告警通知
-- 與外部系統（如 APM）整合
+* 統一格式化錯誤訊息回傳（如 JSON 結構）
+* 自訂 HTTP status code 與錯誤內容
+* 記錄錯誤日誌、送出告警通知
+* 與外部系統（如 APM）整合
 
 使用錯誤處理中介層，我們可視需求進行錯誤日誌記錄、回傳格式調整（如 JSON）、整合 APM（Application Performance Monitoring）等進階功能。這類結構化的錯誤控制，正是大型應用系統的必要能力。
 
@@ -183,10 +189,10 @@ app.use((err, req, res, next) => {
 
 從這一章開始，我們開啟了貫穿本書的整合實作：NoChat 專案。它是一個簡易但完整的聊天室系統，具備以下能力：
 
-- 使用 Express.js 建構 REST API 與畫面框架
-- 客戶端使用 HTML5 + WebSocket 與伺服器連線
-- 所有資料以 JSON 格式傳輸
-- 非同步流程以 Promise 與 async/await 控制
+* 使用 Express.js 建構 REST API 與畫面框架
+* 客戶端使用 HTML5 + WebSocket 與伺服器連線
+* 所有資料以 JSON 格式傳輸
+* 非同步流程以 Promise 與 async/await 控制
 
 NoChat 不只是練習範例，它將成為你實戰 Node.js 應用的第一個完整作品。
 
@@ -194,11 +200,11 @@ NoChat 不只是練習範例，它將成為你實戰 Node.js 應用的第一個�
 
 初學者可以依照以下階段循序學習 Express.js：
 
-- Stage 1：學會建立新的 Express.js 專案
-- Stage 2：了解 Express.js 專案的目錄結構
-- Stage 3：練習加入 Bootstrap
-- Stage 4：學習 Jade 語法並撰寫第一個 View
-- Stage 5：練習新增 URL Routing
+* Stage 1：學會建立新的 Express.js 專案
+* Stage 2：了解 Express.js 專案的目錄結構
+* Stage 3：練習加入 Bootstrap
+* Stage 4：學習 Jade 語法並撰寫第一個 View
+* Stage 5：練習新增 URL Routing
 
 截至目前，我們已經完成 Stage 1～3。下一節將說明 Stage 4 與 Stage 5 的實作，正式進入 View 建構與 Routing 開發核心。
 
