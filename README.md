@@ -105,6 +105,7 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 * 7.1 [認識 Non-blocking IO](chapter07/1-nonblocking-io.md)
 * 7.2 [非同步式讀取多個檔案](chapter07/2-readfile-async.md)
+* 7.3 [深入 Node.js 非同步錯誤處理](chapter07/3-error-handling.md)
 
 ## Part 2：Getting Started
 
