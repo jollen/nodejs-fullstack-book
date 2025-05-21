@@ -82,12 +82,16 @@ $ curl -X POST http://localhost:3000/discussion/hello
 
 在第 9 章中，我們已經學會如何使用 Express.js 設計路由與處理靜態檔案。現在，我們將這些能力延伸至 Client 端的互動邏輯上。這代表不只是設計 API，更要在使用者操作發生時，主動觸發請求、解析回應並渲染畫面。
 
-以下為前端以 `fetch()` 透過 HTTP POST 方戈式，來呼叫 REST API 的範例：
+以下為前端以 `fetch()` 呼叫 REST API 的範例，展示 GET 與 POST 的完整應用方式，並補上 headers 設定與 JSON 傳遞格式：
 
 ```js
-// 送出訊息
-fetch('/discussion/hello', {
-  method: 'POST'
+// 送出訊息（正確 POST 範例）
+fetch('/api/messages', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ user: 'alice', text: 'Hello world!' })
 });
 
 // 取得最新 5 筆訊息
@@ -102,13 +106,38 @@ fetch('/discussion/latest/5')
 
 這些邏輯日後將整合進前端頁面事件，如「送出表單」「載入畫面時自動取得歷史訊息」等情境中。
 
+為了讓訊息能在畫面中實際顯示，建議實作一個 `renderMessages()` 函式，將從 API 回傳的 JSON 陣列資料動態渲染至聊天室區塊中：
+
+```js
+function renderMessages(messages) {
+  const ul = document.getElementById('chat-log');
+  ul.innerHTML = '';
+
+  messages.forEach(msg => {
+    const li = document.createElement('li');
+    li.textContent = msg.message;
+    ul.appendChild(li);
+  });
+}
+```
+
+此函式會將最新訊息逐筆插入至 `<ul id="chat-log">` 中，並在每次更新時清空舊資料，確保畫面與資料同步。你可以搭配頁面載入事件，自動撈取最新訊息：
+
+````js
+window.onload = () => {
+  fetch('/discussion/latest/10')
+    .then(res => res.json())
+    .then(renderMessages)
+    .catch(err => console.error('載入錯誤', err));
+};
+
 若搭配最小前端 UI，可以設計以下結構：
 
 ```html
 <input id="input-msg">
 <button onclick="sendMessage()">送出</button>
 <ul id="chat-log"></ul>
-```
+````
 
 對應的 JavaScript 邏輯為：
 
@@ -131,7 +160,49 @@ fetch('/discussion/latest/5')
   .catch(err => alert('載入失敗：' + err.message));
 ```
 
-## Step 4：撰寫測試程式（Test Case）
+## 10.5.1 CORS 與 Preflight Request
+
+當前端與後端部署於不同來源（如前端部署於 Vercel，後端部署於 Render），瀏覽器會依據同源政策（Same-Origin Policy）阻擋跨網域請求。為解決此問題，需設定 CORS（跨來源資源共享）政策，否則 REST API 呼叫將遭遇錯誤：`Blocked by CORS policy`。
+
+此外，使用 `fetch()` 且指定 `Content-Type: application/json` 的 POST 請求，會觸發「預檢請求」（Preflight Request），即在正式送出 POST 前，先由瀏覽器發送 OPTIONS 請求，確認是否允許該操作。
+
+### Step 1: 安裝 CORS Middleware
+
+```bash
+$ npm i cors --save
+```
+
+### Step 2: 加入 Middleware 回應 CORS 檔頭
+
+```js
+const express = require('express');
+const cors = require('cors');
+const router = express.Router();
+
+// 開放所有來源（開發用）
+router.use(cors());
+
+router.post('/', function(req, res, next) {
+  // 處理 POST 請求內容
+});
+```
+
+### Step 3: 額外處理 Preflight Request（OPTIONS）
+
+```js
+router.options('/', cors()); // 回應預檢請求
+```
+
+當伺服器成功回應 OPTIONS 請求，正式的 POST 才會被允許發送。
+
+```bash
+OPTIONS /posts?m=ab 204 10.345 ms - -
+POST /posts?m=ab 200 52.526 ms - 15
+```
+
+在 NoChat 專案日後部署時（如將前端與後端分開至不同主機或服務），務必實作上述設定，確保 REST API 正常運作於跨來源架構之中。
+
+### Step 4：撰寫測試程式（Test Case）
 
 若只用 curl 測試，效率不高。建議改以 Node.js 撰寫測試腳本。可使用 [Requestify](http://ranm8.github.io/requestify/) 套件：
 
