@@ -259,4 +259,4 @@ requestify.get('http://localhost:3000/discussion/latest/2')
 
 ---
 
-Next: [10.6 WebSocket 即時推播](6-realtime.md)
+Next: [10.6 WebSocket 即時推播](6-websocket.md)
