@@ -1,279 +1,191 @@
 # 10.5 Node.js Chat Client
 
+本節將延續前章 REST API 架構與 NoChat 專案的實作基礎，從 Client 端的角度出發，建構完整的聊天室應用資料流程。我們將聚焦於如何從 Client 呼叫 REST API 傳遞與取得訊息，並進一步介紹測試流程與路由行為設計。
+
+## Client 應具備的核心功能
+
 Client Application 的部份，應實作以下功能：
 
-- 輸入即時訊息
-- 呼叫 REST API，傳出訊息給 Server
-- 經由 WebSocket 接收即時訊息
-- 呼叫 REST API，取得最新的 *n* 則訊息
+* 輸入即時訊息（Input）
+* 呼叫 REST API 傳出訊息給 Server（POST）
+* 呼叫 REST API 取得最新的 *n* 筆訊息（GET）
+* 經由 WebSocket 接收 Server 主動推送的訊息（實時性）
 
-接下來，請依以下步驟，練習實作 nodejs-chat 專案。
+這代表：Client 扮演「資料主動發送者」與「畫面更新者」的雙重角色。Server 則僅提供 API 與即時推播的能力，不負責畫面渲染。
 
-### Step 1：定義 REST API
+## Step 1：定義 REST API 結構
 
-假設主機名稱為 chatservice.org，接著定義 nodejs-chat 專案的 CRUD 操作，如表 10-2。
+假設主機名稱為 `chatservice.org`，nodejs-chat 專案的最低實作 API 如下表所示：
 
-|CRUD       |HTTP Method      |URI 格式      
-|-----------|----------|--------------
-|Create     |POST      |http://chatservice.org/discussion/{message}
-|Read       |GET 	   |http://chatservice.org/discussion/latest/{items}
-|Update     |PUT       |無
-|Delete     |DELETE    |無
+| CRUD 操作 | HTTP Method | URI 格式                                                                                               |
+| ------- | ----------- | ---------------------------------------------------------------------------------------------------- |
+| Create  | POST        | [http://chatservice.org/discussion/{msg}](http://chatservice.org/discussion/{msg})                   |
+| Read    | GET         | [http://chatservice.org/discussion/latest/{items}](http://chatservice.org/discussion/latest/{items}) |
+
 表 10-2 REST API 定義
 
-這是一份最低消費的定義：僅支援新增與讀取訊息的功能。例如，現在要傳送 "Hello" 訊息，Client 端應呼叫的 API 為：
+這樣的 URI 格式設計符合 REST 精神，避免使用 query string、空白字元與大小寫混用，並以「語意導向 × 資源結構化」為設計原則。
 
-	http://chatservice.org/discussion/hello
+例如：
 
-如果要讀取最新 10 筆訊息，應呼叫的 API 為：
+* 傳送 "Hello" 訊息：`POST /discussion/hello`
+* 讀取最新 10 筆訊息：`GET /discussion/latest/10`
 
-	http://chatservice.org/discussion/latest/10
+你可以將其想像為樹狀檔案系統：
 
-請注意幾個重要觀念：
-
-- 儘可能避免使用 Query String
-- 不要使用空白字元（Space）
-- 全部小寫
-
-此外，REST API 的 URI 類似於目錄結構，所以我們可以這樣解釋：
-
-~~~~~~~~
-$ mkdir discussion
-$ cd discussion
-$ mkdir 5d41402abc4b2a76b9719d911017c592
-$ cd 5d41402abc4b2a76b9719d911017c592
-$ echo "hello" > db.txt
-~~~~~~~~
-
-接著，會得以下的 Tree-Structure：
-
-~~~~~~~~
-.
+```
 └── discussion
-    └── 5d41402abc4b2a76b9719d911017c592
-        └── db.txt
-~~~~~~~~
+    ├── {md5-hash-1}
+    │   └── db.txt ("hello")
+    ├── {md5-hash-2}
+    │   └── db.txt ("how are you")
+```
 
-上述的數字串，是一個 MD5 編碼，用來做為這筆資料的「ID」。如果第二筆資料，這個樹狀結構會成長成這樣：
+這樣的目錄架構類比，有助於你理解「每則訊息都是一筆獨立資源」的設計邏輯。
 
-~~~~~~~~
-.
-└── discussion
-    ├── 5d41402abc4b2a76b9719d911017c592
-    │   └── db.txt
-    └── 7d793037a0760186574b0282f2f435e7
-        └── db.txt
-~~~~~~~~
+## Step 2：URL Routing 實作
 
-一開始學習 REST API 定義的初學者，經常犯的錯誤，就是誤解了 REST API 的「Resource」意義。比如說，以下這個結構是不好的：
+在 `app.js` 中加入 REST API 的路由設定：
 
-~~~~~~~~
-.
-├── discussion1
-│   └── db.txt
-├── discussion2
-│   └── db.txt
-└── discussion3
-    └── db.txt
-~~~~~~~~
-
-REST API 的根節點（root node），也就是 */discussion*，它 是一個資源名稱（Resource）；而這個資源在整個系統裡，應該只有一個（一份）。理論上，root node 要符合 Singleton 設計模式的要求。
-
-![圖 10-3 Root Node 是 Singleton](../images/figure-10_3.png)
-
-### Step 3：實作 URL Routing
-
-修改 app.js，加入以下程式碼：
-
-~~~~~~~~
-var discussion = require('./routes/discussion'); // ./routes/discussion.js
+```js
+const discussion = require('./routes/discussion');
 
 app.post('/discussion/:message', discussion.create);
 app.get('/discussion/latest/:items', discussion.read);
-~~~~~~~~
+```
 
-參考表 10-1 與表 10-2，得到以下結論：
+對應到 `routes/discussion.js` 檔案中的實作：
 
-- 建立訊息要使用 POST Method，因此使用 *app.post()* 函數來建立 URL Routing
-- 讀取訊息要使用 GET Method，因此使用 *app.get()* 函數來建立 URL Routing
+```js
+const history = [];
 
-URL Routing 的實作部份，只需要將 URI 的變數讀出，再放入資料庫即可。由於尚未介紹 Node.js 與資料庫的應用，因此現階段暫時以 Global Array 來存放。*discussion.js* 目前的實作如下：
-
-~~~~~~~~
-/*
- * URL Routing Handlers
- */
- 
-exports.create = function(req, res){
-  console.log("CREATE: " + req.params.message);
+exports.create = function(req, res) {
+  const msg = { message: req.params.message };
+  history.push(msg);
+  res.json({ status: 'OK' });
 };
 
-exports.read = function(req, res){
-  console.log("ITEMS: " + req.params.items);
+exports.read = function(req, res) {
+  const n = parseInt(req.params.items);
+  const latest = history.slice(-n);
+  res.json(latest);
 };
-~~~~~~~~
+```
 
-如果要新增 'hello' 訊息，就要呼叫這個 API：
+📌 **注意事項**：瀏覽器僅支援以 GET 發送請求，因此若要測試 POST，請使用 curl 工具或 Postman：
 
-	http://localhost:3000/discussion/hello
-
-但是，如果直接使用瀏覽器去開啟的話，會出現「404」找不到網頁的錯誤，為什麼呢？因為瀏覽器是以 GET Method 來做請求，這可以由 Node.js 的 Console 訊息得知：
-
-~~~~~~~~
-$ node app.js 
-Express server listening on port 3000
-GET /discussion/hello 404 9ms
-~~~~~~~~
-
-所以，現在我們改用另外一個工具 *curl* 來做測試：
-
-~~~~~~~~
+```bash
 $ curl -X POST http://localhost:3000/discussion/hello
-~~~~~~~~
+```
 
-使用 *-X* 參數即可指定 HTTP Method。測試時，可以看到以下的 Console 訊息：
+## Step 3：用 JavaScript 撰寫 Client 呼叫 API
 
-~~~~~~~~
-$ node app.js 
-Express server listening on port 3000
-CREATE: hello
-POST /discussion/hello 200 120013ms
-~~~~~~~~
+在第 9 章中，我們已經學會如何使用 Express.js 設計路由與處理靜態檔案。現在，我們將這些能力延伸至 Client 端的互動邏輯上。這代表不只是設計 API，更要在使用者操作發生時，主動觸發請求、解析回應並渲染畫面。
 
-程式碼框架完成後，就可以進行實作工作了。以下是 *discussion.js* 的完整程式碼。
+以下為前端以 `fetch()` 透過 HTTP POST 方戈式，來呼叫 REST API 的範例：
 
-~~~~~~~~
- 1 /*
- 2  * URL Routing Handlers
- 3  */
- 4 
- 5 var history = [];	// 存放訊息
- 6 
- 7 exports.create = function(req, res){
- 8   console.log("CREATE: " + req.params.message);
- 9 
-10   // 先打包為 JSON 格式
-11   var obj = {
-12   	message: req.params.message
-13   };
-14 
-15   // 再儲存至 history 陣列
-16   history.push(obj);
-17 
-18   // 製作 Response 訊息 (JSON 格式)
-19   var response = {
-20   	status: "OK"
-21   }
-22 
-23   // 回傳 Response 訊息
-24   res.write(JSON.stringify(response));
-25   res.end();
-26 };
-27 
-28 exports.read = function(req, res){
-29   console.log("ITEMS: " + req.params.items);
-30 
-31   // 取出最新的 {req.params.items} 筆訊息
-32   var latest = history.slice(0 - req.params.items);
-33 
-34   // 回傳
-35   res.write(JSON.stringify(latest));
-36   res.end();
-37 };
-~~~~~~~~
+```js
+// 送出訊息
+fetch('/discussion/hello', {
+  method: 'POST'
+});
 
-可以利用以下的連續命令進行測試：
+// 取得最新 5 筆訊息
+fetch('/discussion/latest/5')
+  .then(res => res.json())
+  .then(data => {
+    data.forEach(msg => {
+      console.log(msg.message);
+    });
+  });
+```
 
-~~~~~~~~
-$ curl -X POST http://localhost:3000/discussion/hello1
-$ curl -X POST http://localhost:3000/discussion/hello2
-$ curl -X POST http://localhost:3000/discussion/hello3
-$ curl -X GET http://localhost:3000/discussion/latest/2
-$ curl -X GET http://localhost:3000/discussion/latest/1
-$ curl -X POST http://localhost:3000/discussion/hello4
-$ curl -X POST http://localhost:3000/discussion/hello5
-$ curl -X GET http://localhost:3000/discussion/latest/3
-$ curl -X GET http://localhost:3000/discussion/latest/5
-~~~~~~~~
+這些邏輯日後將整合進前端頁面事件，如「送出表單」「載入畫面時自動取得歷史訊息」等情境中。
 
-以下是相對應的 Console 訊息：
+若搭配最小前端 UI，可以設計以下結構：
 
-~~~~~~~~
-$ node app.js 
-Express server listening on port 3000
-CREATE: hello1
-POST /discussion/hello1 200 30ms
-CREATE: hello2
-POST /discussion/hello2 200 2ms
-CREATE: hello3
-POST /discussion/hello3 200 1ms
-ITEMS: 2
-GET /discussion/latest/2 200 1ms
-ITEMS: 1
-GET /discussion/latest/1 200 1ms
-CREATE: hello4
-POST /discussion/hello4 200 2ms
-CREATE: hello5
-POST /discussion/hello5 200 0ms
-ITEMS: 3
-GET /discussion/latest/3 200 1ms
-ITEMS: 5
-GET /discussion/latest/5 200 9ms
-~~~~~~~~
+```html
+<input id="input-msg">
+<button onclick="sendMessage()">送出</button>
+<ul id="chat-log"></ul>
+```
 
-一切就續後，就可以開始製作 Front-end 了。在這之前，可以開始試著建立測試程式，並加入簡單的 Test Case。否則，等到 API 數量更多，以及 Use Scenario 更複雜時，測試工作就更費勁了；因為將會有更多、更複雜的測試命令等著我們 Key In。
+對應的 JavaScript 邏輯為：
 
-### Step 4：實作 Test Case
-
-Test Case 是軟體開發很重要的一環，上述以 *curl* 指令進行測試，基本上這是比較不正式的做法。如果能撰寫一些測試程式，未來在開發的過程，就能很方便而且快速地測試新版本軟體。Test Case 一般是在軟體的開發過中，不斷地累積，並且隨著我們的專案釋出；因此，一開始就養成撰寫 Test Case 的習慣，絕對會比事後補上更好。
-
-筆者建議持續以 Node.js（JavaScript）來為 nodejs-chat 專案開發 Test Case。要將上個步驟的 *curl* 指令，取代為 Test Case，就要知道如何以 Node.js 來製作 HTTP Client：方式是使用 Node.js 的 *http* 模組。不過，還有更簡便的解決方案：使用 [Requestify][5]。
-
-[5]: http://ranm8.github.io/requestify/ "Simplifies node HTTP request making."
-
-開啟 nodejs-chat 專案下的 *package.json* 檔案，加入 *requestify* 模組：
-
-~~~~~~~~
-{
-  "name": "application-name",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "3.4.4",
-    "jade": "*",
-    "requestify": "*"
-  }
+```js
+function sendMessage() {
+  const msg = document.getElementById('input-msg').value;
+  fetch('/discussion/' + encodeURIComponent(msg), { method: 'POST' });
 }
-~~~~~~~~
+```
 
-安裝相依模組：
+並可補上錯誤處理機制：
 
-~~~~~~~~
-$ npm i
-~~~~~~~~
+```js
+fetch('/discussion/latest/5')
+  .then(res => {
+    if (!res.ok) throw new Error('伺服器錯誤');
+    return res.json();
+  })
+  .then(data => renderMessages(data))
+  .catch(err => alert('載入失敗：' + err.message));
+```
 
-新增 *tests/* 字目錄，用來存放 Test Case：
+## Step 4：撰寫測試程式（Test Case）
 
-~~~~~~~~
-$ mkdir tests
-$ cd tests
-~~~~~~~~
+若只用 curl 測試，效率不高。建議改以 Node.js 撰寫測試腳本。可使用 [Requestify](http://ranm8.github.io/requestify/) 套件：
 
-在 *test/* 目錄下建立第一個測試程式，將檔案命名為 *01-test-discussion-create.js*；*requestify* 的使用方式非常簡單，完整程式碼如下。
+```json
+"dependencies": {
+  "express": "^4.18.2",
+  "requestify": "*"
+}
+```
 
-~~~~~~~~
-1 var requestify = require('requestify'); 
-2 
-3 requestify.post('http://localhost:3000/discussion/hello', {
-4     // POST 的 Request Body，例如：訊息夾帶的圖片。目前為空。
-5 })
-6 .then(function(response) {
-7     // 取得 Response Body
-8     response.getBody();
-9 });
-~~~~~~~~
+測試腳本範例（tests/01-test-discussion-create.js）：
 
-上述步驟，說明了實作 nodejs-chat 的重要觀念，完整的 REST API 實作，請參考完整的範例程式。關於 nodejs-chat 的完整程式碼，可由 *http://github.com/jollen/nodejs-chat* 取得。這個範例僅只是簡單的 Test Case，各位可以試著自行撰寫更多的測試程式，並設計更完整的 Test Case。
+```js
+const requestify = require('requestify');
+
+requestify.post('http://localhost:3000/discussion/hello')
+  .then(response => {
+    console.log('Response:', response.getBody());
+  });
+```
+
+也可撰寫 GET 測試：
+
+```js
+requestify.get('http://localhost:3000/discussion/latest/2')
+  .then(response => {
+    console.log('Messages:', response.getBody());
+  });
+```
+
+透過測試腳本，你將能快速驗證 API 行為，也可配合 `npm test` 指令整合進 CI 流程。
+
+## 📦 專案整合提示：NoChat 專案完整性任務
+
+完成 10.5 章後，請確認你在 NoChat 專案中完成以下整合：
+
+* 前端介面能透過 `fetch()` 呼叫 `/discussion/:message` API 傳送訊息
+* 頁面載入時能自動呼叫 `/discussion/latest/:n` 並渲染訊息
+* 錯誤處理與例外情境有適當提示（如網路錯誤、無資料）
+* 測試腳本可模擬 API 操作，並驗證回傳格式為 JSON
+* 為下一章 WebSocket 整合預留 `onmessage` 處理結構與訊息串接方式
+
+這些整合任務將確保你的聊天室從「單向 API」進入「互動應用」的實作階段，並為即時通訊功能奠定穩固基礎。
+
+## 小結
+
+本節完成了 RESTful Client 的初步實作與測試流程設計。你已經學會：
+
+* 透過 Express.js 定義 RESTful 路由
+* 使用 JavaScript `fetch()` 呼叫 API 並處理資料
+* 建立測試腳本驗證 API 功能
+
+下一章，將進入 WebSocket 的整合，實現聊天室的即時推播能力，完成 NoChat 專案的雙向互動架構。
+
+---
+
+Next: [10.6 WebSocket 即時推播](6-realtime.md)
