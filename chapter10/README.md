@@ -7,6 +7,7 @@
  * [10.3 Presenetation 在 Client 端](3-presentation.md)
  * [10.4 Express.js 與 REST API](4-rest-api.md)
  * [10.5 Node.js Chat Client](5-chat-client.md)
+ * [10.6 WebSocket 即時推播](6-websocket.md)
 
 ## 本章小結
 
