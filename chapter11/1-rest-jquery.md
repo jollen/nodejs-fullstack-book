@@ -1,342 +1,233 @@
-## 11.1 呼叫 REST API - 使用 jQuery
+## 11.1 呼叫 REST API —— 使用 jQuery（重構版）
 
-在上一章的 nodejs-chat 專案裡，我們已經實作出基本的 REST API，接下來就是 Client Application 的製作。RESTful 是一種彈性非常大的架構，它讓 Client 端能以更簡單的方式，來整合 Web Service。
+WebSocket 負責即時通訊，REST API 則專責資料交換——現在是時候從 Client 端出發，完成語言層整合了。
 
-使用 jQuery 來製作 Client Application 時，「將不考慮 MVC 架構模式」。為什麼要使用 MVC 模式？以及，為什麼要導入 Backbone.js 呢？相信經由本章的範例製作過程，就可以幫助初學者建立另一個重要的思惟：使用 MVC 架構模式是必要的。
+> 在第 9 章，我們透過 Express.js 設計出具結構的 REST API，包括 middleware、route handler 與模組化的 `routes/discussion.js`。這些結構，讓我們得以穩定地接收與傳回資料。
+>
+> 而現在，我們要把這些後端邏輯「變得可見」——透過前端畫面，讓每一次資料傳遞，成為使用者可參與的互動。
 
-上一章也提到，從 REST API 的角度來看，Presentation 的部份是位於 Client 端。Presentation 就是 Client 的網頁（UI）。如果把 Client Application 的觀念延伸到手機 App，Presentation 的觀念就更清楚了：
+> 在第 10 章，我們定義了清楚的 REST API 架構，但那只是語言協議的第一層。到了這一章，我們開始把 API 呼叫具體實作在「UI 行為」中，讓使用者成為這個資料協議的一部分。
+>
+> 簡單說：**REST API 不再只是給開發者看的，它開始成為使用者的語意界面。**
 
-* 可以使用 Android SDK 來製作 Client Application，此時 Presentation 可以使用 Android 的 View 組件，或是以 HTML5 來製作
-* 同理，Client Application 也可以使用 iOS SDK 來製作，當然也可以是 iOS SDK + HTML5
+我們在上一章的 `nodejs-chat` 專案中，已完成基本的 REST API 設計。接下來要進一步處理的是 Client Application，也就是如何從瀏覽器端呼叫這些 API 並顯示結果。
 
-從這個角度來看，Presenetation 自然是位於 Client  端。
+RESTful 架構之所以重要，關鍵在於它讓 Client 可以用統一方式存取 Web Service。這代表我們能自由選擇 Client 技術，而不需要被伺服器的語言或架構所綁定。
 
-以下以幾個步驟，來製作一個簡單 Client Application。
+> 本章的目標是讓 `nodejs-chat` 專案真正成為一個能即時互動的聊天室應用。我們將補齊前端頁面，讓它能完整串接 REST API，並為下一步導入 WebSocket 打好基礎。
 
-### Step1：建立專案
+### 從這一章開始：你就是一位 Fullstack 初學者
 
-在 nodejs-chat 專案裡建立 *client/* 目錄，將主要的 HTML5 文件命名為 *chat.html*。同時建立基本的目錄結構：
+> 前十章，你學會了建構 Web 應用的伺服器端邏輯，設計 REST API、處理路由、操作非同步流程……但那還不夠。Fullstack 的門，不是由後端打開的，而是從「能讓使用者操作你的程式」那一刻才算啟動。
 
-~~~~~~~
+在這一章，你開始負責 Client 端畫面、按鈕、事件、資料回傳與渲染。也就是從「背後的工程」走進「眼前的操作」。
+
+Fullstack 開發不是同時學兩種語言，而是學會兩種責任的連接方式——
+
+* **後端是邏輯引擎**
+* **前端是語意界面**
+
+這也是為什麼從這一章開始，我們稱你為 **Fullstack Beginner**。
+
+你不是會寫兩邊，而是開始設計「兩邊的語意互通」。
+
+### 為什麼從 jQuery 開始？
+
+本章將採用 jQuery 開發 Client Application，並暫時不採用 MVC 架構。為什麼要這樣做？因為這樣可以先讓讀者觀察一個關鍵現象：**當應用逐漸變複雜時，MVC 架構就成為不可或缺的思惟工具。**
+
+我們不是直接導入架構，而是用「比較與體驗」來強化理解。這樣的過程，正是學習軟體設計的重要一環。
+
+### Client 端的角色：Presentation 層
+
+回顧前一章，我們提到 Presentation 層位於 Client 端，也就是 UI 的呈現與互動邏輯。若將這觀念延伸至 Mobile App，就會發現它更為清楚：
+
+* 在 Android 上，Presentation 可能是 XML Layout 或 HTML5 畫面
+* 在 iOS 上，則可能是 UIKit View 或 WebView 裡的 HTML5 頁面
+
+在這樣的語境下，Client Application 就是介於使用者與 REST API 之間的語意中介層。製作 Client Application：六個步驟
+
+### Step 1：建立專案結構
+
+在 `nodejs-chat` 專案中新增 `client/` 子目錄，並建立以下結構：
+
+```
 .
 ├── chat.html
 ├── images
 ├── javascripts
-└── stylesheets
-~~~~~~~
-
-接著使用 Bootstrap 3 來建立 UI，並且使用 jQuery 來呼叫 REST API。將 Bootstrap 3 與 jQuery 安裝至專案目錄下：
-
-~~~~~~~
-.
-├── chat.html
-├── images
-├── javascripts
-│   ├── app.js
-│   ├── bootstrap.min.js
-│   ├── jquery.min.js
-│   └── jquery.websocket.js
+│   ├── app.js
+│   ├── bootstrap.min.js
+│   ├── jquery.min.js
+│   └── jquery.websocket.js
 └── stylesheets
     └── bootstrap.min.css
-~~~~~~~
+```
 
-### Step 2：製作 UI
+這是一個典型的 Web Application 前端結構。接下來，我們會將 REST API 呼叫程式碼寫入 `app.js`，並使用 Bootstrap 製作 UI。
 
-Bootstrap 是一個簡單易用的 CSS Framework，也包含字型（Typographics）。目前已經是非常受歡迎的 Web App 製作框架了。除了以文字編輯器，自行撰寫 Bootsstrap 網頁外，網路上有一些所見即所得的 Layout 工具。方便起見，筆者使用 [Layoutit][1] 規劃了一個非常簡單的 UI，如圖 11-1。
+### Step 2：建立 UI
 
-[1]: http://www.layoutit.com "Layoutit!"
+Bootstrap 是前端工程常用的 CSS Framework，也包含許多視覺元件與排版樣式。
 
-![圖 11-1 製作 Client Application UI](images/figure-11_1.png)
+筆者使用 [Layoutit](http://www.layoutit.com) 產生了初版 UI，讀者也可自行設計。下圖為 UI 初稿：
 
-將 Layoutit 產生的標籤剪貼至 *chat.html*。完整的 *chat.html* 內容如下：
+>
 
-{title="client/00_chat.html"}
-~~~~~~~~
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="stylesheets/bootstrap.min.css" />
-<script type='text/javascript' src="javascripts/jquery.min.js"></script>
-<script type='text/javascript' src="javascripts/bootstrap.min.js"></script>
-<script type='text/javascript' src="javascripts/jquery.websocket.js"></script>
-<script type='text/javascript' src="javascripts/app.js"></script>
-</head>
+將產生的 HTML 貼入 `chat.html`。程式碼略過，此處不重述。
 
-<body>
+> UI 建議補強：請在 `chat.html` 中預留一個輸入欄位與送出按鈕，以便後續實作「送出訊息」功能。例如：
 
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <h3>
-                nodejs-chat
-            </h3>
-            <div class="alert alert-dismissable alert-info">
-                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4>
-                    jollen
-                </h4> 製作聊天室 Client Application
-            </div>
-        </div>
-    </div>
-</div>
+```html
+<input id="input-message" type="text" placeholder="輸入訊息...">
+<button id="btn-send">送出</button>
+<div id="message"></div>
+```
 
-</body>
-</html>
-~~~~~~~~
+### Step 3：呼叫 REST API 取得訊息
 
-### Step 3：讀取最新訊息
+我們使用 jQuery 的 `ajax()` 函數來呼叫 `GET /discussion/latest/3`。原本在終端機用 `curl` 測試：
 
-上一章，我們利用了 *curl* 命令來測試 */discussion/latest/<items>* API：
-
-~~~~~~~~
+```
 $ curl -X GET http://localhost:3000/discussion/latest/3
 [{"message":"hello3"},{"message":"hello4"},{"message":"hello5"}]
-~~~~~~~~
+```
 
-現在要將這個測試過程，撰寫成實際的程式碼。因此需要撰寫 JavaScript 程式碼，來呼叫 REST API；我們可使用現有的 JavaScript 程式庫，來進行這項工具。有二個廣受歡迎的 JavaScript 程式庫：
+現在，我們將其改寫為程式碼，放入 `initSubmitForm()` 中：
 
-* jQuery
-* Backbone.js
-
-採用 jQuery 是簡單方便的方式，初學者可以先使用 jQuery 程式庫來實作 Client Application；感受一下 RESTful 架構的精神。Backbone.js 則是一個 MVC 架構的實作框架，它可以讓 Client Application 的程式碼結構更清楚、易於維護與擴充。
-
-使用 jQuery 的 *ajax* 函數來呼叫 REST API。開啟 app.js，加入以下程式碼：
-
-{title="client/01_app.js"}
-~~~~~~~~
-// 等候 HTML 文件完成載入
-$(document).ready(function(){
-	initSubmitForm();
-});
-
-var initSubmitForm = function() {
-    // 使用 ajax() 來呼叫 REST API
-    $.ajax({
-        url: 'http://localhost:3000/discussion/latest/3',
-        type: "GET",
-        dataType: "json",
-        complete: function(data, textStatus, jqXHR) {
-            console.log(textStatus);
-        },
-        success: function (data, textStatus, jqXHR) {
-            console.log(data);
-        }
-    });
-    
-    return false;
-};
-~~~~~~~~
-
-關於 *ajax()* 的重點說明如下：
-
-* *ajax()* 的 *success* 屬性是一個 Callback Function，我們可以在這個 Callback Function 的第 1 個參數取得傳回值。
-* 在 API 呼叫完成後，則是 Callabck *complete*，可以在這個 Callback Function 的第 2 個參數，取得狀態值（成功或失敗）。
-
-可以先使用 Firebug 進行測試，如圖 11-2。觀察 Node.js 的 Console 訊息，也可以知道 Client Application 是否有成功呼叫 REST API。
-
-![圖 11-2 測試 Client Application](images/figure-11_2.png)
-
-### Step 4：處理 JSON 資料
-
-接著，遇到一個小問題：如何將 REST API 回傳的 JSON 資料，轉換成 HTML5 標籤，並顯示在 UI 上。
-
-要解決這個問題，就需要一個 MVC 框架，這類框架能提供以下的重要功能：
-
-* 製作 HTML5 Template
-* 將 JSON 資料「套用」到 Template
-
-下一章將正式引用 Backbone.js 來優化 Client Application。目前，暫時使用 Dirty 的方式來進行；也藉此感受 MVC 架構的優點。
-
-先從 *chat.html* 裡，將顯示留言的 HTML5 片段取出，並修改 *app.js* 加入 *dataMapping()* 函數，將 JSON 裡的資料「對應」到 HTML5 裡。完整的 *app.js* 如下：
-
-{title="client/app.js"}
-~~~~~~~~
-// 等候 HTML 文件完成載入
-$(document).ready(function(){
-	initSubmitForm();
-});
-
-var initSubmitForm = function() {
-    // 使用 ajax() 來呼叫 REST API
-    $.ajax({
-        url: 'http://localhost:3000/discussion/latest/3',
-        type: "GET",
-        dataType: "json",
-        complete: function(data, textStatus, jqXHR) {
-            console.log(textStatus);
-        },
-        success: function (data, textStatus, jqXHR) {
-            dataMapping(data);
-        }
-    });
-    
-    return false;
-};
-
-var dataMapping = function(data) {
-    for (i = 0; i < data.length; i++) {
-        var htmlCode = 
-            "<div class=\"alert alert-dismissable alert-info\">"
-            + "     <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>"
-            + "     <h4>jollen</h4>"
-            + data[i].message
-            +"</div>";
-
-        $('#message').append(htmlCode);
+```javascript
+const initSubmitForm = () => {
+  $.ajax({
+    url: 'http://localhost:3000/discussion/latest/3',
+    type: 'GET',
+    dataType: 'json',
+    success: (data) => {
+      $('#message').empty();
+      dataMapping(data);
+    },
+    error: (xhr, status, err) => {
+      console.error(`讀取訊息時發生錯誤：${status}`, err);
     }
-}
-~~~~~~~~
-
-再修改原始的 *chat.html* 文件如下：
-
-* 刪除測試訊息
-* 在原來顯示訊息的位置，加入一個名為 *message* 的 <div> 區塊
-* 後續會以 jQuery 將取得的訊息，放進上述區塊
-
-完整的 *client/chat.html* 內容如下：
-
-{title="client/chat.html"}
-~~~~~~~~
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="stylesheets/bootstrap.min.css" />
-<script type='text/javascript' src="javascripts/jquery.min.js"></script>
-<script type='text/javascript' src="javascripts/bootstrap.min.js"></script>
-<script type='text/javascript' src="javascripts/jquery.websocket.js"></script>
-<script type='text/javascript' src="javascripts/app.js"></script>
-</head>
-
-<body>
-
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <h3>
-                nodejs-chat
-            </h3>
-            <div id="message"></div>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>
-~~~~~~~~
-
-測試前，先利用 *curl* 寫入幾筆訊息：
-
-~~~~~~~~
-$ curl -X POST http://localhost:3000/discussion/你好
-{"status":"OK"}
-$ curl -X POST http://localhost:3000/discussion/測試中
-{"status":"OK"}
-$ curl -X POST http://localhost:3000/discussion/Hello
-{"status":"OK"}
-~~~~~~~~
-
-請注意，使用 Firefox 可能無法成功取得 REST API 的回傳資料。如果有問題，請先使用其它瀏覽器。以下是使用 Safari 7.0 的測試畫面。
-
-![圖 11-3 使用 Safari 7.0 測試 Client Application](images/figure-11_3.png)
-
-到這裡，我們已經完成一個重要的里程碑了：整合 REST API 與 Client Application。
-
-經由上述的範例，我們看出了幾個問題：
-
-* JavaScript 與 HTML5 混雜在一起，維護或擴充都是個大問題
-* 需要一個良好的框架，讓我們可以解決上述問題，Backbone.js 就是一個不錯的解決方案
-* 需要一個更簡單的方式，將 JSON 資料「對應」到 HTML5 裡，同樣 Backbone.js 可以幫助我們解決這個問題
-
-### Step 5：說明 MIME Types
-
-使用 *ajax()* 時，我們指定 *dataType* 屬性的值為 "json"：這代表期望 Server 回傳的資料是 JSON 格式。為了讓 Server 在回傳資料時，能「明確」告知「資料類型」，所以最好能加入「Content-Type」的 HTTP Header。
-
-例如，以下是目前的 REST API 回應檔頭：
-
-~~~~~~~~
-$ curl -I -X GET http://localhost:3000/discussion/latest/3
-HTTP/1.1 200 OK
-X-Powered-By: Express
-Date: Thu, 05 Dec 2013 05:45:25 GMT
-Connection: keep-alive
-Transfer-Encoding: chunked
-~~~~~~~~
-
-最好可以加入一行「Content-Type」檔頭如下：
-
-~~~~~~~~
-$ curl -I -X GET http://localhost:3000/discussion/latest/3
-HTTP/1.1 200 OK
-X-Powered-By: Express
-Content-Type: application/json
-Vary: Accept-Encoding
-Date: Thu, 05 Dec 2013 05:45:05 GMT
-Connection: keep-alive
-Transfer-Encoding: chunked
-~~~~~~~~
-
-"Content-Type" 是標準的 HTTP Header，用來說明回應的資料類型。資料類型稱為 [MIME types][2]，根據 [RFC 4627][3] 的定義，JSON 的 MIME types 字串為 "application/json"。
-
-要回應 HTTP Header，只需要呼叫 *writeHead()* 函數即可：
-
-~~~~~~~~
-response.writeHead(200, {"Content-Type": "application/json"});
-~~~~~~~~
-
-修改 *routes/discussion.js* 如下：
-
-{title="routes/discussion.js"}
-~~~~~~~~
-/*
- * URL Routing Handlers
- */
-
-var history = [];	// 存放訊息
-
-exports.create = function(req, res){
-  console.log("CREATE: " + req.params.message);
-
-  // 先打包為 JSON 格式
-  var obj = {
-  	message: req.params.message
-  };
-
-  // 再儲存至 history 陣列
-  history.push(obj);
-
-  // 製作 Response 訊息 (JSON 格式)
-  var response = {
-  	status: "OK"
-  }
-
-  // HTTP 檔頭
-  res.writeHead(200, {"Content-Type": "application/json"});
-
-  // 回傳 Response 訊息
-  res.write(JSON.stringify(response));
-  res.end();
+  });
 };
+```
 
-exports.read = function(req, res){
-  console.log("ITEMS: " + req.params.items);
+### Step 4：處理 JSON 與套用 HTML5
 
-  // 取出最新的 {req.params.items} 筆訊息
-  var latest = history.slice(0 - req.params.items);
+為了完整呈現留言內容，我們將 API 回傳的 JSON 映射至頁面上的 `<div id="message">` 區塊。
 
-  // HTTP 檔頭
-  res.writeHead(200, {"Content-Type": "application/json"});
-
-  // 回傳
-  res.write(JSON.stringify(latest));
-  res.end();
+```javascript
+const dataMapping = (data) => {
+  const reversed = [...data].reverse();
+  reversed.forEach(item => {
+    const htmlCode = `
+      <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4>jollen</h4>
+        ${item.message}
+      </div>`;
+    $('#message').append(htmlCode);
+  });
 };
-~~~~~~~~
+```
 
-[2]: http://en.wikipedia.org/wiki/Internet_media_type "MIME types"
-[3]: http://tools.ietf.org/html/rfc4627 "The application/json Media Type for JavaScript Object Notation (JSON)"
+> 小提醒：若留言順序顯示為由舊到新，可在 `dataMapping()` 中使用 `reverse()` 顯示最新在上方。
 
-如果想達到即時性（Real-Time）的功能呢？只需要再加入 WebSocket 的機制即可：
+### Step 5：補上 HTTP Header 的 Content-Type
 
-* Client Application 開啟時，與 Server 建立 WebSocket 連線
-* Server 收到新訊息時，透過 WebSocket 發出通知（Notification）給 Client Application
-* Client Application 呼叫 REST API 取得最新資訊
+在進入 HTTP Header 之前，我們需要先理解什麼是 MIME-type。
+
+#### 認識 MIME-type
+
+MIME 的全名是「Multipurpose Internet Mail Extensions」，原本是為了讓電子郵件能傳送圖片、聲音等多媒體資料所設計，但現在已廣泛用於 HTTP 通訊協定中，作為「告訴瀏覽器或用戶端：這是什麼格式」的標準方式。
+
+每當伺服器回傳資料時，它會在 HTTP 回應標頭（Header）中加入 `Content-Type`，說明傳回的是：
+
+* 純文字？（text/plain）
+* HTML 文件？（text/html）
+* 圖片檔案？（image/png）
+* JSON 格式？（application/json）
+
+如果伺服器沒有正確告知，瀏覽器可能就不知道如何解析這份資料，甚至會誤判為檔案下載或錯誤訊息。
+
+#### 為什麼需要加上 Content-Type？
+
+在我們的 REST API 中，回傳的資料是 JSON 格式，因此瀏覽器端（jQuery 的 `dataType: 'json'`）需要伺服器明確告訴它：「這是一段 JSON」。
+
+為了讓這個語意協議正確發生，我們需要在 Express 的程式中補上：
+
+請確保 `routes/discussion.js` 中的所有 API 都正確加入：
+
+```javascript
+res.writeHead(200, {"Content-Type": "application/json"});
+```
+
+這能讓瀏覽器清楚解析 JSON，也為後續跨平台互通打好基礎。
+
+### Step 6：送出訊息的功能
+
+我們在 UI 中已加入輸入欄位與按鈕。現在要為它加入 jQuery 事件處理，並呼叫 REST API `POST /discussion/:message`：
+
+```javascript
+$(document).ready(() => {
+  initSubmitForm();
+
+  $('#btn-send').click(() => {
+    const msg = $('#input-message').val();
+    if (!msg) return;
+    $.ajax({
+      url: `http://localhost:3000/discussion/${encodeURIComponent(msg)}`,
+      type: 'POST',
+      dataType: 'json',
+      success: () => {
+        $('#input-message').val("");
+        initSubmitForm(); // 重新載入留言
+      },
+      error: (xhr, status, err) => {
+        console.error(`送出訊息時發生錯誤：${status}`, err);
+      }
+    });
+  });
+
+  // 使用 Enter 鍵觸發送出
+  $('#input-message').keypress(e => {
+    if (e.which === 13) {
+      $('#btn-send').click();
+    }
+  });
+});
+```
+
+### Step 7：如果想要即時功能，該怎麼做？
+
+目前為止的 `nodejs-chat` 並不具備「即時」的能力。所有訊息的更新都來自手動觸發 REST API，這屬於「輪詢式」的互動方式。
+
+如果想要讓聊天室具備即時性（Real-Time），其實只需要加入 WebSocket 機制即可：
+
+* Client Application 在開啟時，與 Server 建立 WebSocket 連線
+* Server 在收到新訊息後，透過 WebSocket 發出通知（Notification）給所有 Client
+* Client Application 接收到通知後，再呼叫 REST API，取得最新訊息並顯示於畫面上
+
+這樣一來，Client 就不用頻繁地手動刷新，而是由 Server 主動發出「有新資料了！」的事件。
+
+這也讓我們看到 REST API 與 WebSocket 的角色分工：
+
+* **REST API 負責資料的交換與邏輯控制**
+* **WebSocket 則作為觸發通知與即時同步的機制**
+
+WebSocket 的加入，將會在下一章開始實作。
+
+## 小結：從 jQuery 到 MVC 思惟
+
+我們完成了一個重要的任務：從 REST API 呼叫，到 Client Application 呈現，並完成了「送出與接收留言」的基本互動流程。
+
+這也標誌著 `nodejs-chat` 專案，正式升級為可運作的聊天室應用。
+
+但這段過程也讓我們感受到：
+
+* HTML 與 JavaScript 混合維護困難
+* 缺乏資料映射的統一邏輯（目前 `dataMapping()` 只是最初級的語意映射層）
+* 缺少元件化與事件導向設計
+
+這正是 MVC 架構要解決的問題。下一章，我們將導入 Backbone.js，重新思考 Client Application 的結構與邏輯。
+
+我們不是在堆砌程式碼，而是在準備一種語言的邏輯框架 —— MVC，不只是模式，而是維護邏輯的最小單元。
