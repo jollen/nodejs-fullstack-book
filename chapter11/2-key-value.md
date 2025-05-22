@@ -1,60 +1,93 @@
-## 11.2 認識 Key-Value Pairs 觀念
+## 11.2 從 Key-Value 對應出發：前端框架的語意演化
 
-Backbone.js 如何解決上一節 Step 4 所提到的問題呢？分述如下：
+在上一節（11.1），我們使用 jQuery 手動將 JSON 資料一筆筆插入 HTML。這個過程看似簡單，卻揭露了語言層面的限制 —— 每一次資料變化，都需要人工轉譯為畫面。
 
-* 宣告 HTML5 Template：Backbone.js 內建 Underscore，我們可以使用 Underscore 來宣告 Template
-* 將 JSON「套用」到 Template：使用 Key-Value Pairs 來做對應
+從這個痛點出發，我們才真正理解框架的意義：不是為了節省程式碼，而是為了讓資料與畫面之間，能有一個穩定的語意映射流程。
 
-JSON 的資料格式，又稱為是 "Key-Value Pairs" 的格式，例如：
+> REST API 提供的是「資料語意接口」，而前端框架則是這個語意接口的「畫面翻譯層」。Backbone.js 就是我們從手動語言轉向語意架構的第一步。
 
-~~~~~~~~
-{ "name": "jollen"}
-~~~~~~~~
+當資料開始變得動態，HTML 也不再只是靜態頁面，它變成了一種語意映射器。你不是在寫畫面，而是在定義資料該如何呈現。
 
-與 Key-Value Pairs 的關係說明如下：
+上一節我們手動將 REST API 回傳的 JSON 逐一渲染到畫面上，這在初期是可以接受的，但隨著資料變多、畫面變複雜，我們需要一種更穩定、更可維護的語言邏輯。而這個邏輯的核心，就是從最基本的 **Key-Value 對應** 開始。
 
-* *name* 是 "Key"，又可視為「變數」
-* *jollen* 是 "Value"，也就是 *name* 這個 Key 的值
+### 11.2.1 為什麼需要 UI 框架？從 Key-Value 說起
 
-所以，在製作 Template 時，只要把 "Key" 當做變數的觀念，到時就可以直接「對應」了。例如：
+JSON 的資料格式本質上是一種 Key-Value 結構，例如：
 
-~~~~~~~~
-<div>
- <p>$name</p>
-</div>
-~~~~~~~~
+```json
+{ "name": "jollen" }
+```
 
-並且有一份 JSON 資料如下：
+這代表「name 是變數，jollen 是值」。如果今天我們希望將這樣的資料渲染到 HTML 畫面上，最直覺的方式會是這樣：
 
-~~~~~~~~
+```html
+<p>$name</p>
+```
+
+然後資料如下：
+
+```json
 [
-	{ "name": "Peter"},
-	{ "name": "Paul"},
-	{ "name": "John"}
+  { "name": "Peter" },
+  { "name": "Paul" },
+  { "name": "John" }
 ]
-~~~~~~~~
+```
 
-此時，Template Engine 就能直接把 Template 和 JSON 對應成以下的結果：
+我們希望畫面變成：
 
-~~~~~~~~
-<div>
- <p>Peter</p>
- <p>Paul</p> 
- <p>John</p>
-</div>
-~~~~~~~~
+```html
+<p>Peter</p>
+<p>Paul</p>
+<p>John</p>
+```
 
-這麼方便的做法，是導入 Backbone.js 的第一個目的。這種將以 JSON 來表示 Key-Value Pairs 資料，並將 Key-Value Pairs 對應到 HTML5 Template 的觀念，就是一個被稱為「 ViewModel」的觀念。ViewModel 能解決的問題不止於此，這只是 View Model 觀念的一部份。
+這種「資料對映畫面」的行為，就是前端框架存在的原因。
 
-ViewModel 可以強化 MVC 模式中的 C（Controller），因此把它叫做 MVVM 模式。[MVVM 模式][4]是由微軟所提出的新概念，MVC & MVVM 也經常被放在一起討論。
+手動撰寫 DOM 不只是麻煩，它容易出錯、難以維護、難以重構。而 UI 框架的出現，就是為了解決這個問題：**把資料與畫面中間的對應邏輯抽象出來，讓它成為程式的一部分。**
 
-[4]: http://en.wikipedia.org/wiki/Model_View_ViewModel "MVVM"
+這就是我們為什麼需要 Backbone.js。
 
-從軟體工程的角度，把 MVC 架構模式加入了 Key-Value Pairs 觀念，可以達到以下目的：
+### 11.2.2 認識主流前端框架：React、Vue 與 Angular
 
-* 讓 MVC 模式更為完整
-* 用 View Model 來串連 Model 與 View，而不是用 Controller
-* 如上，儘可能讓 View 與程式碼無關，又稱為 Code Ignorance
-* 如上，讓 UI 設計是 Code Ignorance：讓做 UI 不用寫程式
+你可能聽過很多名字：React、Vue、Angular、Svelte⋯⋯這些都是 UI 框架。但它們其實不是「工具」，而是「語意設計的策略」。
 
-簡單說，從上述的例子可以發現，UI 設計師只需要把 HTML5 Template 設計好即可，不需要寫程式，就可以將 Server 回傳的資料，顯示在畫面上。
+* **React**：資料驅動的元件設計，所有畫面都是函數的回傳結果。你給它資料，它給你畫面。
+* **Vue**：注重資料雙向綁定與語法簡潔，學習曲線平緩，邏輯與畫面混合但清晰。
+* **Angular**：企業級框架，包含路由、服務、模組等大型應用完整支援，學習曲線陡峭。
+
+但對初學者而言，這些都太快了。
+
+我們不是為了「用」框架，而是為了「理解」框架——為什麼我們需要一個能把 Key 對應到畫面的架構？為什麼不能手刻？這正是 Backbone.js 所扮演的角色：**它是一個讓你學會 MVC 架構與語意映射邏輯的起手式。**
+
+### 11.2.3 MVVM 與 MVC：語意層的中介角色
+
+MVC 模式你可能已熟悉：Model 是資料、View 是畫面、Controller 是邏輯。但在實作 UI 時，這三者常常糾纏在一起。這時，MVVM（Model-View-ViewModel）模式登場了。
+
+在 MVVM 裡：
+
+* **Model** 還是資料
+* **View** 還是畫面
+* **ViewModel** 是一個「Key-Value 對應引擎」，負責把資料自動轉成畫面
+
+也就是說：你不再需要 Controller 手動「搬運資料」，ViewModel 會自動根據資料變化，更新畫面。
+
+> ViewModel 就像是語意中介層，它的任務不是邏輯處理，而是資料的語意對應與映射。
+
+這也讓 UI 設計師能單純專注在設計畫面，不需操心資料結構。這種分離，被稱為 **Code Ignorance**：讓設計不用寫程式，讓邏輯不污染畫面。
+
+### 11.2.4 Backbone.js：以最簡單的方式認識 MVC
+
+Backbone.js 是一套早期的前端框架，它的特點不在於「功能強」，而在於「結構清晰」。它幾乎是手工版的 MVC，每個元件都要你明確建立與綁定。
+
+這看起來很麻煩，但它能讓你真正看見 MVC 的骨架：
+
+* 你要自己定義 Model（資料結構）
+* 自己建立 View（畫面與事件）
+* 自己綁定資料與畫面（template 與 JSON）
+
+這樣的設計，是為了學習，而不是為了高效開發。Backbone 就像是語意框架的透明教科書，它讓你看見 Key-Value 怎麼變成畫面，怎麼更新，怎麼消失。
+
+> 我們不急著跑，先學會怎麼一步一步走，這才是成為 Fullstack Developer 的節奏。
+
+從下一章開始，我們就將以 Backbone.js 開始建立我們的第一個語意驅動 UI —— NoChat 的留言畫面。
