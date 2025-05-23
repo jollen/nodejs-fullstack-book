@@ -1,11 +1,60 @@
-## 13.1 關於 MongoDB
+## 13.1 認識 MongoDB：從關聯式走向彈性語意儲存
 
-MongoDB 是一種 NoSQL（Not-only SQL）的資料庫系統。NoSQL[1] 有別於典型的 SQL 關鍵式資料庫，它採用 JSON 的格式儲存資料，並以文件的形式儲存。文件（Document）可以看做一種純文字檔。
+> 我們不是在捨棄 SQL，而是在設計一種語意上更自由、結構上更彈性的資料存取思維。
 
-JSON（key-value pair）、文件式儲存與分散式，是 NoSQL 資料庫所強調的特色。NoSQL 資料庫與 SQL 資料庫有著很大的差別，NoSQL 的起源，是為了提出分散式資料庫系統，也就是能分散式儲存資料的 data store。
+### ▍從第 12 章邁向語意資料層
 
-正因為 NoSQL 是分散式資料庫系統的概念，現今已被廣泛應用在 big data 與 real-time Web application 的領域。技術上，NoSQL 除了不採用 SQL 查詢語法外，也不支援真正的 ACID。此外，也不強調固定的資料表定義（table definition）。
+前面 12 章內容，我們已經從語言觀念進入 Node.js 的世界，學習了事件驅動、非同步流程、URL routing、WebSocket 與 Backbone.js 等技術，並跨足前端視角。這是一場從語言結構到界面邏輯的遞進過程。
 
-MongoDB 正是一個熱門的 NoSQL 資料庫系統，現今也是一家商業公司。以 MongoDB 為例，可採取定義或不定義資料表，即使採取定義的資料表做法，也可以隨時變更；這樣的觀念稱為 flexiable schema design，後文將會有相關說明。
+接下來的第 13 章，將引導你踏入 **NoSQL 資料層** —— 為整體開發流程補上最後一塊拼圖。完成本章後，你將具備完整的「Node.js 全端開發視野」。這不只是語法的學習，而是建立一套從資料儲存到應用語境的整體思維。
 
-[1]: http://zh.wikipedia.org/wiki/NoSQL
+Node.js 不是一種語言，而是一種開發系統的心法，它串接 API，也設計資料，它驅動流程，也涵蓋架構。
+
+### ▍NoSQL，不只是 SQL 的替代品
+
+MongoDB 所屬的 NoSQL 系列，其名雖為「Not Only SQL」，實則宣告了一場資料模型上的轉變：
+
+* 不再以資料表為核心，而以 **文件（Document）** 為單位
+* 資料格式採 **JSON／BSON** 儲存（key-value pair 結構）
+* 不強調預先定義欄位（Schema-less 或 Flexible Schema）
+* 支援分散式儲存與高併發讀寫操作
+
+這不是結構的鬆散，而是結構的語境化 —— 每筆資料可攜帶自身語意，不被強迫納入預設欄位。
+
+### ▍MongoDB 的定位與特色
+
+MongoDB 是最具代表性的文件式資料庫，核心特性包括：
+
+* 資料儲存格式為 BSON（二進位 JSON）
+* 每筆資料即一份文件，可含巢狀結構
+* 不需定義固定 Schema，但支援 Schema 驗證
+* 原生支援分片（Sharding）與複寫（Replication）
+* 查詢語法接近 JSON 操作，更貼近程式語言的物件邏輯
+
+這些特性，使它在以下場景大放異彩：
+
+* **大數據分析**：高彈性資料結構搭配水平擴展能力
+* **即時應用程式（Real-time Web App）**：高併發下的穩定性
+* **原型快速開發**：開發早期無需強制定義資料結構
+
+### ▍ACID vs BASE：一場一致性的哲學差異
+
+與傳統 SQL 資料庫的 ACID（Atomicity, Consistency, Isolation, Durability）模型相比，MongoDB 採取更寬容的 BASE（Basically Available, Soft state, Eventual consistency）原則。
+
+這不代表放棄一致性，而是在追求擴展性與可用性時，讓一致性退居次要。
+
+> ACID 是保守的契約，BASE 是可擴散的信任。
+
+### ▍彈性結構，語意優先
+
+MongoDB 支援所謂 flexible schema design —— 資料架構不是事前設計的模板，而是可以隨時調整的語意框架。這讓我們不再為某個資料欄位的改動大費周章。
+
+從開發者角度來看，這代表什麼？
+
+* 資料模型與應用程式可以同步演進
+* 資料結構可因任務語意而異，不再統一硬式欄位
+* 初期開發專案能更快啟動、調整、更具迭代速度
+
+在後續章節中，我們將會實作 MongoDB 的基本操作，從連線、儲存、查詢到與 Node.js 的整合。真正開始之前，你要記得：
+
+> MongoDB 的核心不是資料儲存，而是語意封裝。
