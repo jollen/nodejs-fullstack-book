@@ -33,9 +33,9 @@
 原本的做法，將程式碼與 HTML5 語法混在一起，非常不好維護。現在改用 Underscore 與 Backbone 後，就可以使用 Template 的方式。以下是原本的實作：
 
 ```javascript
-var dataMapping = function(data) {
-    for (i = 0; i < data.length; i++) {
-        var htmlCode = 
+const dataMapping = function(data) {
+    for (let i = 0; i < data.length; i++) {
+        const htmlCode =
             "<div class=\"alert alert-dismissable alert-info\">"
             + "     <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>"
             + "     <h4>jollen</h4>"
@@ -87,11 +87,30 @@ var dataMapping = function(data) {
     },
 
     render: function() {
-        var data = this.template(this.model.attributes);
+        const data = this.template(this.model.attributes);
 
         this.$el.find('#message').html(data);
         return this;
     },
+
+    save: function() {
+        const message = this.$el.find('input[name="message"]').val();
+
+        // 更新 Model 的資料，觸發 View 自動重新渲染
+        this.model.set('message', message);
+
+        $.ajax({
+            url: '/discussion/' + message,
+            type: 'POST',
+            dataType: "json",
+            success: (data, textStatus, jqXHR) => {
+                alert("已儲存成功");
+            },
+            complete: (data, textStatus, jqXHR) => {
+                // 可加入結束後的清除操作
+            }
+        });
+    }
 ```
 
 程式碼第 2 行，就是在 View 裡面加入 Model 的做法：
@@ -114,7 +133,7 @@ $('#tmpl-message').html()
 this.template = _.template($('#tmpl-message').html());
 ```
 
-*\_* 是 Underscore 的物件（這就是 Underscore 名稱的由來）。將取得的 Template 傳給 *\_.template* 即可。
+\*\_ 是 Underscore 的物件（這就是 Underscore 名稱的由來）。將取得的 Template 傳給 \_.template 即可。
 
 最後是 Data Mapping 的部份，根據 Backbone 的說明，必須在 View 裡實作 *render()* 函數。*render()* 會將 Model 與 Template 做對應，對應後的結果就是一份 HTML5 文件。最後把 HTML5 文件顯示在畫面上即可。
 
@@ -122,7 +141,7 @@ this.template = _.template($('#tmpl-message').html());
 
 ```javascript
     render: function() {
-        var data = this.template(this.model.attributes);
+        const data = this.template(this.model.attributes);
 
         this.$el.find('#message').html(data);
         return this;
