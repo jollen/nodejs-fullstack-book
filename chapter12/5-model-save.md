@@ -116,7 +116,7 @@ this.model.save({ message });
 
 在這裡，我們不再關心是 POST 還是 PUT，而是交由 Backbone 根據 Model 狀態自動判斷。
 
-### Step 4：網頁畫面自動
+### Step 4：網頁畫面自動更新
 
 Backbone 的 `save()` 也能在伺服器成功回應後自動觸發 `sync` 或 `change` 事件，因此可以搭配 `listenTo()` 進一步更新畫面。
 
