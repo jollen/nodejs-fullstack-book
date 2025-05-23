@@ -99,13 +99,11 @@ save() {
     }
   });
 }
-```
 
 const message = this.\$el.find('input\[name="message"]').val();
 
 this.model.save({ message });
 }
-
 ````
 
 匯整目前為止的觀念如下：
