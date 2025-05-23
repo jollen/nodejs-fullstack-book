@@ -1,94 +1,90 @@
 ## 12.1 Backbone Way
 
-現代的 Web App 開發，是以 Web Service 為主軸，以 API 的方式整合 Client（Device）與 Server。API 為主軸的架構中，又以 RESTful 最受到矚目，RESTful 將可能成為是未來的 Web Service 主流架構。RESTful 易於 Web Service 與不同裝置的整合，例如：Desktop、Phone、Tablet 與 TV 等
+現代的 Web App 開發，是以 Web Service 為主軸，以 API 的方式整合 Client（Device）與 Server。其中又以 RESTful 架構最受到矚目，預期將成為 Web Service 的主流形式。RESTful 架構具備簡潔的 URL 設計與標準化的 HTTP 方法，方便各種裝置整合應用，例如：Desktop、Phone、Tablet 與 TV 等。
 
-前一個章節，我們學到幾個重要觀念：
+在前一章節中，我們學到幾個重要觀念：
 
 * 以 JSON 做為主要的資料交換格式
 * Client 端使用樣板（Client-side HTML Template）
-* Key-Value Paris
+* Key-Value Pairs
 
-有了這幾個觀念後，就能開始導入 Backbone 框架，並且將 nodejs-chat 發展的更完善。首先，先為 */discussion/:message* API 製作一個輸入介面，並且採用 Backbone 框架來呼叫 REST API。
+有了這些觀念之後，就能開始導入 Backbone 框架，並將 nodejs-chat 專案進一步完善。首先，為 `/discussion/:message` API 製作一個輸入介面，並採用 Backbone 來呼叫 REST API。
+
+本章節採用 jQuery 的 `$.ajax()` 呼叫方式，是為了讓初學者更容易掌握資料流程。實務上亦可改用原生 `fetch()` 或第三方套件如 `axios`，概念相同。
 
 ### Step 1：安裝 Underscore 與 Backbone
 
-先到 Underscore 網站下載 *underscore-min.js*：
+先到 Underscore 網站下載 `underscore-min.js`：
 
-~~~~~~~~
-http://underscorejs.org/underscore-min.js
-~~~~~~~~
+[http://underscorejs.org/underscore-min.js](http://underscorejs.org/underscore-min.js)
 
-再到 Backbone 網站下載 *backbone-min.js*：
+再到 Backbone 網站下載 `backbone-min.js`：
 
-~~~~~~~~
-http://backbonejs.org/backbone-min.js
-~~~~~~~~
+[http://backbonejs.org/backbone-min.js](http://backbonejs.org/backbone-min.js)
 
-將上述檔案存放至 nodejs-chat 專案的 *client/javascripts/* 目錄下。Backbone 必須與 Underscore 搭配使用。
+將上述檔案放入 nodejs-chat 專案的 `client/javascripts/` 目錄下。Backbone 必須搭配 Underscore 使用。
 
-### Step 2：修改 *chat.html*
+### Step 2：將函式庫正確掛載至頁面
 
-加入以下二行：
+在 `chat.html` 中加入以下兩行：
 
-~~~~~~~~
+```html
 <script type='text/javascript' src="javascripts/underscore-min.js"></script>
 <script type='text/javascript' src="javascripts/backbone-min.js"></script>
-~~~~~~~~
+```
 
-將 Underscore 與 Backbone 加入 Frontend 頁面。幾個重要事項：
+幾個重要事項：
 
-* 順序不能改變，必須先引入 Underscore 後，再引入 Backbone 才不會出錯
-* Backbone 是一個 MVC 框架，其中 View 的部份由 Underscore 支援
+* 載入順序不能顛倒，必須先引入 Underscore，然後才是 Backbone，否則會出現錯誤
+* Backbone 是一個 MVC 架構，其中 View 的部分由 Underscore 提供支援，像是 `_.template()` 函式
 
-### Step 3：重新撰寫 *client/javascripts/app.js*
+### Step 3：重新撰寫 `client/javascripts/app.js`
 
-將原本 *client/javascripts/app.js* 裡的內容全數刪除，並加入以下程式碼：
+將原本 `client/javascripts/app.js` 裡的內容全數刪除，並加入以下程式碼：
 
-~~~~~~~~
-/**
- * SETUP
- **/
-  var app = app || {};
+```javascript
+// ES5
+var app = app || {};
 
-/**
- * MODELS
- **/
+app.MessageView = Backbone.View.extend({
+  events: {},
+});
 
+$(document).ready(function() {
+  app.messageView = new app.MessageView();
+});
+```
 
-/**
- * VIEWS
- **/
-  app.MessageView = Backbone.View.extend({
-    events: {
-    },
-  });
+```javascript
+// ES6
+const app = app || {};
 
-/**
- * BOOTUP
- **/
-  $(document).ready(function() {
-    app.messageView = new app.MessageView();
-  });
-~~~~~~~~
+app.MessageView = Backbone.View.extend({
+  events: {},
+});
 
-這是撰寫 Backbone 的起點，幾個重要觀念解說如下：
+$(document).ready(() => {
+  app.messageView = new app.MessageView();
+});
+```
 
-* Backbone 是一個 MVC 框架，一開始先定義 Model 與 View
-* Model 就是「表示資料的模型」，也就是將會顯示在畫面上的資料
-* View 的部份將負責處理 Template 與 Model 的對應，必須先了解 Key-Value Paris 觀念
-* View 的部份，也負責處理控制的部份，例如：Button 的 click 事件
+| 語法差異     | ES5   | ES6     |
+| -------- | ----- | ------- |
+| 變數宣告     | `var` | `const` |
+| ready 寫法 | 傳統函式  | 箭頭函式    |
+
+這是撰寫 Backbone 的起點，幾個重要觀念如下：
+
+* Backbone 採用 MVC 架構，一開始先定義 Model 與 View
+* Model 表示資料的模型，也就是畫面上會顯示的資料
+* View 處理 Template 與 Model 的對應，需熟悉 Key-Value Pair 的觀念
+* View 也負責處理事件控制，例如 Button 的 click 事件
 
 ### Step 4：文字輸入欄位與按紐
 
-在 *chat.html* 裡加入文字輸入欄位與按紐。使用到 Bootstrap 的 [Grid System][1] 與 [Buttons][2] 樣式。
+在 `chat.html` 裡加入文字輸入欄位與按鈕。使用 Bootstrap 的 Grid System 與 Button 樣式。
 
-[1]: http://getbootstrap.com/css/#grid "Grid system"
-[2]: http://getbootstrap.com/css/#buttons "Buttons"
-
-以下是 *chat.js* 的完整內容：
-
-{title="client/chat.html"}
-~~~~~~~~
+```html
  1 <!DOCTYPE html>
  2 <html>
  3 <head>
@@ -125,35 +121,26 @@ http://backbonejs.org/backbone-min.js
 34 
 35 </body>
 36 </html>
-~~~~~~~~
+```
 
 重點說明如下：
 
-* 第 19 行：給輸入欄位的 *name* 是 "message"，後續將以 jQuery 選擇器搭配 *name* 屬性來找出這個物件
-* 第 22 行：額外給予這個 <button> 元件一個 class name 'btn-message-save'
-* 不使用典型的 <form> 表單方式來處理「送出」的動作，將使用 Backbone 的事件處理框架
+* 第 19 行：輸入欄位使用 name="message"，後續以 jQuery 選取此欄位
+* 第 22 行：按鈕加上 class 名稱 `btn-message-save`
+* 不使用 `<form>` 方式提交，而改用 Backbone 的事件處理機制
 
 ### Step 5：Backbone.View 事件處理
 
-對初學者來說，Backbone 似乎是一個堅深難懂的 MVC 框架，但如果從觀念的角度來討論，Backbone 不但變的簡單易學，而且也能感受到它的強大威力。筆者認為，學習 Backbone 的第一個步驟，應該是了解 [Backbone.View.extend][3] 的觀念。
+Backbone 對初學者而言，看似困難，但若從觀念切入，其實非常有系統。學習 Backbone 的第一步，是理解 `Backbone.View.extend()` 的概念。
 
-在 *chat.html* 裡有一個 <div> 區塊，包含輸入欄位與按紐，這裡是單純的 HTML5 語法，在瀏覽器裡開啟後，可以看到圖 12.1 的畫面。
-
-![圖 12-1 chat.html 瀏覽畫面](images/figure-12_1.png)
-
-按下按紐後，要進行一些動作，這個部份稱為 Logic。因此，View 可以再細分為二個觀念：
+在 `chat.html` 中的輸入與按鈕區塊，是單純的 HTML。若要加入互動邏輯（例如按鈕點擊），就需要 View 的協助。按下按紐後，要進行一些動作，這個部份稱為 Logic。因此，View 可以再細分為 2 個觀念：
 
 * View：單純眼睛看到的畫面
-* Logical View：隱藏在畫面下的控制邏輯，通常是程式碼的部份
+* Logical View：隱藏在畫面下的控制邏輯，通常是程式碼的部份簡單說，
 
-簡單說，[Backboone.View][4] 就是用來表示 Logical View 的元件。更白話一點，就是 View 裡面的程式碼。
+Backboone.View 就是用來表示 Logical View 的元件。更白話一點，就是 View 裡面的程式碼。所以，現在我們想要為以下的區塊，加入 Logic：
 
-[3]: http://backbonejs.org/#View-extend "Backbone.View.extend()"
-[4]: http://backbonejs.org/#View "Backbone.View"
-
-所以，現在我們想要為以下的 <div> 區塊，加入 Logic：
-
-~~~~~~~~
+```
 	<div class="row">
 		<div class="col-md-9">
 			<input class="form-control" type="text" name="message">
@@ -162,11 +149,11 @@ http://backbonejs.org/backbone-min.js
 			<button class="btn btn-large btn-primary btn-message-save">送出</button>
 		</div>
 	</div>
-~~~~~~~~
+```
 
 就要將這個區塊，表示成 Backbone.View。先為這個區塊加入名字：
 
-~~~~~~~~
+```
 	<div class="row" id="message-save">
 		<div class="col-md-9">
 			<input class="form-control" type="text" name="message">
@@ -175,82 +162,71 @@ http://backbonejs.org/backbone-min.js
 			<button class="btn btn-large btn-primary btn-message-save">送出</button>
 		</div>
 	</div>
-~~~~~~~~
+```
 
 加入「id="message-save"」表示這個區塊叫做 "message-save"。接著修改 *client/javascripts/app.js* 如下：
 
-~~~~~~~~
-1  app.MessageView = Backbone.View.extend({
-2    el: '#message-save',
-3    events: {
-4        'click .btn-message-save': 'save'
-5    },
-6    save: function() {
-7        alert("Saving...");
-8    }
-9  });
-~~~~~~~~
+```
+// ES6
+1 app.MessageView = Backbone.View.extend({
+2  el: '#message-save',
+3  events: {
+4    'click .btn-message-save': 'save'
+5  },
+6  save() {
+7    alert("Saving...");
+8  }
+9 });
+```
 
 重要觀念說明：
 
-* 第 1 行：呼叫 *Backbone.View.extend()* 來宣告（即擴充出）一個新的 Logical View，名字叫做 *MessageView* 並存放於 *app* 物件裡
-* 第 2 行：*el* 欄位是 "Element" 的意思，指定這個 Logical View 的 View
-* 第 3 行：*events* 欄位用來定義 Logical View 裡的事件觸發函數
-* 第 4 行：當 *.btn-message-save* 元件的 'click' 事件觸發時，呼叫 *save()* 函數，*.btn-message-save* 是一個 Button，使用者按下 Button 時，*save()* 函數就會被呼叫；Backbone.View 的做法，取代了典型的 <form> 與 Submit Button
-* 第 7 行：測試程式碼，按下 Button 會出現圖 12.2 的畫面
-
-![圖 12-2 測試畫面](images/figure-12_2.png)
-
+* 第 1 行：呼叫 *Backbone.View\.extend()* 來宣告（即擴充出）一個新的 Logical View，名字叫做 *MessageView* 並存放於 *app* 物件裡
+* 第 2 行：*el* 欄位是 "Element" 的意思，表示這個 View 綁定的 DOM 元素
+* 第 3 行：*events* 宣告事件與處理函式的對應關係
+* 第 4 行：是當按鈕點擊後會呼叫的邏輯，當 *.btn-message-save* 元件的 'click' 事件觸發時，便呼叫 *save()* 函數，*.btn-message-save* 是一個 Button，使用者按下 Button 時，*save()* 函數就會被呼叫；Backbone.View 的做法，取代了典型的 與 Submit Button
 
 ### Step 6：呼叫 REST API
 
 最後一個步驟：
 
-* 讀取輸入欄位的值
-* 呼叫 */discussion/:message* 儲存訊息
+* 讀取網頁上輸入欄位的值
+* 呼叫 REST API /discussion/\:message 以儲存聊天訊息
 
-使用 jQuery 來呼叫 REST API 比較容易理解，目前先暫時採用這個寫法。實作上述的 *save()* 函數如下：
+對初學者來說，由於使用 jQuery 來呼叫 REST API 較為簡單理解，因此先暫時採用此寫法。實作上述的 *save()* 函數如下：最後一步是整合輸入欄位與 REST API：
 
-~~~~~~~~
-  app.MessageView = Backbone.View.extend({
-    el: '#message-save',
-    events: {
-        'click .btn-message-save': 'save'
+```javascript
+save() {
+  const message = $('input[name="message"]').val();
+  $.ajax({
+    url: `/discussion/${message}`,
+    type: 'POST',
+    dataType: 'json',
+    success(data) {
+      alert('已儲存成功');
     },
-    save: function() {
-        var message = $('input[name="message"]').val();
-
-        $.ajax({
-            url: '/discussion/' + message,
-            type: 'POST',
-            dataType: "json",
-            success: function (data, textStatus, jqXHR) {
-                alert("已儲存成功");
-            },
-            complete: function (data, textStatus, jqXHR) {
-            }
-        });
-    }
+    complete() {}
   });
-~~~~~~~~
+}
+```
 
-測試時，請記得透過 Web Server 方式來開啟 *chat.html*，直接開啟「檔案」的話，*jQuery.ajax()* 將無法成功呼叫 REST API。可以修改 Express 的主程式－*app.js*，將 "static" 的目錄改為 *client/*：
+測試時，需透過 Web Server 開啟 `chat.html`。測試前，先修改 Express 主程式－*app.js*，將 "static" 的目錄改為 *client/*：
 
-~~~~~~~~
+```javascript
 app.use(express.static(path.join(__dirname, 'client')));
-~~~~~~~~
+```
 
-並瀏覽以下網址：
+接著，使用瀏覽器瀏覽網頁：
 
-~~~~~~~~
+```
 http://localhost:3000/chat.html
-~~~~~~~~
+```
 
-輸入訊息 "hello" 並按「送出」後，可以看到以下的 Node.js Console 訊息：
+輸入 "hello" 並送出後，Console 將顯示：
 
-~~~~~~~~
+```
 CREATE: hello
 POST /discussion/hello 200 4ms
-~~~~~~~~
+```
 
-雖然測試後沒有什麼問題，不過感覺好像只是把 jQuery 的程式碼，用 Backbone 框起來而已。當然，這還不是正確的 Backbone 做法；所以，接下來將開始重構 *save()* 程式碼。
+目前雖能運作，但 `save()` 仍使用 jQuery，並非 Backbone 原生方式。我們將在下一節中重構此段，導入真正的 Model 邏輯。
