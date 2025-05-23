@@ -229,4 +229,35 @@ CREATE: hello
 POST /discussion/hello 200 4ms
 ```
 
-目前雖能運作，但 `save()` 仍使用 jQuery，並非 Backbone 原生方式。我們將在下一節中重構此段，導入真正的 Model 邏輯。
+若已了解前端與 REST API 的基本整合觀念，可延續以下 3 個基本觀念的實作，讓程式碼邏輯更為完整：
+
+* 使用 `this.$()` 取代全域 jQuery，將選取範圍限定於 View 所綁定的 DOM 元素（即 `#message-save` 區塊內）
+* 成功時執行兩件事：清空欄位、在畫面中即時新增訊息內容
+* 加入 `error()` 回呼函式，以處理 REST API 呼叫失敗的情境，並提供提示
+
+修改後的程式碼：
+
+```javascript
+save() {
+  const message = this.$('input[name="message"]').val();
+
+  $.ajax({
+    url: `/discussion/${message}`,
+    type: 'POST',
+    dataType: 'json',
+    success: (data) => {
+      alert('已儲存成功');
+      // 清空輸入欄位
+      this.$('input[name="message"]').val('');
+      // 將訊息加入畫面顯示區域
+      $('#message').append(`<p>${data.message || message}</p>`);
+    },
+    error: (jqXHR) => {
+      alert('儲存失敗：' + jqXHR.status);
+    },
+    complete: () => {}
+  });
+}
+```
+
+目前雖能運作，但 `save()` 仍使用 jQuery 的 ajax 方法，而非 Backbone 原生的 Model 操作。我們將在下一節中導入 Model 機制，實現更語意一致的 MVC 結構。
