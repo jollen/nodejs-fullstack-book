@@ -1,8 +1,6 @@
-# Node.js Fullstack《原理與實務》
+![image](https://github.com/user-attachments/assets/da7bffc7-0e2f-4eeb-8c79-a9b43f873f23)
 
-本書正在進行第 4 版（2025 年最新版）的改版工程。
-
-![](images/cover.jpg?1024)
+# Node.js Fullstack《原理與實務》第四版
 
 ## 關於本書
 
