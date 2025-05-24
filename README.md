@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/da7bffc7-0e2f-4eeb-8c79-a9b43f873f23)
+![image](https://github.com/user-attachments/assets/450ad3cd-8240-4d96-9d3b-4a44b7e4f082)
 
 # Node.js Fullstack《原理與實務》第四版
 
