@@ -1,4 +1,4 @@
-# Node.js Fullstack《從零到一的進撃》
+# Node.js Fullstack《原理與實務》
 
 本書正在進行第 4 版（2025 年最新版）的改版工程。
 
@@ -27,14 +27,14 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 
 ## v4 時桯
 
-* 預計 2025 年 6 月完成
+* 預計 2025 年 6 月完成（已完成）
 * 預計 2025 年 6 月底電子書上市
 * 改版要點
-  * 簡化原本的文字描述
+  * 簡化文字描述
   * 更新與刪除過時內容
   * 更新 JavaScript 範例片斷（ES5/ES6）
   * 補齊遺漏內容
-  * 加強內容排版（電腦書）
+  * 調整排版（電腦書編排）
     
 ## 發行紀錄
 
@@ -158,10 +158,6 @@ Jollen（陳俊宏），Moko365 Inc 創辦人暨講師、Mokoversity Inc 開放�
 ### 附錄
 
 * A [練習用專案](projects)
-
-## 培訓課程
-
-* [Mokoversity Fullstack IoT 2017](https://www.mokoversity.com/iotschool)
 
 ## Contributors
 
