@@ -1,5 +1,7 @@
 ![image](https://github.com/user-attachments/assets/450ad3cd-8240-4d96-9d3b-4a44b7e4f082)
 
+[EPUB 電子書版本](https://readmoo.com/book/210394825000101)
+
 # Node.js Fullstack《原理與實務》第四版
 
 ## 關於本書
