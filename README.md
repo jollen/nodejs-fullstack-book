@@ -2,6 +2,8 @@
 
 [EPUB 電子書版本](https://readmoo.com/book/210394825000101)
 
+由 Jollen 研究室主編，專為 Node.js 與 LLM 初學者，打造的一系列 AI 應用程式開發入門教材。
+
 # Node.js Fullstack《原理與實務》第四版
 
 ## 關於本書
